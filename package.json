@@ -1,6 +1,16 @@
 {
 	"name": "gritshot",
 	"private": true,
+	"description": "Turn your Garmin activities into customized photo cards with statistics overlay.",
+	"license": "AGPL-3.0-only",
+	"author": "markdor",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/markdor/gritshot"
+	},
+	"engines": {
+		"node": ">=25"
+	},
 	"version": "0.0.1",
 	"type": "module",
 	"scripts": {
