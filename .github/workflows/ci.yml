@@ -67,7 +67,7 @@ jobs:
   docker:
     needs: [test, release]
     runs-on: ubuntu-latest
-    if: always() && needs.test.result == 'success'
+    if: always() && needs.test.result == 'success' && (needs.release.result == 'success' || needs.release.result == 'skipped')
     permissions:
       contents: read
       packages: write
