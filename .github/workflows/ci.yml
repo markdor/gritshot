@@ -88,8 +88,8 @@ jobs:
           images: ghcr.io/${{ github.repository }}
           tags: |
             type=raw,value=develop,enable=${{ github.ref != 'refs/heads/main' }}
-            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
-            type=semver,pattern={{version}},enable=${{ github.ref == 'refs/heads/main' }}
+            type=raw,value=latest,enable=${{ needs.release.outputs.new_release_published == 'true' }}
+            type=raw,value=${{ needs.release.outputs.new_release_version }},enable=${{ needs.release.outputs.new_release_published == 'true' }}
 
       - uses: docker/build-push-action@v7
         with:
