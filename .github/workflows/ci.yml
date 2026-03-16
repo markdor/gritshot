@@ -61,21 +61,24 @@ jobs:
 
       - name: Release
         id: release
-        run: npx semantic-release
+        uses: cycjimmy/semantic-release-action@v6
+        with:
+          extra_plugins: |
+            @semantic-release/git
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 
   docker:
     needs: [test, release]
     runs-on: ubuntu-latest
-    if: always() && needs.test.result == 'success' && (needs.release.result == 'success' || needs.release.result == 'skipped')
+    if: always() && needs.test.result == 'success' && (needs.release.result == 'skipped' || needs.release.outputs.new_release_published == 'true')
     permissions:
       contents: read
       packages: write
     steps:
       - uses: actions/checkout@v6
         with:
-          fetch-depth: 0
+          ref: ${{ github.ref }}
           fetch-tags: true
 
       - uses: docker/login-action@v4
@@ -90,8 +93,8 @@ jobs:
           images: ghcr.io/${{ github.repository }}
           tags: |
             type=raw,value=develop,enable=${{ github.ref != 'refs/heads/main' }}
-            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
-            type=semver,pattern={{version}},enable=${{ github.ref == 'refs/heads/main' }}
+            type=raw,value=latest,enable=${{ needs.release.outputs.new_release_published == 'true' }}
+            type=raw,value=${{ needs.release.outputs.new_release_version }},enable=${{ needs.release.outputs.new_release_published == 'true' }}
 
       - uses: docker/build-push-action@v7
         with:
