@@ -1,6 +1,16 @@
 <script lang="ts">
 	import logo from '$lib/assets/logo.800px.png';
+	import exampleCard from '$lib/assets/gravel_4-5.jpg';
 	const version = __APP_VERSION__;
+
+	let showToast = $state(false);
+	let toastTimeout: ReturnType<typeof setTimeout>;
+
+	function showComingSoon() {
+		showToast = true;
+		clearTimeout(toastTimeout);
+		toastTimeout = setTimeout(() => (showToast = false), 3500);
+	}
 </script>
 
 <svelte:head>
@@ -19,12 +29,12 @@
 			<img src={logo} alt="GritShot" class="h-9 w-9 object-contain" />
 			<span class="text-lg font-semibold tracking-tight">GritShot</span>
 		</div>
-		<a
-			href="/demo"
+		<button
+			onclick={showComingSoon}
 			class="rounded-full bg-[#4e7352] px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-[#3d5c42]"
 		>
-			Try it free
-		</a>
+			Create Your Card
+		</button>
 	</nav>
 
 	<!-- Hero -->
@@ -50,12 +60,12 @@
 			</p>
 
 			<div class="flex flex-wrap items-center justify-center gap-3">
-				<a
-					href="/demo"
+				<button
+					onclick={showComingSoon}
 					class="rounded-full bg-[#4e7352] px-7 py-3 text-base font-semibold text-white shadow-sm transition-colors hover:bg-[#3d5c42]"
 				>
-					Create Your First Card
-				</a>
+					Create Your Card
+				</button>
 				<a
 					href="#how-it-works"
 					class="rounded-full border border-[#9ab89e] px-7 py-3 text-base font-medium text-[#4e7352] transition-colors hover:bg-[#4e7352]/8"
@@ -64,35 +74,19 @@
 				</a>
 			</div>
 
-			<!-- Mockup card -->
+			<!-- Example card -->
 			<div class="mt-16 flex justify-center">
-				<div
-					class="w-full max-w-sm rounded-2xl border border-[#c8d9ca] bg-white/70 p-5 shadow-sm backdrop-blur-sm"
-				>
-					<div
-						class="flex aspect-[4/3] flex-col items-center justify-center gap-4 rounded-xl bg-[#2a3d2c] p-6 text-white"
-					>
-						<!-- Simulated photo overlay -->
-						<div class="h-full w-full rounded-lg bg-gradient-to-br from-[#3d5c42] via-[#2a3d2c] to-[#1a2b1e] flex flex-col items-center justify-between py-4 px-4">
-							<div class="text-xs font-medium text-white/50 uppercase tracking-widest">GritShot</div>
-							<div class="text-center">
-								<div class="mb-1 text-3xl font-bold">12.8 km</div>
-								<div class="text-xs text-white/60">Trail Run · Elevation 1 180 m</div>
-							</div>
-							<div class="flex gap-6 text-center">
-								<div>
-									<div class="text-base font-semibold">5:24 h</div>
-									<div class="text-[10px] text-white/50">Time</div>
-								</div>
-								<div>
-									<div class="text-base font-semibold">4:12 /km</div>
-									<div class="text-[10px] text-white/50">Avg Pace</div>
-								</div>
-								<div>
-									<div class="text-base font-semibold">162 bpm</div>
-									<div class="text-[10px] text-white/50">Avg HR</div>
-								</div>
-							</div>
+				<div class="w-full max-w-sm rounded-2xl border border-[#c8d9ca] bg-white/70 p-5 shadow-lg backdrop-blur-sm">
+					<div class="relative overflow-hidden rounded-xl aspect-4/5">
+						<img
+							src={exampleCard}
+							alt="Example GritShot card — gravel ride"
+							class="h-full w-full object-cover"
+						/>
+						
+						<!-- GritShot watermark -->
+						<div class="absolute right-3 top-3 rounded-full bg-black/30 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-widest text-white/80 backdrop-blur-sm">
+							GritShot
 						</div>
 					</div>
 					<p class="mt-3 text-center text-xs text-[#7a9478]">Your photo + Garmin stats, ready to share</p>
@@ -149,7 +143,7 @@
 					<div class="mb-1 text-xs font-semibold uppercase tracking-widest text-[#9ab89e]">Step 3</div>
 					<h3 class="mb-2 text-lg font-semibold">Share Your Achievement</h3>
 					<p class="text-sm leading-relaxed text-[#5a7060]">
-						Download your custom card and share it on Instagram, Strava, or wherever you celebrate your outdoor adventures.
+						Download your custom card and share it on WhatsApp, Instagram, or wherever you celebrate your outdoor adventures.
 					</p>
 				</div>
 			</div>
@@ -245,14 +239,24 @@
 			<p class="mb-8 text-[#9ab89e]">
 				Upload your FIT file, add a photo, and create your first card in minutes.
 			</p>
-			<a
-				href="/demo"
-				class="inline-block rounded-full bg-[#c4894f] px-8 py-3 font-semibold text-white transition-colors hover:bg-[#b37840]"
+			<button
+				onclick={showComingSoon}
+				class="rounded-full bg-[#c4894f] px-8 py-3 font-semibold text-white transition-colors hover:bg-[#b37840]"
 			>
-				Get Started Free
-			</a>
+				Create Your Card
+			</button>
 		</div>
 	</section>
+
+	<!-- Toast -->
+	{#if showToast}
+		<div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 rounded-full bg-[#2a3d2c] px-6 py-3 text-sm font-medium text-white shadow-lg">
+			<svg class="h-4 w-4 shrink-0 text-[#9ab89e]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+				<path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l4 2m6-2a10 10 0 1 1-20 0 10 10 0 0 1 20 0Z" />
+			</svg>
+			Coming soon — stay tuned!
+		</div>
+	{/if}
 
 	<!-- Footer -->
 	<footer class="border-t border-[#c8d9ca] bg-[#f5f1e6] px-6 py-8">
