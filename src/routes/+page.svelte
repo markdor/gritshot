@@ -26,7 +26,6 @@
 	<!-- Navigation -->
 	<nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
 		<div class="flex items-center gap-2.5">
-			<img src={logo} alt="GritShot" class="h-9 w-9 object-contain" />
 			<span class="text-lg font-semibold tracking-tight">GritShot</span>
 		</div>
 		<button
@@ -85,7 +84,7 @@
 						/>
 						
 						<!-- GritShot watermark -->
-						<div class="absolute right-3 top-3 rounded-full bg-black/30 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-widest text-white/80 backdrop-blur-sm">
+						<div class="absolute right-3 top-3 rounded-full bg-black/30 px-2.5 py-1 text-[10px] font-semibold tracking-widest text-white/80 backdrop-blur-sm">
 							GritShot
 						</div>
 					</div>
