@@ -222,7 +222,7 @@
 
 		<div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
 			<div class="flex gap-4 rounded-2xl border border-[#c8d9ca] bg-white/60 p-6">
-				<div class="mt-0.5 flex-shrink-0">
+				<div class="mt-0.5 shrink-0">
 					<svg class="h-5 w-5 text-[#c4894f]" fill="currentColor" viewBox="0 0 20 20">
 						<path
 							fill-rule="evenodd"
@@ -241,7 +241,7 @@
 			</div>
 
 			<div class="flex gap-4 rounded-2xl border border-[#c8d9ca] bg-white/60 p-6">
-				<div class="mt-0.5 flex-shrink-0">
+				<div class="mt-0.5 shrink-0">
 					<svg class="h-5 w-5 text-[#c4894f]" fill="currentColor" viewBox="0 0 20 20">
 						<path
 							fill-rule="evenodd"
@@ -259,7 +259,7 @@
 			</div>
 
 			<div class="flex gap-4 rounded-2xl border border-[#c8d9ca] bg-white/60 p-6">
-				<div class="mt-0.5 flex-shrink-0">
+				<div class="mt-0.5 shrink-0">
 					<svg class="h-5 w-5 text-[#c4894f]" fill="currentColor" viewBox="0 0 20 20">
 						<path
 							fill-rule="evenodd"
@@ -277,7 +277,7 @@
 			</div>
 
 			<div class="flex gap-4 rounded-2xl border border-[#c8d9ca] bg-white/60 p-6">
-				<div class="mt-0.5 flex-shrink-0">
+				<div class="mt-0.5 shrink-0">
 					<svg class="h-5 w-5 text-[#c4894f]" fill="currentColor" viewBox="0 0 20 20">
 						<path
 							fill-rule="evenodd"
@@ -295,7 +295,7 @@
 			</div>
 
 			<div class="flex gap-4 rounded-2xl border border-[#c8d9ca] bg-white/60 p-6">
-				<div class="mt-0.5 flex-shrink-0">
+				<div class="mt-0.5 shrink-0">
 					<svg class="h-5 w-5 text-[#c4894f]" fill="currentColor" viewBox="0 0 20 20">
 						<path
 							fill-rule="evenodd"
@@ -313,7 +313,7 @@
 			</div>
 
 			<div class="flex gap-4 rounded-2xl border border-[#c8d9ca] bg-white/60 p-6">
-				<div class="mt-0.5 flex-shrink-0">
+				<div class="mt-0.5 shrink-0">
 					<svg class="h-5 w-5 text-[#c4894f]" fill="currentColor" viewBox="0 0 20 20">
 						<path
 							fill-rule="evenodd"
