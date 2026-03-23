@@ -11,19 +11,19 @@ test.describe('Homepage', () => {
 		await expect(heroLogo).toBeVisible();
 	});
 
-	test('"Create Your Card" nav button shows coming soon toast', async ({ page }) => {
-		await page.getByRole('button', { name: 'Create Your Card' }).first().click();
-		await expect(page.getByText('Coming soon — stay tuned!')).toBeVisible();
+	test('"Create Your Card" nav link points to /create', async ({ page }) => {
+		const link = page.getByRole('link', { name: 'Create Your Card' }).first();
+		await expect(link).toHaveAttribute('href', /\/create$/);
 	});
 
-	test('"Create Your Card" hero button shows coming soon toast', async ({ page }) => {
-		await page.getByRole('button', { name: 'Create Your Card' }).nth(1).click();
-		await expect(page.getByText('Coming soon — stay tuned!')).toBeVisible();
+	test('"Create Your Card" hero link points to /create', async ({ page }) => {
+		const link = page.getByRole('link', { name: 'Create Your Card' }).nth(1);
+		await expect(link).toHaveAttribute('href', /\/create$/);
 	});
 
-	test('"Create Your Card" CTA button shows coming soon toast', async ({ page }) => {
-		await page.getByRole('button', { name: 'Create Your Card' }).last().click();
-		await expect(page.getByText('Coming soon — stay tuned!')).toBeVisible();
+	test('"Create Your Card" CTA link points to /create', async ({ page }) => {
+		const link = page.getByRole('link', { name: 'Create Your Card' }).last();
+		await expect(link).toHaveAttribute('href', /\/create$/);
 	});
 
 	test('"See How It Works" scrolls to the section', async ({ page }) => {
