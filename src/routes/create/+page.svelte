@@ -1,6 +1,9 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import logo from '$lib/assets/logo.800px.png';
+	import type { ActionData } from './$types';
+
+	let { form }: { form: ActionData } = $props();
 
 	let fitFile: File | null = $state(null);
 	let photoFile: File | null = $state(null);
@@ -94,6 +97,7 @@
 		</div>
 
 		<!-- Upload Grid -->
+		<form method="POST" enctype="multipart/form-data">
 		<div class="grid gap-5 sm:grid-cols-2">
 			<!-- FIT File Upload -->
 			<div class="flex flex-col">
@@ -135,6 +139,7 @@
 				>
 					<input
 						type="file"
+						name="fitFile"
 						accept=".fit,.zip"
 						class="sr-only"
 						onchange={handleFitInput}
@@ -237,6 +242,7 @@
 				>
 					<input
 						type="file"
+						name="photoFile"
 						accept=".jpg,image/jpeg"
 						class="sr-only"
 						onchange={handlePhotoInput}
@@ -295,9 +301,17 @@
 			</div>
 		</div>
 
+		<!-- Error message -->
+		{#if form?.error}
+			<div class="mt-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+				{form.error}
+			</div>
+		{/if}
+
 		<!-- Generate Button -->
-		<div class="mt-8">
+		<div class="mt-4">
 			<button
+				type="submit"
 				disabled={!fitFile || !photoFile}
 				class="w-full rounded-full py-3.5 text-base font-semibold transition-colors
 					{fitFile && photoFile
@@ -315,5 +329,6 @@
 				{/if}
 			</button>
 		</div>
+	</form>
 	</section>
 </div>
