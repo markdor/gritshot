@@ -1,14 +1,15 @@
 import yauzl from 'yauzl';
 
 const MB = 1024 * 1024;
-const MAX_SIZE_MB = 5;
 const MAX_ENTRIES = 1;
 const MAX_TOTAL_UNCOMPRESSED_MB = 50;
 const MAX_COMPRESSION_RATIO = 100;
 const ALLOWED_EXTENSIONS = new Set(['.fit']);
 
 function isZip(buf: Buffer): boolean {
-	return buf.length >= 4 && buf[0] === 0x50 && buf[1] === 0x4b && buf[2] === 0x03 && buf[3] === 0x04;
+	return (
+		buf.length >= 4 && buf[0] === 0x50 && buf[1] === 0x4b && buf[2] === 0x03 && buf[3] === 0x04
+	);
 }
 
 /**
@@ -17,7 +18,6 @@ function isZip(buf: Buffer): boolean {
  *
  * Checks performed (without decompressing file contents):
  *  - Magic bytes (ZIP signature)
- *  - File size exceeds limit
  *  - Corrupted / non-ZIP data
  *  - Encrypted entries
  *  - Too many entries (> MAX_ENTRIES)
@@ -27,13 +27,9 @@ function isZip(buf: Buffer): boolean {
  *  - Null bytes in entry names
  *  - Disallowed file extensions (only .fit allowed)
  */
-export function validateZip(buf: Buffer, size: number): Promise<string | null> {
+export function validateZip(buf: Buffer): Promise<string | null> {
 	if (!isZip(buf)) {
 		return Promise.resolve('File is not a valid ZIP file');
-	}
-
-	if (size > MAX_SIZE_MB * MB) {
-		return Promise.resolve(`ZIP file must not exceed ${MAX_SIZE_MB} MB`);
 	}
 
 	return validateZipContents(buf);

@@ -19,6 +19,11 @@ export const actions = {
 			return fail(422, { error: 'No photo uploaded' });
 		}
 
+		const MAX_UPLOAD_SIZE = 10 * 1024 * 1024;
+		if (fitFile.size > MAX_UPLOAD_SIZE || photoFile.size > MAX_UPLOAD_SIZE) {
+			return fail(422, { error: 'Files must not exceed 10 MB' });
+		}
+
 		// Read file contents for validation
 		const fitBuffer = Buffer.from(await fitFile.arrayBuffer());
 		const photoBuffer = Buffer.from(await photoFile.arrayBuffer());
@@ -26,17 +31,17 @@ export const actions = {
 		// FIT/ZIP validation
 		const ext = fitFile.name.split('.').pop()?.toLowerCase();
 		if (ext === 'fit') {
-			const fitError = validateFit(fitBuffer, fitFile.size);
+			const fitError = validateFit(fitBuffer);
 			if (fitError) return fail(422, { error: fitError });
 		} else if (ext === 'zip') {
-			const zipError = await validateZip(fitBuffer, fitFile.size);
+			const zipError = await validateZip(fitBuffer);
 			if (zipError) return fail(422, { error: zipError });
 		} else {
 			return fail(422, { error: 'FIT file must be a .fit or .zip file' });
 		}
 
 		// Photo validation
-		const jpegError = validateJpeg(photoBuffer, photoFile.size);
+		const jpegError = validateJpeg(photoBuffer);
 		if (jpegError) return fail(422, { error: jpegError });
 
 		console.log('FIT file:', fitFile.name, fitBuffer.byteLength, 'bytes');
