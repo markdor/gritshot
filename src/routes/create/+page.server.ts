@@ -1,26 +1,8 @@
 import { fail } from '@sveltejs/kit';
 import type { RequestEvent } from '@sveltejs/kit';
-
-const MB = 1024 * 1024;
-
-function isZip(buf: Buffer): boolean {
-	return buf[0] === 0x50 && buf[1] === 0x4b && buf[2] === 0x03 && buf[3] === 0x04;
-}
-
-function isFit(buf: Buffer): boolean {
-	// FIT header: bytes 8–11 must be ".FIT"
-	return (
-		buf.length >= 12 &&
-		buf[8] === 0x2e &&
-		buf[9] === 0x46 &&
-		buf[10] === 0x49 &&
-		buf[11] === 0x54
-	);
-}
-
-function isJpeg(buf: Buffer): boolean {
-	return buf[0] === 0xff && buf[1] === 0xd8 && buf[2] === 0xff;
-}
+import { validateZip } from '$lib/validation/zip';
+import { validateFit } from '$lib/validation/fit';
+import { validateJpeg } from '$lib/validation/jpeg';
 
 export const actions = {
 	default: async ({ request }: RequestEvent) => {
@@ -37,27 +19,25 @@ export const actions = {
 			return fail(422, { error: 'No photo uploaded' });
 		}
 
-		// Size checks
-		if (fitFile.size > 5 * MB) {
-			return fail(422, { error: 'FIT/ZIP file must not exceed 5 MB' });
-		}
-
-		if (photoFile.size > 10 * MB) {
-			return fail(422, { error: 'Photo must not exceed 10 MB' });
-		}
-
-		// Read file contents for magic-byte validation
+		// Read file contents for validation
 		const fitBuffer = Buffer.from(await fitFile.arrayBuffer());
 		const photoBuffer = Buffer.from(await photoFile.arrayBuffer());
 
-		// Format checks
-		if (!isFit(fitBuffer) && !isZip(fitBuffer)) {
-			return fail(422, { error: 'FIT file must be a valid .fit or .zip file' });
+		// FIT/ZIP validation
+		const ext = fitFile.name.split('.').pop()?.toLowerCase();
+		if (ext === 'fit') {
+			const fitError = validateFit(fitBuffer, fitFile.size);
+			if (fitError) return fail(422, { error: fitError });
+		} else if (ext === 'zip') {
+			const zipError = await validateZip(fitBuffer, fitFile.size);
+			if (zipError) return fail(422, { error: zipError });
+		} else {
+			return fail(422, { error: 'FIT file must be a .fit or .zip file' });
 		}
 
-		if (!isJpeg(photoBuffer)) {
-			return fail(422, { error: 'Photo must be a valid JPEG file' });
-		}
+		// Photo validation
+		const jpegError = validateJpeg(photoBuffer, photoFile.size);
+		if (jpegError) return fail(422, { error: jpegError });
 
 		console.log('FIT file:', fitFile.name, fitBuffer.byteLength, 'bytes');
 		console.log('Photo:', photoFile.name, photoBuffer.byteLength, 'bytes');

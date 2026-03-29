@@ -36,6 +36,6 @@ describe('create action', () => {
 
 		const result = await actions.default(makeEvent(fitFile, photoFile));
 
-		expect(result).toMatchObject({ status: 422, data: { error: 'FIT file must be a valid .fit or .zip file' } });
+		expect(result).toMatchObject({ status: 422, data: { error: 'File is not a valid ZIP file' } });
 	});
 });
