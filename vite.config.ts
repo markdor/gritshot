@@ -12,6 +12,12 @@ export default defineConfig({
 		__APP_VERSION__: JSON.stringify(version)
 	},
 	test: {
+		coverage: {
+			provider: 'v8',
+			reporter: ['text', 'lcov', 'html'],
+			include: ['src/**/*.{ts,svelte}'],
+			exclude: ['src/**/*.test.ts', 'src/**/*.spec.ts']
+		},
 		expect: { requireAssertions: true },
 		projects: [
 			{
