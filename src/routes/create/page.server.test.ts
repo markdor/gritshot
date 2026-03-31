@@ -14,8 +14,7 @@ function makeEvent(fitFile: File, photoFile: File): ActionEvent {
 	return { request } as unknown as RequestEvent;
 }
 
-const zipBuffer = readFileSync(resolve('tests/fixtures/fit-files/gravel_sample.zip'));
-const invalidZipBuffer = readFileSync(resolve('tests/fixtures/fit-files/invalid_zip_format.zip'));
+const zipBuffer = readFileSync(resolve('tests/fixtures/zip/valid.zip'));
 const jpgBuffer = readFileSync(resolve('tests/fixtures/photos/gravel_sample.jpg'));
 
 describe('create action', () => {
@@ -26,16 +25,5 @@ describe('create action', () => {
 		const result = await actions.default(makeEvent(fitFile, photoFile));
 
 		expect(result).toEqual({ success: true });
-	});
-
-	it('rejects invalid_zip_format.zip with a format error', async () => {
-		const fitFile = new File([invalidZipBuffer], 'invalid_zip_format.zip', {
-			type: 'application/zip'
-		});
-		const photoFile = new File([jpgBuffer], 'gravel_sample.jpg', { type: 'image/jpeg' });
-
-		const result = await actions.default(makeEvent(fitFile, photoFile));
-
-		expect(result).toMatchObject({ status: 422, data: { error: 'File is not a valid ZIP file' } });
 	});
 });

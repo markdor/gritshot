@@ -2,7 +2,7 @@ import yauzl from 'yauzl';
 
 const MB = 1024 * 1024;
 const MAX_ENTRIES = 1;
-const MAX_TOTAL_UNCOMPRESSED_MB = 50;
+const MAX_TOTAL_UNCOMPRESSED_MB = 20;
 const MAX_COMPRESSION_RATIO = 100;
 const ALLOWED_EXTENSIONS = new Set(['.fit']);
 
