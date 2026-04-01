@@ -42,4 +42,34 @@ describe('validateZip', () => {
     const result = await validateZip(fixture('fake-magic.zip'));
     expect(result).toMatch("File is not a valid ZIP file");
   });
+
+  it('lehnt korruptes ZIP mit validen Magic Bytes ab', async () => {
+    const result = await validateZip(fixture('corrupt.zip'));
+    expect(result).toMatch("Invalid or corrupted ZIP file");
+  });
+
+  it('lehnt verschlüsselte Einträge ab', async () => {
+    const result = await validateZip(fixture('encrypted.zip'));
+    expect(result).toMatch("ZIP contains encrypted entries");
+  });
+
+  it('lehnt verdächtige Compression Ratio eines Eintrags ab', async () => {
+    const result = await validateZip(fixture('ratio-entry.zip'));
+    expect(result).toMatch("ZIP entry has suspicious compression ratio");
+  });
+
+  it('lehnt Path Traversal im Dateinamen ab', async () => {
+    const result = await validateZip(fixture('path-traversal-substring.zip'));
+    expect(result).toMatch("ZIP entry contains path traversal");
+  });
+
+  it('lehnt Null-Byte im Dateinamen ab', async () => {
+    const result = await validateZip(fixture('null-byte-filename.zip'));
+    expect(result).toMatch("ZIP entry contains invalid filename");
+  });
+
+  it('lehnt Verzeichniseinträge ab', async () => {
+    const result = await validateZip(fixture('directory-entry.zip'));
+    expect(result).toMatch('ZIP contains directory entries');
+  });
 });

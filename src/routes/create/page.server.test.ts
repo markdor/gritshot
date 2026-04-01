@@ -15,12 +15,12 @@ function makeEvent(fitFile: File, photoFile: File): ActionEvent {
 }
 
 const zipBuffer = readFileSync(resolve('tests/fixtures/zip/valid.zip'));
-const jpgBuffer = readFileSync(resolve('tests/fixtures/photos/gravel_sample.jpg'));
+const jpgBuffer = readFileSync(resolve('tests/fixtures/photos/valid.jpg'));
 
 describe('create action', () => {
-	it('accepts a valid gravel_sample.zip + gravel_sample.jpg', async () => {
-		const fitFile = new File([zipBuffer], 'gravel_sample.zip', { type: 'application/zip' });
-		const photoFile = new File([jpgBuffer], 'gravel_sample.jpg', { type: 'image/jpeg' });
+	it('accepts a valid zip and jpg', async () => {
+		const fitFile = new File([zipBuffer], 'valid.zip', { type: 'application/zip' });
+		const photoFile = new File([jpgBuffer], 'valid.jpg', { type: 'image/jpeg' });
 
 		const result = await actions.default(makeEvent(fitFile, photoFile));
 

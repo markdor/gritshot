@@ -16,7 +16,7 @@ export default defineConfig({
 			provider: 'v8',
 			reporter: ['text', 'lcov', 'html', 'json', 'json-summary'],
 			include: ['src/**/*.{ts,svelte}'],
-			exclude: ['src/**/*.test.ts', 'src/**/*.spec.ts']
+			exclude: ['src/**/*.test.ts', 'src/**/*.spec.ts', 'src/**/*.e2e.ts']
 		},
 		expect: { requireAssertions: true },
 		projects: [

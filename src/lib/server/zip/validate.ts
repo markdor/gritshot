@@ -86,9 +86,10 @@ function validateZipContents(buf: Buffer): Promise<string | null> {
 					return;
 				}
 
-				// Skip directory entries
+				// Reject directory entries
 				if (name.endsWith('/')) {
-					zipfile.readEntry();
+					zipfile.close();
+					resolve('ZIP contains directory entries');
 					return;
 				}
 
