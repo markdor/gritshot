@@ -1,42 +1,46 @@
-# sv
+# GritShot
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+**GritShot** turns your Garmin activities into stunning, shareable photo cards with embedded statistics. Upload a FIT file from Garmin Connect, add a trail photo, and generate a card showing distance, elevation, pace, heart rate, and more — ready to share on Instagram, WhatsApp, or anywhere else.
 
-## Creating a project
+Your files are processed on the server but never stored. No accounts, no tracking.
 
-If you're seeing this, you've probably already done this step. Congrats!
+**Live at:** [gritshot.example.com](https://gritshot.example.com)
 
-```sh
-# create a new project
-npx sv create my-app
-```
+**Container image:** [ghcr.io/markdor/gritshot](https://github.com/markdor/gritshot/pkgs/container/gritshot)
 
-To recreate this project with the same configuration:
+## Getting Started
 
-```sh
-# recreate this project
-npx sv@0.12.7 create --template minimal --types ts --add prettier eslint vitest="usages:unit,component" playwright tailwindcss="plugins:none" sveltekit-adapter="adapter:node" --install npm gritshot
-```
+### Prerequisites
 
-## Developing
+- Node.js >= 24
+- npm
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+### Install and run
 
 ```sh
+npm install
+npx playwright install --with-deps
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
-## Building
+The app is now available at `http://localhost:5173`.
 
-To create a production version of your app:
+### Run tests
+
+```sh
+# Unit tests
+npm run test:unit
+
+# End-to-end tests (requires Playwright browsers installed above)
+npm run test:e2e
+
+# All tests
+npm test
+```
+
+### Build for production
 
 ```sh
 npm run build
+npm run preview
 ```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.

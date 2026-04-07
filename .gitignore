@@ -24,3 +24,7 @@ vite.config.ts.timestamp-*
 # Playwright
 test-results
 /coverage
+
+# Test fixtures
+tests/fixtures/zip/*.zip
+!tests/fixtures/zip/valid.zip
