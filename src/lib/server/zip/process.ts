@@ -1,5 +1,4 @@
 import yauzl from 'yauzl';
-import { validateZip } from './validate';
 
 export interface ExtractedFit {
 	name: string;
@@ -8,9 +7,6 @@ export interface ExtractedFit {
 
 export class ZipProcessor {
 	async extract(buf: Buffer): Promise<ExtractedFit> {
-		const validationError = await validateZip(buf);
-		if (validationError) throw new Error(validationError);
-
 		return new Promise((resolve, reject) => {
 			yauzl.fromBuffer(buf, { lazyEntries: true }, (err, zipfile) => {
 				if (err) {

@@ -1,3 +1,5 @@
+import { FileValidationError } from '$lib/server/FileValidationError';
+
 function isFit(buf: Buffer): boolean {
 	// FIT header: bytes 8–11 must be ".FIT"
 	return (
@@ -5,14 +7,11 @@ function isFit(buf: Buffer): boolean {
 	);
 }
 
-/**
- * Validates a FIT file for correct format.
- * Returns an error message string, or null if valid.
- */
-export function validateFit(buf: Buffer): string | null {
+export function validateFit(buf: Buffer): void {
 	if (!isFit(buf)) {
-		return 'File is not a valid FIT file';
+		throw new FileValidationError(
+			'The FIT magic bytes are missing or invalid.',
+			'File is not a valid FIT file'
+		);
 	}
-
-	return null;
 }

@@ -1,9 +1,8 @@
 import { fail } from '@sveltejs/kit';
 import type { RequestEvent, ActionFailure } from '@sveltejs/kit';
-import { ZipProcessor } from '$lib/server/zip/process';
-import { logger } from '$lib/server/logger';
-import { validateFit } from '$lib/server/fit/validate';
-import { validateJpeg } from '$lib/server/jpg/validate';
+import { generateCard } from '$lib/server/card/generate';
+import { FileValidationError } from '$lib/server/FileValidationError';
+import { logger } from '$lib/server/logger.js';
 
 const MAX_UPLOAD_SIZE = 10 * 1024 * 1024;
 
@@ -39,41 +38,18 @@ export const actions = {
 		// At this point, we have valid File objects for both the FIT file and the photo
 		const { fitFile, photoFile } = filesResult;
 
-		// Read file contents for validation
-		let fitBuffer: Buffer = Buffer.from(await fitFile.arrayBuffer());		
-
-		// ZIP extraction
-		const ext = fitFile.name.split('.').pop()?.toLowerCase();
-		if (ext === 'zip') {
-			try {
-				const extracted = await new ZipProcessor().extract(fitBuffer);
-				fitBuffer = extracted.content;
-			} catch (e) {
-				logger.error(e, 'ZIP extraction failed');
-				return fail(422, { error: 'Failed to process ZIP file' });
-			}
-		} else if (ext !== 'fit') {
-			return fail(422, { error: 'FIT file must be a .fit or .zip file' });
-		}
-
-		// FIT validation
-		const fitError = validateFit(fitBuffer);
-		if (fitError) return fail(422, { error: fitError });
-
-		// Photo validation
-		let photoBuffer: Buffer;
 		try {
-			photoBuffer = Buffer.from(await photoFile.arrayBuffer());
-			const jpegError = validateJpeg(photoBuffer);
-			if (jpegError) throw new Error(jpegError);
-		} catch (e) {
-			logger.error(e, 'Photo processing failed');
-			return fail(422, { error: 'Failed to process photo' });
+			const imageBuffer = await generateCard(fitFile, photoFile);
+			return { image: imageBuffer.toString('base64') };
+		} catch (e: unknown) {
+			if (e instanceof FileValidationError) {
+				logger.error(`File validation error: ${e.message}`);
+				return fail(422, { error: e.userMessage });
+			}
+			logger.error(
+				`Unexpected error during card generation: ${e instanceof Error ? e.message : String(e)}`
+			);
+			return fail(500, { error: 'Failed to generate card' });
 		}
-
-		console.log('FIT file:', fitFile.name, fitBuffer.byteLength, 'bytes');
-		console.log('Photo:', photoFile.name, photoBuffer.byteLength, 'bytes');
-
-		return { success: true };
 	}
 };

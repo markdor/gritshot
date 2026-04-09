@@ -1,4 +1,5 @@
 import yauzl from 'yauzl';
+import { FileValidationError } from '$lib/server/FileValidationError';
 
 const MB = 1024 * 1024;
 const MAX_ENTRIES = 1;
@@ -27,20 +28,24 @@ function isZip(buf: Buffer): boolean {
  *  - Null bytes in entry names
  *  - Disallowed file extensions (only .fit allowed)
  */
-export function validateZip(buf: Buffer): Promise<string | null> {
+export function validateZip(buf: Buffer): Promise<null> {
 	if (!isZip(buf)) {
-		return Promise.resolve('File is not a valid ZIP file');
+		throw new FileValidationError(
+			'The ZIP magic bytes are missing or invalid.',
+			'File is not a valid ZIP file'
+		);
 	}
 
 	return validateZipContents(buf);
 }
 
-function validateZipContents(buf: Buffer): Promise<string | null> {
-	return new Promise((resolve) => {
+function validateZipContents(buf: Buffer): Promise<null> {
+	return new Promise<null>((resolve, reject) => {
 		yauzl.fromBuffer(buf, { lazyEntries: true, strictFileNames: true }, (err, zipfile) => {
 			if (err) {
-				resolve('Invalid or corrupted ZIP file');
-				return;
+				return reject(
+					new FileValidationError('Invalid or corrupted ZIP file', 'File is not a valid ZIP file')
+				);
 			}
 
 			let entryCount = 0;
@@ -53,8 +58,12 @@ function validateZipContents(buf: Buffer): Promise<string | null> {
 
 				if (entryCount > MAX_ENTRIES) {
 					zipfile.close();
-					resolve(`ZIP contains too many entries (max ${MAX_ENTRIES})`);
-					return;
+					return reject(
+						new FileValidationError(
+							`ZIP contains too many entries (max ${MAX_ENTRIES})`,
+							'File is not a valid ZIP file'
+						)
+					);
 				}
 
 				const name = entry.fileName;
@@ -62,15 +71,23 @@ function validateZipContents(buf: Buffer): Promise<string | null> {
 				// Encrypted entries
 				if (entry.generalPurposeBitFlag & 0x1) {
 					zipfile.close();
-					resolve('ZIP contains encrypted entries');
-					return;
+					return reject(
+						new FileValidationError(
+							'ZIP contains encrypted entries',
+							'File is not a valid ZIP file'
+						)
+					);
 				}
 
 				// Null bytes in filename
 				if (name.includes('\0')) {
 					zipfile.close();
-					resolve('ZIP entry contains invalid filename');
-					return;
+					return reject(
+						new FileValidationError(
+							'ZIP entry contains invalid filename',
+							'File is not a valid ZIP file'
+						)
+					);
 				}
 
 				// Path traversal and absolute paths
@@ -82,15 +99,23 @@ function validateZipContents(buf: Buffer): Promise<string | null> {
 					name.includes('/..')
 				) {
 					zipfile.close();
-					resolve('ZIP entry contains path traversal');
-					return;
+					return reject(
+						new FileValidationError(
+							'ZIP entry contains path traversal',
+							'File is not a valid ZIP file'
+						)
+					);
 				}
 
 				// Reject directory entries
 				if (name.endsWith('/')) {
 					zipfile.close();
-					resolve('ZIP contains directory entries');
-					return;
+					return reject(
+						new FileValidationError(
+							'ZIP contains directory entries',
+							'File is not a valid ZIP file'
+						)
+					);
 				}
 
 				// Extension allowlist
@@ -98,8 +123,12 @@ function validateZipContents(buf: Buffer): Promise<string | null> {
 				const ext = dotIndex !== -1 ? name.slice(dotIndex).toLowerCase() : '';
 				if (!ALLOWED_EXTENSIONS.has(ext)) {
 					zipfile.close();
-					resolve(`ZIP contains disallowed file type: "${ext || '(no extension)'}"`);
-					return;
+					return reject(
+						new FileValidationError(
+							`ZIP contains disallowed file type: "${ext || '(no extension)'}"`,
+							'File is not a valid ZIP file'
+						)
+					);
 				}
 
 				// Uncompressed size accumulation
@@ -107,8 +136,12 @@ function validateZipContents(buf: Buffer): Promise<string | null> {
 
 				if (totalUncompressed > MAX_TOTAL_UNCOMPRESSED_MB * MB) {
 					zipfile.close();
-					resolve(`ZIP uncompressed content exceeds ${MAX_TOTAL_UNCOMPRESSED_MB} MB`);
-					return;
+					return reject(
+						new FileValidationError(
+							`ZIP uncompressed content exceeds ${MAX_TOTAL_UNCOMPRESSED_MB} MB`,
+							'File is not a valid ZIP file'
+						)
+					);
 				}
 
 				// Per-entry compression ratio (ZIP bomb indicator)
@@ -117,8 +150,12 @@ function validateZipContents(buf: Buffer): Promise<string | null> {
 					entry.uncompressedSize / entry.compressedSize > MAX_COMPRESSION_RATIO
 				) {
 					zipfile.close();
-					resolve('ZIP entry has suspicious compression ratio');
-					return;
+					return reject(
+						new FileValidationError(
+							'ZIP entry has suspicious compression ratio',
+							'File is not a valid ZIP file'
+						)
+					);
 				}
 
 				zipfile.readEntry();
@@ -126,7 +163,9 @@ function validateZipContents(buf: Buffer): Promise<string | null> {
 
 			zipfile.on('end', () => resolve(null));
 
-			zipfile.on('error', () => resolve('Error reading ZIP file'));
+			zipfile.on('error', () => {
+				reject(new FileValidationError('Error reading ZIP file', 'File is not a valid ZIP file'));
+			});
 		});
 	});
 }

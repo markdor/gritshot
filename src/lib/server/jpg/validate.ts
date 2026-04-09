@@ -1,3 +1,5 @@
+import { FileValidationError } from '../FileValidationError';
+
 function isJpeg(buf: Buffer): boolean {
 	return buf.length >= 3 && buf[0] === 0xff && buf[1] === 0xd8 && buf[2] === 0xff;
 }
@@ -8,7 +10,10 @@ function isJpeg(buf: Buffer): boolean {
  */
 export function validateJpeg(buf: Buffer): string | null {
 	if (!isJpeg(buf)) {
-		return 'Photo must be a valid JPEG file';
+		throw new FileValidationError(
+			'The JPG magic bytes are missing or invalid.',
+			'File is not a valid JPG file'
+		);
 	}
 
 	return null;
