@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { resolve } from '$app/paths';
-	import logo from '$lib/assets/logo.800px.png';
+	import MountainSilhouette from '$lib/components/layout/MountainSilhouette.svelte';
 	import type { ActionData } from './$types';
 
 	let { form }: { form: ActionData } = $props();
@@ -78,41 +77,13 @@
 	class="min-h-screen bg-[#f5f1e6] text-[#2a3d2c]"
 	style="font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;"
 >
-	<!-- Navigation -->
-	<nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
-		<div class="flex items-center gap-2.5">
-			<a href={resolve('/')} class="text-lg font-semibold tracking-tight hover:opacity-80"
-				>GritShot</a
-			>
-		</div>
-		<a
-			href={resolve('/')}
-			class="rounded-full bg-[#4e7352] px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-[#3d5c42]"
-		>
-			Homepage
-		</a>
-	</nav>
-
 	<!-- Content -->
 	<section class="mx-auto max-w-3xl px-6 pt-12 pb-24">
 		<!-- Decorative mountain silhouette -->
-		<div
-			class="pointer-events-none absolute right-0 left-0 -mt-4 flex justify-center opacity-[0.05]"
-		>
-			<svg
-				viewBox="0 0 800 200"
-				class="w-full max-w-4xl"
-				fill="#2a3d2c"
-				xmlns="http://www.w3.org/2000/svg"
-			>
-				<polygon points="0,200 120,60 240,140 360,20 480,120 600,50 720,130 800,80 800,200" />
-			</svg>
-		</div>
+		<MountainSilhouette />
 
 		<!-- Header -->
 		<div class="relative mb-10 text-center">
-			<img src={logo} alt="GritShot" class="mx-auto mb-8 h-56 w-56 object-contain drop-shadow-md" />
-
 			<h1 class="mb-5 text-4xl leading-tight font-bold sm:text-5xl">Create Your Card</h1>
 			<p class="text-lg leading-relaxed text-[#4a5e43]">
 				Upload your Garmin FIT file and a trail photo to generate your shareable card.
