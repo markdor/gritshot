@@ -46,6 +46,7 @@ export const actions = {
 				logger.error(`File validation error: ${e.message}`);
 				return fail(422, { error: e.userMessage });
 			}
+			
 			logger.error(
 				`Unexpected error during card generation: ${e instanceof Error ? e.message : String(e)}`
 			);

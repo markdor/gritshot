@@ -44,4 +44,28 @@ describe('Create page', () => {
 		await expect.element(button).toBeVisible();
 		await expect.element(button).toBeEnabled();
 	});
+
+	test('shows filename and "Click to replace" after FIT file is selected', async () => {
+		const { container } = render(Page, { form: null });
+		const fitInput = container.querySelector('input[name="fitFile"]') as HTMLInputElement;
+		await userEvent.upload(fitInput, new File(['data'], 'my-hike.fit'));
+		await expect.element(page.getByText('my-hike.fit')).toBeVisible();
+		await expect.element(page.getByText('Click to replace')).toBeVisible();
+	});
+
+	test('shows filename and "Click to replace" after photo is selected', async () => {
+		const { container } = render(Page, { form: null });
+		const photoInput = container.querySelector('input[name="photoFile"]') as HTMLInputElement;
+		await userEvent.upload(photoInput, new File(['img'], 'summit.jpg', { type: 'image/jpeg' }));
+		await expect.element(page.getByText('summit.jpg')).toBeVisible();
+		await expect.element(page.getByText('Click to replace')).toBeVisible();
+	});
+
+	test('renders main heading and description', async () => {
+		render(Page, { form: null });
+		await expect.element(page.getByRole('heading', { name: 'Create Your Card' })).toBeVisible();
+		await expect
+			.element(page.getByText('Upload your Garmin FIT file and a trail photo'))
+			.toBeVisible();
+	});
 });
