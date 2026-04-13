@@ -6,9 +6,9 @@ import archiver from 'archiver';
 const FIXTURES_DIR = path.join('tests', 'fixtures', 'zip');
 
 async function createZipWithRatio(filename: string, uncompressedMB: number) {
-	// Hochkomprimierbarer Inhalt: wiederholte Bytes (wie echte Zipbomben)
+	// Highly compressible content: repeated bytes (like real zip bombs)
 	const uncompressedBytes = uncompressedMB * 1024 * 1024;
-	const payload = Buffer.alloc(uncompressedBytes, 0x00); // Nullbytes = maximale Kompression
+	const payload = Buffer.alloc(uncompressedBytes, 0x00); // null bytes = maximum compression
 
 	return new Promise<void>((resolve, reject) => {
 		const output = fs.createWriteStream(path.join(FIXTURES_DIR, filename));
@@ -30,16 +30,16 @@ function exists(filename: string): boolean {
 async function main() {
 	fs.mkdirSync(FIXTURES_DIR, { recursive: true });
 
-	// ✅ Legitimes ZIP mit echten FIT-Dateien
-	// → liegt als echte Datei im Repo: tests/fixtures/zip/valid.zip
+	// ✅ Legitimate ZIP with real FIT files
+	// → stored as real file in repo: tests/fixtures/zip/valid.zip
 
-	// 💣 Ratio-Bombe: kleines ZIP, explodierende Entpackgröße
+	// 💣 Ratio bomb: small ZIP, exploding uncompressed size
 	if (!exists('ratio-bomb.zip')) await createZipWithRatio('ratio-bomb.zip', 50); // > MAX_COMPRESSION_RATIO
 
-	// 💣 Size-Bombe: unkomprimierte Größe überschreitet absolutes Limit
+	// 💣 Size bomb: uncompressed size exceeds absolute limit
 	if (!exists('size-bomb.zip')) await createZipWithRatio('size-bomb.zip', 200); // > MAX_UNCOMPRESSED_SIZE (200 MB)
 
-	// 💣 Path Traversal
+	// 💣 Path traversal
 	if (!exists('path-traversal.zip')) {
 		const traversalZip = path.join(FIXTURES_DIR, 'path-traversal.zip');
 		const archive = archiver('zip');
@@ -51,7 +51,7 @@ async function main() {
 		});
 	}
 
-	// 💣 Verbotene Dateierweiterung
+	// 💣 Forbidden file extension
 	if (!exists('bad-extension.zip')) {
 		const extZip = path.join(FIXTURES_DIR, 'bad-extension.zip');
 		const archive2 = archiver('zip');
@@ -63,7 +63,7 @@ async function main() {
 		});
 	}
 
-	// 💣 Gefälschte Magic Bytes (kein echtes ZIP)
+	// 💣 Fake magic bytes (not a real ZIP)
 	if (!exists('fake-magic.zip')) {
 		fs.writeFileSync(
 			path.join(FIXTURES_DIR, 'fake-magic.zip'),
@@ -71,7 +71,7 @@ async function main() {
 		);
 	}
 
-	// 💣 Korruptes ZIP: valide Magic Bytes, aber kaputter Inhalt
+	// 💣 Corrupt ZIP: valid magic bytes but broken content
 	if (!exists('corrupt.zip')) {
 		fs.writeFileSync(
 			path.join(FIXTURES_DIR, 'corrupt.zip'),
@@ -79,14 +79,14 @@ async function main() {
 		);
 	}
 
-	// 💣 Verschlüsseltes ZIP: generalPurposeBitFlag bit 0 gesetzt
+	// 💣 Encrypted ZIP: generalPurposeBitFlag bit 0 set
 	if (!exists('encrypted.zip')) {
-		// Minimales valides ZIP, manuell konstruiert, mit Encryption-Bit gesetzt.
-		// yauzl prüft bei stored+encrypted: compressedSize = uncompressedSize + 12 (Encryption-Header).
+		// Minimal valid ZIP, manually constructed, with encryption bit set.
+		// yauzl checks for stored+encrypted: compressedSize = uncompressedSize + 12 (encryption header).
 		// uncompressedSize=4, compressedSize=16 (4+12).
 		// Local file header: 30 header + 8 name + 16 data = 54 bytes (offset 0x00)
-		// Central directory:  46 header + 8 name       = 54 bytes (offset 0x36)
-		// EOCD:                                           22 bytes (offset 0x6c)
+		// Central directory:  46 header + 8 name          = 54 bytes (offset 0x36)
+		// EOCD:                                              22 bytes (offset 0x6c)
 		const buf = Buffer.from([
 			// Local file header (offset 0x00)
 			0x50,
@@ -225,16 +225,16 @@ async function main() {
 		fs.writeFileSync(path.join(FIXTURES_DIR, 'encrypted.zip'), buf);
 	}
 
-	// 💣 Verdächtige Compression Ratio (per Entry): uncompressedSize=10MB, compressedSize=1000
-	// → Ratio 10485 > MAX_COMPRESSION_RATIO (100), aber totalUncompressed < 20MB (Size-Check kommt zuerst).
-	// compressionMethod=8 (deflate) nötig: yauzl's validateEntrySizes greift nur bei method=0 (stored).
+	// 💣 Suspicious compression ratio (per entry): uncompressedSize=10MB, compressedSize=1000
+	// → ratio 10485 > MAX_COMPRESSION_RATIO (100), but totalUncompressed < 20MB (size check comes first).
+	// compressionMethod=8 (deflate) required: yauzl's validateEntrySizes only triggers for method=0 (stored).
 	// Local file header: 30 + 8 (name) + 1000 (data) = 1038 bytes (offset 0x00)
 	// Central dir:       46 + 8 (name)               =   54 bytes (offset 0x0000040E = 1038)
 	// EOCD:                                               22 bytes (offset 0x00000444 = 1092)
 	if (!exists('ratio-entry.zip')) {
 		const filenameBytes = Buffer.from('test.fit'); // 8 bytes
 		const compressedSize = 1000;
-		const uncompressedSize = 10 * 1024 * 1024; // 10 MB
+		// uncompressedSize = 10 * 1024 * 1024 = 10 MB → 0x00A00000 in header bytes
 		const fileData = Buffer.alloc(compressedSize, 0x00);
 		const cdOffset = 30 + 8 + compressedSize; // 1038
 
@@ -320,7 +320,7 @@ async function main() {
 			0x00 // local header offset: 0
 		]);
 
-		const cdSize = 46 + 8; // 54
+		// cdSize = 46 + 8 = 54 → used in eocd as cd size bytes below
 		const eocd = Buffer.from([
 			0x50,
 			0x4b,
@@ -358,9 +358,9 @@ async function main() {
 		fs.writeFileSync(path.join(FIXTURES_DIR, 'ratio-entry.zip'), buf);
 	}
 
-	// 💣 Path Traversal: "test..fit" (9 Bytes) — ".." als Substring, kein Pfadsegment,
-	// passiert yauzl's validateFileName (split("/").indexOf("..") === -1),
-	// wird aber von unserem name.includes('..') erkannt.
+	// 💣 Path traversal: "test..fit" (9 bytes) — ".." as substring, not a path segment,
+	// passes yauzl's validateFileName (split("/").indexOf("..") === -1),
+	// but caught by our name.includes('..') check.
 	// Local header: 30 + 9 + 4 = 43 bytes (offset 0x00)
 	// Central dir:  46 + 9     = 55 bytes (offset 0x2b = 43)
 	// EOCD:                      22 bytes (offset 0x62 = 98)
@@ -478,7 +478,7 @@ async function main() {
 		fs.writeFileSync(path.join(FIXTURES_DIR, 'path-traversal-substring.zip'), buf);
 	}
 
-	// 💣 Null-Byte im Dateinamen (z.B. "test\0.fit", 9 Bytes)
+	// 💣 Null byte in filename (e.g. "test\0.fit", 9 bytes)
 	// Local header: 30 + 9 + 4 = 43 bytes (offset 0x00)
 	// Central dir:  46 + 9     = 55 bytes (offset 0x2b)
 	// EOCD:                      22 bytes (offset 0x62)
@@ -596,7 +596,7 @@ async function main() {
 		fs.writeFileSync(path.join(FIXTURES_DIR, 'null-byte-filename.zip'), buf);
 	}
 
-	// 💣 Verzeichniseintrag
+	// 💣 Directory entry
 	if (!exists('directory-entry.zip')) {
 		const dirZip = archiver('zip');
 		dirZip.pipe(fs.createWriteStream(path.join(FIXTURES_DIR, 'directory-entry.zip')));
@@ -607,7 +607,7 @@ async function main() {
 		});
 	}
 
-	// 💣 Zu viele Dateien
+	// 💣 Too many files
 	if (!exists('too-many-files.zip')) {
 		const manyFilesZip = archiver('zip');
 		manyFilesZip.pipe(fs.createWriteStream(path.join(FIXTURES_DIR, 'too-many-files.zip')));

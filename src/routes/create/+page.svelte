@@ -1,73 +1,14 @@
 <script lang="ts">
 	import MountainSilhouette from '$lib/components/layout/MountainSilhouette.svelte';
+	import Dropzone from '$lib/components/Dropzone.svelte';
+	import Lightbox from '$lib/components/Lightbox.svelte';
 	import type { ActionData } from './$types';
 
 	let { form }: { form: ActionData } = $props();
 
 	let fitFile: File | null = $state(null);
 	let photoFile: File | null = $state(null);
-
-	let fitDragOver = $state(false);
-	let photoDragOver = $state(false);
-
-	function handleFitDrop(e: DragEvent) {
-		e.preventDefault();
-		fitDragOver = false;
-		const file = e.dataTransfer?.files[0];
-		if (file && (file.name.endsWith('.fit') || file.name.endsWith('.zip'))) {
-			fitFile = file;
-		}
-	}
-
-	function handlePhotoDrop(e: DragEvent) {
-		e.preventDefault();
-		photoDragOver = false;
-		const file = e.dataTransfer?.files[0];
-		if (file && (file.type === 'image/jpeg' || file.name.toLowerCase().endsWith('.jpg'))) {
-			photoFile = file;
-		}
-	}
-
-	function handleFitInput(e: Event) {
-		const input = e.target as HTMLInputElement;
-		fitFile = input.files?.[0] ?? null;
-	}
-
-	function handlePhotoInput(e: Event) {
-		const input = e.target as HTMLInputElement;
-		photoFile = input.files?.[0] ?? null;
-	}
-
-	function formatFileSize(bytes: number): string {
-		if (bytes < 1024) return `${bytes} B`;
-		if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-		return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
-	}
-
-	let lightboxOpen = $state(false);
-
-	$effect(() => {
-		if (form?.image) lightboxOpen = true;
-	});
-
-	function closeLightbox() {
-		lightboxOpen = false;
-	}
-
-	function handleKeydown(e: KeyboardEvent) {
-		if (e.key === 'Escape') closeLightbox();
-	}
-
-	function downloadImage() {
-		if (!form?.image) return;
-		const a = document.createElement('a');
-		a.href = `data:image/jpeg;base64,${form.image}`;
-		a.download = 'gritshot.jpg';
-		a.click();
-	}
 </script>
-
-<svelte:window onkeydown={handleKeydown} />
 
 <svelte:head>
 	<title>Create Your Card — GritShot</title>
@@ -93,210 +34,64 @@
 		<!-- Upload Grid -->
 		<form method="POST" enctype="multipart/form-data">
 			<div class="grid gap-5 sm:grid-cols-2">
-				<!-- FIT File Upload -->
-				<div class="flex flex-col">
-					<div class="mb-3 flex items-center gap-3">
-						<div class="flex h-9 w-9 items-center justify-center rounded-xl bg-[#eaf0eb]">
-							<svg
-								class="h-5 w-5 text-[#4e7352]"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="1.8"
-								viewBox="0 0 24 24"
-							>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253"
-								/>
-							</svg>
-						</div>
-						<div>
-							<div class="text-xs font-semibold tracking-widest text-[#9ab89e] uppercase">
-								Step 1
-							</div>
-							<h2 class="font-semibold">Garmin FIT File</h2>
-						</div>
-					</div>
+				<Dropzone
+					name="fitFile"
+					accept=".fit,.zip"
+					step="Step 1"
+					title="Garmin FIT File"
+					label="Drop your FIT file here"
+					hint=".fit or .zip accepted"
+					validate={(f) => f.name.endsWith('.fit') || f.name.endsWith('.zip')}
+					bind:file={fitFile}
+				>
+					{#snippet icon()}
+						<svg
+							class="h-5 w-5 text-[#4e7352]"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="1.8"
+							viewBox="0 0 24 24"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253"
+							/>
+						</svg>
+					{/snippet}
+				</Dropzone>
 
-					<label
-						class="group relative flex flex-1 cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed p-8 text-center transition-colors
-						{fitDragOver
-							? 'border-[#4e7352] bg-[#eaf0eb]'
-							: fitFile
-								? 'border-[#4e7352] bg-[#eaf0eb]/60'
-								: 'border-[#c8d9ca] bg-white/60 hover:border-[#9ab89e] hover:bg-white/80'}"
-						ondragover={(e) => {
-							e.preventDefault();
-							fitDragOver = true;
-						}}
-						ondragleave={() => (fitDragOver = false)}
-						ondrop={handleFitDrop}
-					>
-						<input
-							type="file"
-							name="fitFile"
-							accept=".fit,.zip"
-							class="sr-only"
-							onchange={handleFitInput}
-						/>
-
-						{#if fitFile}
-							<div class="flex flex-col items-center gap-2">
-								<div class="flex h-12 w-12 items-center justify-center rounded-xl bg-[#4e7352]/10">
-									<svg
-										class="h-6 w-6 text-[#4e7352]"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="1.8"
-										viewBox="0 0 24 24"
-									>
-										<path
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-										/>
-									</svg>
-								</div>
-								<span class="max-w-full truncate text-sm font-medium text-[#2a3d2c]"
-									>{fitFile.name}</span
-								>
-								<span class="text-xs text-[#9ab89e]">{formatFileSize(fitFile.size)}</span>
-								<span class="text-xs text-[#4e7352]">Click to replace</span>
-							</div>
-						{:else}
-							<div class="flex flex-col items-center gap-3">
-								<div
-									class="flex h-12 w-12 items-center justify-center rounded-xl bg-[#eaf0eb] transition-colors group-hover:bg-[#c4ddc7]"
-								>
-									<svg
-										class="h-6 w-6 text-[#4e7352]"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="1.8"
-										viewBox="0 0 24 24"
-									>
-										<path
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"
-										/>
-									</svg>
-								</div>
-								<div>
-									<p class="text-sm font-medium text-[#2a3d2c]">Drop your FIT file here</p>
-									<p class="mt-0.5 text-xs text-[#9ab89e]">or click to browse</p>
-								</div>
-								<p class="text-xs text-[#9ab89e]">.fit or .zip accepted</p>
-							</div>
-						{/if}
-					</label>
-				</div>
-
-				<!-- Photo Upload -->
-				<div class="flex flex-col">
-					<div class="mb-3 flex items-center gap-3">
-						<div class="flex h-9 w-9 items-center justify-center rounded-xl bg-[#eaf0eb]">
-							<svg
-								class="h-5 w-5 text-[#4e7352]"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="1.8"
-								viewBox="0 0 24 24"
-							>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z"
-								/>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z"
-								/>
-							</svg>
-						</div>
-						<div>
-							<div class="text-xs font-semibold tracking-widest text-[#9ab89e] uppercase">
-								Step 2
-							</div>
-							<h2 class="font-semibold">Trail Photo</h2>
-						</div>
-					</div>
-
-					<label
-						class="group relative flex flex-1 cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed p-8 text-center transition-colors
-						{photoDragOver
-							? 'border-[#4e7352] bg-[#eaf0eb]'
-							: photoFile
-								? 'border-[#4e7352] bg-[#eaf0eb]/60'
-								: 'border-[#c8d9ca] bg-white/60 hover:border-[#9ab89e] hover:bg-white/80'}"
-						ondragover={(e) => {
-							e.preventDefault();
-							photoDragOver = true;
-						}}
-						ondragleave={() => (photoDragOver = false)}
-						ondrop={handlePhotoDrop}
-					>
-						<input
-							type="file"
-							name="photoFile"
-							accept=".jpg,image/jpeg"
-							class="sr-only"
-							onchange={handlePhotoInput}
-						/>
-
-						{#if photoFile}
-							<div class="flex flex-col items-center gap-2">
-								<div class="flex h-12 w-12 items-center justify-center rounded-xl bg-[#4e7352]/10">
-									<svg
-										class="h-6 w-6 text-[#4e7352]"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="1.8"
-										viewBox="0 0 24 24"
-									>
-										<path
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-										/>
-									</svg>
-								</div>
-								<span class="max-w-full truncate text-sm font-medium text-[#2a3d2c]"
-									>{photoFile.name}</span
-								>
-								<span class="text-xs text-[#9ab89e]">{formatFileSize(photoFile.size)}</span>
-								<span class="text-xs text-[#4e7352]">Click to replace</span>
-							</div>
-						{:else}
-							<div class="flex flex-col items-center gap-3">
-								<div
-									class="flex h-12 w-12 items-center justify-center rounded-xl bg-[#eaf0eb] transition-colors group-hover:bg-[#c4ddc7]"
-								>
-									<svg
-										class="h-6 w-6 text-[#4e7352]"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="1.8"
-										viewBox="0 0 24 24"
-									>
-										<path
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"
-										/>
-									</svg>
-								</div>
-								<div>
-									<p class="text-sm font-medium text-[#2a3d2c]">Drop your photo here</p>
-									<p class="mt-0.5 text-xs text-[#9ab89e]">or click to browse</p>
-								</div>
-								<p class="text-xs text-[#9ab89e]">.jpg accepted</p>
-							</div>
-						{/if}
-					</label>
-				</div>
+				<Dropzone
+					name="photoFile"
+					accept=".jpg,image/jpeg"
+					step="Step 2"
+					title="Trail Photo"
+					label="Drop your photo here"
+					hint=".jpg accepted"
+					validate={(f) => f.type === 'image/jpeg' || f.name.toLowerCase().endsWith('.jpg')}
+					bind:file={photoFile}
+				>
+					{#snippet icon()}
+						<svg
+							class="h-5 w-5 text-[#4e7352]"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="1.8"
+							viewBox="0 0 24 24"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z"
+							/>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z"
+							/>
+						</svg>
+					{/snippet}
+				</Dropzone>
 			</div>
 
 			<!-- Error message -->
@@ -331,44 +126,4 @@
 	</section>
 </div>
 
-{#if lightboxOpen && form?.image}
-	<div
-		role="dialog"
-		aria-modal="true"
-		aria-label="Generated card preview"
-		tabindex="-1"
-		class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
-		onclick={closeLightbox}
-		onkeydown={handleKeydown}
-	>
-		<div
-			class="relative flex max-h-full flex-col items-center"
-			onclick={(e) => e.stopPropagation()}
-			onkeydown={(e) => e.stopPropagation()}
-			role="presentation"
-		>
-			<button
-				onclick={closeLightbox}
-				aria-label="Close"
-				class="absolute -top-10 right-0 flex h-8 w-8 items-center justify-center rounded-full text-white/70 transition-colors hover:text-white"
-			>
-				<svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-					<path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-				</svg>
-			</button>
-
-			<img
-				src={`data:image/jpeg;base64,${form.image}`}
-				alt="Your GritShot card"
-				class="max-h-[80vh] w-auto rounded-xl shadow-2xl"
-			/>
-
-			<button
-				onclick={downloadImage}
-				class="mt-5 rounded-full bg-[#4e7352] px-7 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#3d5c42]"
-			>
-				Download Card
-			</button>
-		</div>
-	</div>
-{/if}
+<Lightbox image={form?.image} />
