@@ -1,5 +1,5 @@
 <script lang="ts">
-	import MountainSilhouette from '$lib/components/layout/MountainSilhouette.svelte';
+	import HeroLogo from '$lib/components/layout/HeroLogo.svelte';
 	import Dropzone from '$lib/components/Dropzone.svelte';
 	import Lightbox from '$lib/components/Lightbox.svelte';
 	import type { ActionData } from './$types';
@@ -21,7 +21,7 @@
 	<!-- Content -->
 	<section class="mx-auto max-w-3xl px-6 pt-12 pb-24">
 		<!-- Decorative mountain silhouette -->
-		<MountainSilhouette />
+		<HeroLogo />
 
 		<!-- Header -->
 		<div class="relative mb-10 text-center">

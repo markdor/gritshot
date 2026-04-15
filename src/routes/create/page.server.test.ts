@@ -98,9 +98,7 @@ describe('create action', () => {
 	});
 
 	it('returns HTTP 500 when generateCard throws an unexpected error', async () => {
-		vi.spyOn(generateModule, 'generateCard').mockRejectedValueOnce(
-			new Error('Out of memory')
-		);
+		vi.spyOn(generateModule, 'generateCard').mockRejectedValueOnce(new Error('Out of memory'));
 
 		const fitFile = new File([zipBuffer], 'valid.zip', { type: 'application/zip' });
 		const photoFile = new File([jpgBuffer], 'valid.jpg', { type: 'image/jpeg' });

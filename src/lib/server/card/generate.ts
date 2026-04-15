@@ -1,6 +1,6 @@
 import { ZipProcessor } from '$lib/server/zip/process';
 import { validateFit } from '$lib/server/fit/validate';
-import { parseFitBuffer } from '$lib/server/fit/process';
+import { parseFitData } from '$lib/server/fit/process';
 import { validateJpeg } from '$lib/server/jpg/validate';
 import { validateZip } from '../zip/validate';
 import { FileValidationError } from '$lib/server/FileValidationError';
@@ -36,22 +36,21 @@ async function readAndValidateFit(fitFile: File): Promise<Buffer> {
 export async function generateCard(fitFile: File, photoFile: File): Promise<Buffer> {
 	const photoBuffer: Buffer = await readAndValidatePhoto(photoFile);
 	const fitBuffer: Buffer = await readAndValidateFit(fitFile);
-	const fitData: Awaited<ReturnType<typeof parseFitBuffer>> = await parseFitBuffer(fitBuffer);
+	const fitData = await parseFitData(fitBuffer);
 
 	// TODO: render card using fitData and photoBuffer, return as JPG
 	const { width, height } = await sharp(photoBuffer).metadata();
 
-	const session = fitData.activity.sessions?.[0];
 	const overlay = `
     <svg width="${width}" height="${height}">
       <rect x="0" y="${height! - 120}" width="${width}" height="120"
             fill="black" fill-opacity="0.5" />
-      <text x="40" y="${height! - 70}" 
+      <text x="40" y="${height! - 70}"
             font-family="Inter, sans-serif" font-size="48"
-            font-weight="bold" fill="white">${session?.total_distance ?? ''}</text>
+            font-weight="bold" fill="white">${fitData.distance}</text>
       <text x="40" y="${height! - 20}"
             font-family="Inter, sans-serif" font-size="28"
-            fill="rgba(255,255,255,0.8)">${fitData.activity.total_timer_time} · ${session?.total_ascent ?? 0}Hm</text>
+            fill="rgba(255,255,255,0.8)">${fitData.durationTotal} · ${fitData.elevation}Hm</text>
     </svg>
   `;
 

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import exampleCard from '$lib/assets/gravel_4-5.jpg';
 	import { resolve } from '$app/paths';
-	import MountainSilhouette from '$lib/components/layout/MountainSilhouette.svelte';
+	import HeroLogo from '$lib/components/layout/HeroLogo.svelte';
 </script>
 
 <svelte:head>
@@ -19,7 +19,7 @@
 	<!-- Hero -->
 	<section class="mx-auto max-w-6xl px-6 pt-12 pb-20 text-center">
 		<!-- Decorative mountain silhouette -->
-		<MountainSilhouette />
+		<HeroLogo />
 
 		<div class="relative">
 			<h1 class="mb-5 text-4xl leading-tight font-bold sm:text-5xl">
