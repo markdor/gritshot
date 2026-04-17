@@ -25,6 +25,7 @@
 		"test:unit": "npm run test:fixtures && vitest",
 		"test:coverage": "npm run test:fixtures && vitest run --coverage",
 		"test:fixtures": "node --strip-types tests/fixtures/generate-zip-fixtures.ts",
+		"parse-fit-fixtures": "node --strip-types tests/fixtures/parse-fit-fixtures.ts",
 		"test": "npm run test:fixtures && npm run test:unit -- --run && npm run test:e2e",
 		"test:e2e": "playwright test"
 	},
