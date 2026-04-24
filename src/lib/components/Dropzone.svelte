@@ -26,12 +26,18 @@
 	}: Props = $props();
 
 	let dragOver = $state(false);
+	let inputEl: HTMLInputElement;
 
 	function handleDrop(e: DragEvent) {
 		e.preventDefault();
 		dragOver = false;
 		const f = e.dataTransfer?.files[0];
-		if (f && validate(f)) file = f;
+		if (f && validate(f)) {
+			file = f;
+			const dt = new DataTransfer();
+			dt.items.add(f);
+			inputEl.files = dt.files;
+		}
 	}
 
 	function handleInput(e: Event) {
@@ -71,7 +77,7 @@
 		ondragleave={() => (dragOver = false)}
 		ondrop={handleDrop}
 	>
-		<input type="file" {name} {accept} class="sr-only" onchange={handleInput} />
+		<input bind:this={inputEl} type="file" {name} {accept} class="sr-only" onchange={handleInput} />
 
 		{#if file}
 			<div class="flex flex-col items-center gap-2">
