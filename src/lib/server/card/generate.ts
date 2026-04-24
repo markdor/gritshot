@@ -33,28 +33,33 @@ async function readAndValidateFit(fitFile: File): Promise<Buffer> {
 	return buffer;
 }
 
+const cardWidth = 1080;
+const cardHeight = 1440;
+
 export async function generateCard(fitFile: File, photoFile: File): Promise<Buffer> {
 	const photoBuffer: Buffer = await readAndValidatePhoto(photoFile);
 	const fitBuffer: Buffer = await readAndValidateFit(fitFile);
 	const fitData = await parseFitData(fitBuffer);
 
 	// TODO: render card using fitData and photoBuffer, return as JPG
-	const { width, height } = await sharp(photoBuffer).metadata();
+	const croppedBuffer = await sharp(photoBuffer)
+		.resize(cardWidth, cardHeight, { fit: 'cover', position: 'centre' })
+		.toBuffer();
 
 	const overlay = `
-    <svg width="${width}" height="${height}">
-      <rect x="0" y="${height! - 120}" width="${width}" height="120"
+    <svg width="${cardWidth}" height="${cardHeight}">
+      <rect x="0" y="${cardHeight - 120}" width="${cardWidth}" height="120"
             fill="black" fill-opacity="0.5" />
-      <text x="40" y="${height! - 70}"
+      <text x="40" y="${cardHeight - 70}"
             font-family="Inter, sans-serif" font-size="48"
             font-weight="bold" fill="white">${fitData.distance}</text>
-      <text x="40" y="${height! - 20}"
+      <text x="40" y="${cardHeight - 20}"
             font-family="Inter, sans-serif" font-size="28"
             fill="rgba(255,255,255,0.8)">${fitData.durationTotal} · ${fitData.elevation}Hm</text>
     </svg>
   `;
 
-	return sharp(photoBuffer)
+	return sharp(croppedBuffer)
 		.composite([
 			{
 				input: Buffer.from(overlay),
