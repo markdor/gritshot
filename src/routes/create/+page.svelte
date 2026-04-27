@@ -6,6 +6,7 @@
 
 	let { form }: { form: ActionData } = $props();
 
+	let title = $state('');
 	let fitFile: File | null = $state(null);
 	let photoFile: File | null = $state(null);
 </script>
@@ -33,11 +34,39 @@
 
 		<!-- Upload Grid -->
 		<form method="POST" enctype="multipart/form-data">
+			<!-- Step 1: Activity Title -->
+			<div class="mb-5">
+				<div class="mb-3 flex items-center gap-3">
+					<div class="flex h-9 w-9 items-center justify-center rounded-xl bg-[#eaf0eb]">
+						<svg class="h-5 w-5 text-[#4e7352]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931zm0 0L19.5 7.125" />
+						</svg>
+					</div>
+					<div>
+						<div class="text-xs font-semibold tracking-widest text-[#9ab89e] uppercase">Step 1</div>
+						<h2 class="font-semibold">Activity Title</h2>
+					</div>
+				</div>
+				<div class="relative">
+					<input
+						type="text"
+						name="title"
+						maxlength="28"
+						placeholder="e.g. Graveln im Allgäu"
+						bind:value={title}
+						class="w-full rounded-2xl border-2 border-dashed border-[#c8d9ca] bg-white/60 px-5 py-4 text-base text-[#2a3d2c] placeholder-[#9ab89e] outline-none transition-colors focus:border-[#4e7352] focus:bg-white/80"
+					/>
+					<span class="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-[#9ab89e]">
+						{title.length}/28
+					</span>
+				</div>
+			</div>
+
 			<div class="grid gap-5 sm:grid-cols-2">
 				<Dropzone
 					name="fitFile"
 					accept=".fit,.zip"
-					step="Step 1"
+					step="Step 2"
 					title="Garmin FIT File"
 					label="Drop your FIT file here"
 					hint=".fit or .zip accepted"
@@ -64,7 +93,7 @@
 				<Dropzone
 					name="photoFile"
 					accept=".jpg,image/jpeg"
-					step="Step 2"
+					step="Step 3"
 					title="Trail Photo"
 					label="Drop your photo here"
 					hint=".jpg accepted"
@@ -105,13 +134,15 @@
 			<div class="mt-4">
 				<button
 					type="submit"
-					disabled={!fitFile || !photoFile}
+					disabled={!title || !fitFile || !photoFile}
 					class="w-full rounded-full py-3.5 text-base font-semibold transition-colors
-					{fitFile && photoFile
+					{title && fitFile && photoFile
 						? 'cursor-pointer bg-[#4e7352] text-white shadow-sm hover:bg-[#3d5c42]'
 						: 'cursor-not-allowed bg-[#c8d9ca] text-[#9ab89e]'}"
 				>
-					{#if !fitFile && !photoFile}
+					{#if !title}
+						Enter an activity title to continue
+					{:else if !fitFile && !photoFile}
 						Upload both files to continue
 					{:else if !fitFile}
 						Upload your FIT file to continue

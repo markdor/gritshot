@@ -8,9 +8,24 @@ const MAX_UPLOAD_SIZE = 10 * 1024 * 1024;
 
 function getFilesFromFormData(
 	formData: FormData
-): { fitFile: File; photoFile: File } | ActionFailure<{ error: string }> {
+): { title: string; fitFile: File; photoFile: File } | ActionFailure<{ error: string }> {
+	const title = formData.get('title');
 	const fitFile = formData.get('fitFile');
 	const photoFile = formData.get('photoFile');
+
+	if (typeof title !== 'string') {
+		return fail(422, { error: 'Please enter an activity title' });
+	}
+
+	const sanitizedTitle = title.replace(/[\x00-\x1F\x7F]/g, '').trim();
+
+	if (sanitizedTitle.length === 0) {
+		return fail(422, { error: 'Please enter an activity title' });
+	}
+
+	if (sanitizedTitle.length > 28) {
+		return fail(422, { error: 'Activity title must not exceed 28 characters' });
+	}
 
 	if (!(fitFile instanceof File) || fitFile.size === 0) {
 		return fail(422, { error: 'No FIT file uploaded' });
@@ -24,7 +39,7 @@ function getFilesFromFormData(
 		return fail(422, { error: 'Files must not exceed 10 MB' });
 	}
 
-	return { fitFile, photoFile };
+	return { title: sanitizedTitle, fitFile, photoFile };
 }
 
 export const actions = {
@@ -36,10 +51,10 @@ export const actions = {
 		if ('status' in filesResult) return filesResult;
 
 		// At this point, we have valid File objects for both the FIT file and the photo
-		const { fitFile, photoFile } = filesResult;
+		const { title, fitFile, photoFile } = filesResult;
 
 		try {
-			const imageBuffer = await generateCard(fitFile, photoFile);
+			const imageBuffer = await generateCard(fitFile, photoFile, title);
 			return { image: imageBuffer.toString('base64') };
 		} catch (e: unknown) {
 			if (e instanceof FileValidationError) {

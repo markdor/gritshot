@@ -4,9 +4,9 @@ import { page, userEvent } from 'vitest/browser';
 import Page from './+page.svelte';
 
 describe('Create page', () => {
-	test('submit button is initially disabled with "Upload both files to continue"', async () => {
+	test('submit button is initially disabled with "Enter an activity title to continue"', async () => {
 		render(Page, { form: null });
-		const button = page.getByRole('button', { name: 'Upload both files to continue' });
+		const button = page.getByRole('button', { name: 'Enter an activity title to continue' });
 		await expect.element(button).toBeVisible();
 		await expect.element(button).toBeDisabled();
 	});
@@ -18,7 +18,9 @@ describe('Create page', () => {
 
 	test('button prompts for FIT file when only photo is selected', async () => {
 		const { container } = render(Page, { form: null });
+		const titleInput = container.querySelector('input[name="title"]') as HTMLInputElement;
 		const photoInput = container.querySelector('input[name="photoFile"]') as HTMLInputElement;
+		await userEvent.type(titleInput, 'Graveln');
 		await userEvent.upload(photoInput, new File([''], 'photo.jpg', { type: 'image/jpeg' }));
 		const button = page.getByRole('button', { name: 'Upload your FIT file to continue' });
 		await expect.element(button).toBeVisible();
@@ -27,7 +29,9 @@ describe('Create page', () => {
 
 	test('button prompts for photo when only FIT file is selected', async () => {
 		const { container } = render(Page, { form: null });
+		const titleInput = container.querySelector('input[name="title"]') as HTMLInputElement;
 		const fitInput = container.querySelector('input[name="fitFile"]') as HTMLInputElement;
+		await userEvent.type(titleInput, 'Graveln');
 		await userEvent.upload(fitInput, new File([''], 'activity.fit'));
 		const button = page.getByRole('button', { name: 'Upload your photo to continue' });
 		await expect.element(button).toBeVisible();
@@ -36,8 +40,10 @@ describe('Create page', () => {
 
 	test('button is enabled with "Generate Card" when both files are selected', async () => {
 		const { container } = render(Page, { form: null });
+		const titleInput = container.querySelector('input[name="title"]') as HTMLInputElement;
 		const fitInput = container.querySelector('input[name="fitFile"]') as HTMLInputElement;
 		const photoInput = container.querySelector('input[name="photoFile"]') as HTMLInputElement;
+		await userEvent.type(titleInput, 'Graveln');
 		await userEvent.upload(fitInput, new File([''], 'activity.fit'));
 		await userEvent.upload(photoInput, new File([''], 'photo.jpg', { type: 'image/jpeg' }));
 		const button = page.getByRole('button', { name: 'Generate Card' });

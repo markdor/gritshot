@@ -29,7 +29,9 @@ const fakeFitData = {
 
 describe('generateCard', () => {
 	let sharpInstance: {
-		metadata: ReturnType<typeof vi.fn>;
+		resize: ReturnType<typeof vi.fn>;
+		extract: ReturnType<typeof vi.fn>;
+		blur: ReturnType<typeof vi.fn>;
 		composite: ReturnType<typeof vi.fn>;
 		jpeg: ReturnType<typeof vi.fn>;
 		toBuffer: ReturnType<typeof vi.fn>;
@@ -39,7 +41,9 @@ describe('generateCard', () => {
 		vi.clearAllMocks();
 
 		sharpInstance = {
-			metadata: vi.fn().mockResolvedValue({ width: 800, height: 600 }),
+			resize: vi.fn().mockReturnThis(),
+			extract: vi.fn().mockReturnThis(),
+			blur: vi.fn().mockReturnThis(),
 			composite: vi.fn().mockReturnThis(),
 			jpeg: vi.fn().mockReturnThis(),
 			toBuffer: vi.fn().mockResolvedValue(Buffer.from('fake-image'))
@@ -63,7 +67,7 @@ describe('generateCard', () => {
 				throw error;
 			});
 
-			await expect(generateCard(makeFile('run.fit'), makeFile('photo.jpg'))).rejects.toThrow(
+			await expect(generateCard(makeFile('run.fit'), makeFile('photo.jpg'), 'Graveln')).rejects.toThrow(
 				FileValidationError
 			);
 		});
@@ -76,7 +80,7 @@ describe('generateCard', () => {
 				throw error;
 			});
 
-			await expect(generateCard(makeFile('run.fit'), makeFile('photo.jpg'))).rejects.toThrow(
+			await expect(generateCard(makeFile('run.fit'), makeFile('photo.jpg'), 'Graveln')).rejects.toThrow(
 				FileValidationError
 			);
 		});
@@ -87,7 +91,7 @@ describe('generateCard', () => {
 			const error = new FileValidationError('Bad ZIP magic', 'Not a valid ZIP');
 			vi.mocked(validateZip).mockRejectedValue(error);
 
-			await expect(generateCard(makeFile('run.zip'), makeFile('photo.jpg'))).rejects.toThrow(
+			await expect(generateCard(makeFile('run.zip'), makeFile('photo.jpg'), 'Graveln')).rejects.toThrow(
 				FileValidationError
 			);
 		});
@@ -97,7 +101,7 @@ describe('generateCard', () => {
 				new Error('Failed to read stream')
 			);
 
-			await expect(generateCard(makeFile('run.zip'), makeFile('photo.jpg'))).rejects.toMatchObject({
+			await expect(generateCard(makeFile('run.zip'), makeFile('photo.jpg'), 'Graveln')).rejects.toMatchObject({
 				name: 'FileValidationError',
 				userMessage: 'Could not extract ZIP file',
 				message: 'Failed to read stream'
@@ -109,7 +113,7 @@ describe('generateCard', () => {
 				new FileValidationError('ZIP contains no .fit file', 'Could not extract ZIP file')
 			);
 
-			await expect(generateCard(makeFile('run.zip'), makeFile('photo.jpg'))).rejects.toMatchObject({
+			await expect(generateCard(makeFile('run.zip'), makeFile('photo.jpg'), 'Graveln')).rejects.toMatchObject({
 				name: 'FileValidationError',
 				message: 'ZIP contains no .fit file',
 				userMessage: 'Could not extract ZIP file'
@@ -122,7 +126,7 @@ describe('generateCard', () => {
 				throw error;
 			});
 
-			await expect(generateCard(makeFile('run.zip'), makeFile('photo.jpg'))).rejects.toThrow(
+			await expect(generateCard(makeFile('run.zip'), makeFile('photo.jpg'), 'Graveln')).rejects.toThrow(
 				FileValidationError
 			);
 		});
@@ -130,13 +134,13 @@ describe('generateCard', () => {
 
 	describe('successful card generation', () => {
 		it('returns a Buffer when given a valid .fit file and photo', async () => {
-			const result = await generateCard(makeFile('run.fit'), makeFile('photo.jpg'));
+			const result = await generateCard(makeFile('run.fit'), makeFile('photo.jpg'), 'Graveln');
 
 			expect(result).toBeInstanceOf(Buffer);
 		});
 
 		it('returns a Buffer when given a valid .zip file and photo', async () => {
-			const result = await generateCard(makeFile('run.zip'), makeFile('photo.jpg'));
+			const result = await generateCard(makeFile('run.zip'), makeFile('photo.jpg'), 'Graveln');
 
 			expect(result).toBeInstanceOf(Buffer);
 		});

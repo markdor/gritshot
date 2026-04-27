@@ -11,8 +11,9 @@ import * as generateModule from '$lib/server/card/generate';
 
 type ActionEvent = Parameters<typeof actions.default>[0];
 
-function makeEvent(fitFile: File, photoFile: File): ActionEvent {
+function makeEvent(fitFile: File, photoFile: File, title = 'Graveln'): ActionEvent {
 	const formData = new FormData();
+	formData.append('title', title);
 	formData.append('fitFile', fitFile);
 	formData.append('photoFile', photoFile);
 	const request = new Request('http://localhost/create', { method: 'POST', body: formData });
@@ -34,8 +35,30 @@ describe('create action', () => {
 		});
 	});
 
+	it('returns error when title is missing', async () => {
+		const formData = new FormData();
+		formData.append('fitFile', new File([zipBuffer], 'valid.zip', { type: 'application/zip' }));
+		formData.append('photoFile', new File([jpgBuffer], 'valid.jpg', { type: 'image/jpeg' }));
+		const request = new Request('http://localhost/create', { method: 'POST', body: formData });
+		const result = await actions.default({ request } as unknown as ActionEvent);
+
+		expect(result).toMatchObject({ status: 422, data: { error: 'Please enter an activity title' } });
+	});
+
+	it('returns error when title exceeds 28 characters', async () => {
+		const formData = new FormData();
+		formData.append('title', 'A'.repeat(29));
+		formData.append('fitFile', new File([zipBuffer], 'valid.zip', { type: 'application/zip' }));
+		formData.append('photoFile', new File([jpgBuffer], 'valid.jpg', { type: 'image/jpeg' }));
+		const request = new Request('http://localhost/create', { method: 'POST', body: formData });
+		const result = await actions.default({ request } as unknown as ActionEvent);
+
+		expect(result).toMatchObject({ status: 422, data: { error: 'Activity title must not exceed 28 characters' } });
+	});
+
 	it('returns error when FIT file is missing', async () => {
 		const formData = new FormData();
+		formData.append('title', 'Graveln');
 		formData.append('photoFile', new File([jpgBuffer], 'valid.jpg', { type: 'image/jpeg' }));
 		const request = new Request('http://localhost/create', { method: 'POST', body: formData });
 		const result = await actions.default({ request } as unknown as ActionEvent);
@@ -45,6 +68,7 @@ describe('create action', () => {
 
 	it('returns error when photo is missing', async () => {
 		const formData = new FormData();
+		formData.append('title', 'Graveln');
 		formData.append('fitFile', new File([zipBuffer], 'valid.zip', { type: 'application/zip' }));
 		const request = new Request('http://localhost/create', { method: 'POST', body: formData });
 		const result = await actions.default({ request } as unknown as ActionEvent);
