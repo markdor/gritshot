@@ -6,10 +6,9 @@ import { validateZip } from '../zip/validate';
 import { FileValidationError } from '$lib/server/FileValidationError';
 import sharp from 'sharp';
 import { readFileSync } from 'fs';
-import { fileURLToPath } from 'url';
-import { join, dirname } from 'path';
+import { join } from 'path';
 
-const fontDir = join(dirname(fileURLToPath(import.meta.url)), '../../../../node_modules/@fontsource/barlow-condensed/files');
+const fontDir = join(process.cwd(), 'static', 'fonts');
 const font400 = readFileSync(join(fontDir, 'barlow-condensed-latin-400-normal.woff2')).toString('base64');
 const font400italic = readFileSync(join(fontDir, 'barlow-condensed-latin-400-italic.woff2')).toString('base64');
 const font700 = readFileSync(join(fontDir, 'barlow-condensed-latin-700-normal.woff2')).toString('base64');

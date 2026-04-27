@@ -17,6 +17,7 @@ WORKDIR /app
 # package.json is required for "type": "module" resolution
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/build ./build
+COPY --from=builder /app/static/fonts ./static/fonts
 
 ENV NODE_ENV=production
 ENV PORT=3000
