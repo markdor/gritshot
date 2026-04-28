@@ -67,9 +67,9 @@ describe('generateCard', () => {
 				throw error;
 			});
 
-			await expect(generateCard(makeFile('run.fit'), makeFile('photo.jpg'), 'Graveln')).rejects.toThrow(
-				FileValidationError
-			);
+			await expect(
+				generateCard(makeFile('run.fit'), makeFile('photo.jpg'), 'Graveln')
+			).rejects.toThrow(FileValidationError);
 		});
 	});
 
@@ -80,9 +80,9 @@ describe('generateCard', () => {
 				throw error;
 			});
 
-			await expect(generateCard(makeFile('run.fit'), makeFile('photo.jpg'), 'Graveln')).rejects.toThrow(
-				FileValidationError
-			);
+			await expect(
+				generateCard(makeFile('run.fit'), makeFile('photo.jpg'), 'Graveln')
+			).rejects.toThrow(FileValidationError);
 		});
 	});
 
@@ -91,9 +91,9 @@ describe('generateCard', () => {
 			const error = new FileValidationError('Bad ZIP magic', 'Not a valid ZIP');
 			vi.mocked(validateZip).mockRejectedValue(error);
 
-			await expect(generateCard(makeFile('run.zip'), makeFile('photo.jpg'), 'Graveln')).rejects.toThrow(
-				FileValidationError
-			);
+			await expect(
+				generateCard(makeFile('run.zip'), makeFile('photo.jpg'), 'Graveln')
+			).rejects.toThrow(FileValidationError);
 		});
 
 		it('wraps ZipProcessor errors in a FileValidationError', async () => {
@@ -101,7 +101,9 @@ describe('generateCard', () => {
 				new Error('Failed to read stream')
 			);
 
-			await expect(generateCard(makeFile('run.zip'), makeFile('photo.jpg'), 'Graveln')).rejects.toMatchObject({
+			await expect(
+				generateCard(makeFile('run.zip'), makeFile('photo.jpg'), 'Graveln')
+			).rejects.toMatchObject({
 				name: 'FileValidationError',
 				userMessage: 'Could not extract ZIP file',
 				message: 'Failed to read stream'
@@ -113,7 +115,9 @@ describe('generateCard', () => {
 				new FileValidationError('ZIP contains no .fit file', 'Could not extract ZIP file')
 			);
 
-			await expect(generateCard(makeFile('run.zip'), makeFile('photo.jpg'), 'Graveln')).rejects.toMatchObject({
+			await expect(
+				generateCard(makeFile('run.zip'), makeFile('photo.jpg'), 'Graveln')
+			).rejects.toMatchObject({
 				name: 'FileValidationError',
 				message: 'ZIP contains no .fit file',
 				userMessage: 'Could not extract ZIP file'
@@ -126,9 +130,9 @@ describe('generateCard', () => {
 				throw error;
 			});
 
-			await expect(generateCard(makeFile('run.zip'), makeFile('photo.jpg'), 'Graveln')).rejects.toThrow(
-				FileValidationError
-			);
+			await expect(
+				generateCard(makeFile('run.zip'), makeFile('photo.jpg'), 'Graveln')
+			).rejects.toThrow(FileValidationError);
 		});
 	});
 

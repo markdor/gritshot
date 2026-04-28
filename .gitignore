@@ -9,6 +9,9 @@ node_modules
 /.svelte-kit
 /build
 
+# Paraglide auto-generated i18n output
+/src/lib/paraglide
+
 # OS
 .DS_Store
 Thumbs.db

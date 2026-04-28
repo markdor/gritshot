@@ -3,6 +3,7 @@ import type { RequestEvent, ActionFailure } from '@sveltejs/kit';
 import { generateCard } from '$lib/server/card/generate';
 import { FileValidationError } from '$lib/server/FileValidationError';
 import { logger } from '$lib/server/logger.js';
+import { m } from '$lib/paraglide/messages';
 
 const MAX_UPLOAD_SIZE = 10 * 1024 * 1024;
 
@@ -14,29 +15,29 @@ function getFilesFromFormData(
 	const photoFile = formData.get('photoFile');
 
 	if (typeof title !== 'string') {
-		return fail(422, { error: 'Please enter an activity title' });
+		return fail(422, { error: m.error_title_required() });
 	}
 
 	const sanitizedTitle = title.replace(/[\x00-\x1F\x7F]/g, '').trim();
 
 	if (sanitizedTitle.length === 0) {
-		return fail(422, { error: 'Please enter an activity title' });
+		return fail(422, { error: m.error_title_required() });
 	}
 
 	if (sanitizedTitle.length > 28) {
-		return fail(422, { error: 'Activity title must not exceed 28 characters' });
+		return fail(422, { error: m.error_title_too_long() });
 	}
 
 	if (!(fitFile instanceof File) || fitFile.size === 0) {
-		return fail(422, { error: 'No FIT file uploaded' });
+		return fail(422, { error: m.error_no_fit() });
 	}
 
 	if (!(photoFile instanceof File) || photoFile.size === 0) {
-		return fail(422, { error: 'No photo uploaded' });
+		return fail(422, { error: m.error_no_photo() });
 	}
 
 	if (fitFile.size > MAX_UPLOAD_SIZE || photoFile.size > MAX_UPLOAD_SIZE) {
-		return fail(422, { error: 'Files must not exceed 10 MB' });
+		return fail(422, { error: m.error_file_too_large() });
 	}
 
 	return { title: sanitizedTitle, fitFile, photoFile };
@@ -65,7 +66,7 @@ export const actions = {
 			logger.error(
 				`Unexpected error during card generation: ${e instanceof Error ? e.message : String(e)}`
 			);
-			return fail(500, { error: 'Failed to generate card' });
+			return fail(500, { error: m.error_generate_failed() });
 		}
 	}
 };

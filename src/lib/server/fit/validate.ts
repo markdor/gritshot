@@ -1,4 +1,5 @@
 import { FileValidationError } from '$lib/server/FileValidationError';
+import { m } from '$lib/paraglide/messages';
 
 function isFit(buf: Buffer): boolean {
 	// FIT header: bytes 8–11 must be ".FIT"
@@ -11,7 +12,7 @@ export function validateFit(buf: Buffer): void {
 	if (!isFit(buf)) {
 		throw new FileValidationError(
 			'The FIT magic bytes are missing or invalid.',
-			'File is not a valid FIT file'
+			m.error_invalid_fit()
 		);
 	}
 }

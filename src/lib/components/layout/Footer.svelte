@@ -1,5 +1,6 @@
 <script lang="ts">
 	import logo from '$lib/assets/logo.800px.png';
+	import { m } from '$lib/paraglide/messages';
 
 	const version = __APP_VERSION__;
 </script>
@@ -10,7 +11,7 @@
 >
 	<div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4">
 		<div class="flex items-center gap-2">
-			<img src={logo} alt="GritShot" class="h-7 w-7 object-contain opacity-80" />
+			<img src={logo} alt={m.footer_logo_alt()} class="h-7 w-7 object-contain opacity-80" />
 			<span class="text-sm font-medium text-[#4a5e43]">GritShot</span>
 			<a
 				href="https://github.com/markdor/gritshot/releases/tag/v{version}"
@@ -19,12 +20,12 @@
 			>
 		</div>
 		<div class="flex items-center gap-4">
-			<p class="text-xs text-[#7a9478]">Built for outdoor athletes. Made with ❤️ for the trails.</p>
+			<p class="text-xs text-[#7a9478]">{m.footer_tagline()}</p>
 			<a
 				href="https://github.com/markdor/gritshot"
 				rel="noopener noreferrer"
 				class="text-[#7a9478] transition-colors hover:text-[#4e7352]"
-				aria-label="GitHub Repository"
+				aria-label={m.footer_github_aria()}
 			>
 				<svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
 					<path

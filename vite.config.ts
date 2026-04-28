@@ -2,6 +2,7 @@ import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'vitest/config';
 import { playwright } from '@vitest/browser-playwright';
 import { sveltekit } from '@sveltejs/kit/vite';
+import { paraglideVitePlugin } from '@inlang/paraglide-js';
 import { readFileSync, copyFileSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
 import type { Plugin } from 'vite';
@@ -26,7 +27,15 @@ const copyFontsPlugin: Plugin = {
 };
 
 export default defineConfig({
-	plugins: [tailwindcss(), sveltekit(), copyFontsPlugin],
+	plugins: [
+		tailwindcss(),
+		sveltekit(),
+		copyFontsPlugin,
+		paraglideVitePlugin({
+			project: './project.inlang',
+			outdir: './src/lib/paraglide'
+		})
+	],
 	define: {
 		__APP_VERSION__: JSON.stringify(version)
 	},

@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { m } from '$lib/paraglide/messages';
+
 	interface Props {
 		image: string | undefined;
 	}
@@ -34,7 +36,7 @@
 	<div
 		role="dialog"
 		aria-modal="true"
-		aria-label="Generated card preview"
+		aria-label={m.lightbox_dialog_label()}
 		tabindex="-1"
 		class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
 		onclick={close}
@@ -48,7 +50,7 @@
 		>
 			<button
 				onclick={close}
-				aria-label="Close"
+				aria-label={m.lightbox_close_label()}
 				class="absolute -top-10 right-0 flex h-8 w-8 items-center justify-center rounded-full text-white/70 transition-colors hover:text-white"
 			>
 				<svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -58,7 +60,7 @@
 
 			<img
 				src={`data:image/jpeg;base64,${image}`}
-				alt="Your GritShot card"
+				alt={m.lightbox_image_alt()}
 				class="max-h-[80vh] w-auto rounded-xl shadow-2xl"
 			/>
 
@@ -66,7 +68,7 @@
 				onclick={download}
 				class="mt-5 rounded-full bg-[#4e7352] px-7 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#3d5c42]"
 			>
-				Download Card
+				{m.lightbox_download()}
 			</button>
 		</div>
 	</div>

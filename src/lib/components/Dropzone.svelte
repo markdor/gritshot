@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
+	import { m } from '$lib/paraglide/messages';
 
 	interface Props {
 		name: string;
@@ -98,7 +99,7 @@
 				</div>
 				<span class="max-w-full truncate text-sm font-medium text-[#2a3d2c]">{file.name}</span>
 				<span class="text-xs text-[#9ab89e]">{formatFileSize(file.size)}</span>
-				<span class="text-xs text-[#4e7352]">Click to replace</span>
+				<span class="text-xs text-[#4e7352]">{m.dropzone_click_replace()}</span>
 			</div>
 		{:else}
 			<div class="flex flex-col items-center gap-3">
@@ -121,7 +122,7 @@
 				</div>
 				<div>
 					<p class="text-sm font-medium text-[#2a3d2c]">{label}</p>
-					<p class="mt-0.5 text-xs text-[#9ab89e]">or click to browse</p>
+					<p class="mt-0.5 text-xs text-[#9ab89e]">{m.dropzone_or_browse()}</p>
 				</div>
 				<p class="text-xs text-[#9ab89e]">{hint}</p>
 			</div>

@@ -4,15 +4,24 @@ import { parseFitData } from '$lib/server/fit/process';
 import { validateJpeg } from '$lib/server/jpg/validate';
 import { validateZip } from '../zip/validate';
 import { FileValidationError } from '$lib/server/FileValidationError';
+import { m } from '$lib/paraglide/messages';
 import sharp from 'sharp';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
 const fontDir = join(process.cwd(), 'static', 'fonts');
-const font400 = readFileSync(join(fontDir, 'barlow-condensed-latin-400-normal.woff2')).toString('base64');
-const font400italic = readFileSync(join(fontDir, 'barlow-condensed-latin-400-italic.woff2')).toString('base64');
-const font700 = readFileSync(join(fontDir, 'barlow-condensed-latin-700-normal.woff2')).toString('base64');
-const font700italic = readFileSync(join(fontDir, 'barlow-condensed-latin-700-italic.woff2')).toString('base64');
+const font400 = readFileSync(join(fontDir, 'barlow-condensed-latin-400-normal.woff2')).toString(
+	'base64'
+);
+const font400italic = readFileSync(
+	join(fontDir, 'barlow-condensed-latin-400-italic.woff2')
+).toString('base64');
+const font700 = readFileSync(join(fontDir, 'barlow-condensed-latin-700-normal.woff2')).toString(
+	'base64'
+);
+const font700italic = readFileSync(
+	join(fontDir, 'barlow-condensed-latin-700-italic.woff2')
+).toString('base64');
 
 async function readAndValidatePhoto(photoFile: File): Promise<Buffer> {
 	const buffer: Buffer = Buffer.from(await photoFile.arrayBuffer());
@@ -32,7 +41,7 @@ async function readAndValidateFit(fitFile: File): Promise<Buffer> {
 			buffer = extracted.content;
 		} catch (e) {
 			const msg = e instanceof Error ? e.message : 'Failed to process ZIP file';
-			throw new FileValidationError(msg, 'Could not extract ZIP file');
+			throw new FileValidationError(msg, m.error_zip_extract_failed());
 		}
 	}
 
@@ -139,13 +148,13 @@ export async function generateCard(fitFile: File, photoFile: File, title: string
       <!-- Labels -->
       <text x="${col1Center}" y="${labelY}" text-anchor="middle"
             font-family="Barlow Condensed" font-size="30" font-weight="400"
-            fill="white" letter-spacing="2">DISTANZ</text>
+            fill="white" letter-spacing="2">${escapeXml(m.card_label_distance())}</text>
       <text x="${col2Center}" y="${labelY}" text-anchor="middle"
             font-family="Barlow Condensed" font-size="30" font-weight="400"
-            fill="white" letter-spacing="2">HÖHENMETER</text>
+            fill="white" letter-spacing="2">${escapeXml(m.card_label_elevation())}</text>
       <text x="${col3Center}" y="${labelY}" text-anchor="middle"
             font-family="Barlow Condensed" font-size="30" font-weight="400"
-            fill="white" letter-spacing="2">ZEIT</text>
+            fill="white" letter-spacing="2">${escapeXml(m.card_label_duration())}</text>
 
       <!-- Values -->
       <text x="${col1Center}" y="${valueY}" text-anchor="middle"

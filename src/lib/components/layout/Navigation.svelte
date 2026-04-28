@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
+	import { m } from '$lib/paraglide/messages';
 </script>
 
 <nav class="border-b border-[#1e2e1f] bg-[#2a3d2c]">
@@ -14,7 +15,7 @@
 			href={resolve('/create')}
 			class="rounded-full bg-[#4e7352] px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-[#5a8560]"
 		>
-			Create Your Card
+			{m.nav_create_button()}
 		</a>
 	</div>
 </nav>

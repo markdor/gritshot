@@ -2,14 +2,12 @@
 	import exampleCard from '$lib/assets/gravel_4-5.jpg';
 	import { resolve } from '$app/paths';
 	import HeroLogo from '$lib/components/layout/HeroLogo.svelte';
+	import { m } from '$lib/paraglide/messages';
 </script>
 
 <svelte:head>
-	<title>GritShot — Turn Your Adventures Into Art</title>
-	<meta
-		name="description"
-		content="Transform your Garmin activities and trail photos into stunning shareable cards with embedded statistics."
-	/>
+	<title>{m.home_meta_title()}</title>
+	<meta name="description" content={m.home_meta_description()} />
 </svelte:head>
 
 <div
@@ -23,13 +21,12 @@
 
 		<div class="relative">
 			<h1 class="mb-5 text-4xl leading-tight font-bold sm:text-5xl">
-				Your adventure,<br />
-				<span class="text-[#4e7352]">beautifully captured.</span>
+				{m.home_hero_heading_line1()}<br />
+				<span class="text-[#4e7352]">{m.home_hero_heading_line2()}</span>
 			</h1>
 
 			<p class="mx-auto mb-10 max-w-xl text-lg leading-relaxed text-[#4a5e43]">
-				Upload your Garmin FIT file, add your trail photo, and create a stunning shareable card with
-				embedded stats — distance, elevation, time and more.
+				{m.home_hero_subtitle()}
 			</p>
 
 			<div class="flex flex-wrap items-center justify-center gap-3">
@@ -37,13 +34,13 @@
 					href={resolve('/create')}
 					class="rounded-full bg-[#4e7352] px-7 py-3 text-base font-semibold text-white shadow-sm transition-colors hover:bg-[#3d5c42]"
 				>
-					Create Your Card
+					{m.home_hero_create_button()}
 				</a>
 				<a
 					href="#how-it-works"
 					class="rounded-full border border-[#9ab89e] px-7 py-3 text-base font-medium text-[#4e7352] transition-colors hover:bg-[#4e7352]/8"
 				>
-					See How It Works
+					{m.home_hero_see_how()}
 				</a>
 			</div>
 
@@ -55,7 +52,7 @@
 					<div class="relative aspect-4/5 overflow-hidden rounded-xl">
 						<img
 							src={exampleCard}
-							alt="Example GritShot card — gravel ride"
+							alt={m.home_example_card_alt()}
 							class="h-full w-full object-cover"
 						/>
 
@@ -67,7 +64,7 @@
 						</div>
 					</div>
 					<p class="mt-3 text-center text-xs text-[#7a9478]">
-						Your photo + Garmin stats, ready to share
+						{m.home_example_caption()}
 					</p>
 				</div>
 			</div>
@@ -80,9 +77,9 @@
 			<div class="mb-12 text-center">
 				<span
 					class="mb-3 inline-block rounded-full bg-[#c4ddc7] px-4 py-1 text-xs font-medium tracking-widest text-[#3d5c42] uppercase"
-					>How It Works</span
+					>{m.home_how_it_works_pill()}</span
 				>
-				<h2 class="text-3xl font-bold">Three steps to a shareable card</h2>
+				<h2 class="text-3xl font-bold">{m.home_how_it_works_heading()}</h2>
 			</div>
 
 			<div class="grid gap-6 sm:grid-cols-3">
@@ -104,12 +101,11 @@
 						</svg>
 					</div>
 					<div class="mb-1 text-xs font-semibold tracking-widest text-[#9ab89e] uppercase">
-						Step 1
+						{m.home_step_1_label()}
 					</div>
-					<h3 class="mb-2 text-lg font-semibold">Upload Your FIT File</h3>
+					<h3 class="mb-2 text-lg font-semibold">{m.home_step_1_title()}</h3>
 					<p class="text-sm leading-relaxed text-[#5a7060]">
-						Export your activity from Garmin Connect and upload the FIT file. Distance, elevation,
-						pace, heart rate — all parsed automatically.
+						{m.home_step_1_text()}
 					</p>
 				</div>
 
@@ -136,12 +132,11 @@
 						</svg>
 					</div>
 					<div class="mb-1 text-xs font-semibold tracking-widest text-[#9ab89e] uppercase">
-						Step 2
+						{m.home_step_2_label()}
 					</div>
-					<h3 class="mb-2 text-lg font-semibold">Add Your Photos</h3>
+					<h3 class="mb-2 text-lg font-semibold">{m.home_step_2_title()}</h3>
 					<p class="text-sm leading-relaxed text-[#5a7060]">
-						Upload the best shot from your run, hike, or ride. GritShot overlays the stats right
-						onto your image.
+						{m.home_step_2_text()}
 					</p>
 				</div>
 
@@ -163,12 +158,11 @@
 						</svg>
 					</div>
 					<div class="mb-1 text-xs font-semibold tracking-widest text-[#9ab89e] uppercase">
-						Step 3
+						{m.home_step_3_label()}
 					</div>
-					<h3 class="mb-2 text-lg font-semibold">Share Your Achievement</h3>
+					<h3 class="mb-2 text-lg font-semibold">{m.home_step_3_title()}</h3>
 					<p class="text-sm leading-relaxed text-[#5a7060]">
-						Download your custom card and share it on WhatsApp, Instagram, or wherever you celebrate
-						your outdoor adventures.
+						{m.home_step_3_text()}
 					</p>
 				</div>
 			</div>
@@ -180,9 +174,9 @@
 		<div class="mb-12 text-center">
 			<span
 				class="mb-3 inline-block rounded-full bg-[#c4ddc7] px-4 py-1 text-xs font-medium tracking-widest text-[#3d5c42] uppercase"
-				>Features</span
+				>{m.home_features_pill()}</span
 			>
-			<h2 class="text-3xl font-bold">Everything your adventure deserves</h2>
+			<h2 class="text-3xl font-bold">{m.home_features_heading()}</h2>
 		</div>
 
 		<div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -197,10 +191,9 @@
 					</svg>
 				</div>
 				<div>
-					<h4 class="mb-1 font-semibold">Privacy First</h4>
+					<h4 class="mb-1 font-semibold">{m.home_feature_privacy_title()}</h4>
 					<p class="text-sm leading-relaxed text-[#5a7060]">
-						Your photos and FIT files are processed on the server but never stored — nothing is
-						saved, no tracking, no selling.
+						{m.home_feature_privacy_text()}
 					</p>
 				</div>
 			</div>
@@ -216,9 +209,9 @@
 					</svg>
 				</div>
 				<div>
-					<h4 class="mb-1 font-semibold">FIT File Support</h4>
+					<h4 class="mb-1 font-semibold">{m.home_feature_fit_title()}</h4>
 					<p class="text-sm leading-relaxed text-[#5a7060]">
-						Upload your Garmin FIT file directly — no account connection needed.
+						{m.home_feature_fit_text()}
 					</p>
 				</div>
 			</div>
@@ -234,9 +227,9 @@
 					</svg>
 				</div>
 				<div>
-					<h4 class="mb-1 font-semibold">Rich Activity Stats</h4>
+					<h4 class="mb-1 font-semibold">{m.home_feature_stats_title()}</h4>
 					<p class="text-sm leading-relaxed text-[#5a7060]">
-						Distance, elevation, pace, time, heart rate and more — pick what to show.
+						{m.home_feature_stats_text()}
 					</p>
 				</div>
 			</div>
@@ -252,9 +245,9 @@
 					</svg>
 				</div>
 				<div>
-					<h4 class="mb-1 font-semibold">Custom Photo Cards</h4>
+					<h4 class="mb-1 font-semibold">{m.home_feature_photo_title()}</h4>
 					<p class="text-sm leading-relaxed text-[#5a7060]">
-						Overlay your statistics onto your own trail photos for a personal touch.
+						{m.home_feature_photo_text()}
 					</p>
 				</div>
 			</div>
@@ -270,9 +263,9 @@
 					</svg>
 				</div>
 				<div>
-					<h4 class="mb-1 font-semibold">Social-Ready Format</h4>
+					<h4 class="mb-1 font-semibold">{m.home_feature_social_title()}</h4>
 					<p class="text-sm leading-relaxed text-[#5a7060]">
-						Export in formats optimized for Instagram, Strava, and other platforms.
+						{m.home_feature_social_text()}
 					</p>
 				</div>
 			</div>
@@ -288,9 +281,9 @@
 					</svg>
 				</div>
 				<div>
-					<h4 class="mb-1 font-semibold">Runs, Hikes & Rides</h4>
+					<h4 class="mb-1 font-semibold">{m.home_feature_activities_title()}</h4>
 					<p class="text-sm leading-relaxed text-[#5a7060]">
-						Works with all Garmin outdoor activity types — trail running, cycling, hiking.
+						{m.home_feature_activities_text()}
 					</p>
 				</div>
 			</div>
@@ -300,15 +293,15 @@
 	<!-- CTA Banner -->
 	<section class="bg-[#2a3d2c] py-16 text-center text-white">
 		<div class="mx-auto max-w-xl px-6">
-			<h2 class="mb-4 text-2xl font-bold">Ready to show off your next adventure?</h2>
+			<h2 class="mb-4 text-2xl font-bold">{m.home_cta_heading()}</h2>
 			<p class="mb-8 text-[#9ab89e]">
-				Upload your FIT file, add a photo, and create your first card in minutes.
+				{m.home_cta_subtitle()}
 			</p>
 			<a
 				href={resolve('/create')}
 				class="rounded-full bg-[#c4894f] px-8 py-3 font-semibold text-white transition-colors hover:bg-[#b37840]"
 			>
-				Create Your Card
+				{m.home_cta_button()}
 			</a>
 		</div>
 	</section>

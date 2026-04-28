@@ -42,7 +42,10 @@ describe('create action', () => {
 		const request = new Request('http://localhost/create', { method: 'POST', body: formData });
 		const result = await actions.default({ request } as unknown as ActionEvent);
 
-		expect(result).toMatchObject({ status: 422, data: { error: 'Please enter an activity title' } });
+		expect(result).toMatchObject({
+			status: 422,
+			data: { error: 'Please enter an activity title' }
+		});
 	});
 
 	it('returns error when title exceeds 28 characters', async () => {
@@ -53,7 +56,10 @@ describe('create action', () => {
 		const request = new Request('http://localhost/create', { method: 'POST', body: formData });
 		const result = await actions.default({ request } as unknown as ActionEvent);
 
-		expect(result).toMatchObject({ status: 422, data: { error: 'Activity title must not exceed 28 characters' } });
+		expect(result).toMatchObject({
+			status: 422,
+			data: { error: 'Activity title must not exceed 28 characters' }
+		});
 	});
 
 	it('returns error when FIT file is missing', async () => {

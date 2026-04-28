@@ -1,5 +1,6 @@
 <script lang="ts">
 	import logo from '$lib/assets/logo.800px.png';
+	import { m } from '$lib/paraglide/messages';
 </script>
 
 <div class="pointer-events-none absolute right-0 left-0 -mt-4 flex justify-center opacity-[0.05]">
@@ -13,4 +14,8 @@
 	</svg>
 </div>
 
-<img src={logo} alt="GritShot" class="mx-auto mb-8 h-56 w-56 object-contain drop-shadow-md" />
+<img
+	src={logo}
+	alt={m.footer_logo_alt()}
+	class="mx-auto mb-8 h-56 w-56 object-contain drop-shadow-md"
+/>

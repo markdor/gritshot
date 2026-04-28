@@ -1,5 +1,6 @@
 import yauzl from 'yauzl';
 import { FileValidationError } from '$lib/server/FileValidationError';
+import { m } from '$lib/paraglide/messages';
 
 const MB = 1024 * 1024;
 const MAX_ENTRIES = 1;
@@ -32,7 +33,7 @@ export function validateZip(buf: Buffer): Promise<null> {
 	if (!isZip(buf)) {
 		throw new FileValidationError(
 			'The ZIP magic bytes are missing or invalid.',
-			'File is not a valid ZIP file'
+			m.error_invalid_zip()
 		);
 	}
 
@@ -44,7 +45,7 @@ function validateZipContents(buf: Buffer): Promise<null> {
 		yauzl.fromBuffer(buf, { lazyEntries: true, strictFileNames: true }, (err, zipfile) => {
 			if (err) {
 				return reject(
-					new FileValidationError('Invalid or corrupted ZIP file', 'File is not a valid ZIP file')
+					new FileValidationError('Invalid or corrupted ZIP file', m.error_invalid_zip())
 				);
 			}
 
@@ -61,7 +62,7 @@ function validateZipContents(buf: Buffer): Promise<null> {
 					return reject(
 						new FileValidationError(
 							`ZIP contains too many entries (max ${MAX_ENTRIES})`,
-							'File is not a valid ZIP file'
+							m.error_invalid_zip()
 						)
 					);
 				}
@@ -72,10 +73,7 @@ function validateZipContents(buf: Buffer): Promise<null> {
 				if (entry.generalPurposeBitFlag & 0x1) {
 					zipfile.close();
 					return reject(
-						new FileValidationError(
-							'ZIP contains encrypted entries',
-							'File is not a valid ZIP file'
-						)
+						new FileValidationError('ZIP contains encrypted entries', m.error_invalid_zip())
 					);
 				}
 
@@ -83,10 +81,7 @@ function validateZipContents(buf: Buffer): Promise<null> {
 				if (name.includes('\0')) {
 					zipfile.close();
 					return reject(
-						new FileValidationError(
-							'ZIP entry contains invalid filename',
-							'File is not a valid ZIP file'
-						)
+						new FileValidationError('ZIP entry contains invalid filename', m.error_invalid_zip())
 					);
 				}
 
@@ -100,10 +95,7 @@ function validateZipContents(buf: Buffer): Promise<null> {
 				) {
 					zipfile.close();
 					return reject(
-						new FileValidationError(
-							'ZIP entry contains path traversal',
-							'File is not a valid ZIP file'
-						)
+						new FileValidationError('ZIP entry contains path traversal', m.error_invalid_zip())
 					);
 				}
 
@@ -111,10 +103,7 @@ function validateZipContents(buf: Buffer): Promise<null> {
 				if (name.endsWith('/')) {
 					zipfile.close();
 					return reject(
-						new FileValidationError(
-							'ZIP contains directory entries',
-							'File is not a valid ZIP file'
-						)
+						new FileValidationError('ZIP contains directory entries', m.error_invalid_zip())
 					);
 				}
 
@@ -126,7 +115,7 @@ function validateZipContents(buf: Buffer): Promise<null> {
 					return reject(
 						new FileValidationError(
 							`ZIP contains disallowed file type: "${ext || '(no extension)'}"`,
-							'File is not a valid ZIP file'
+							m.error_invalid_zip()
 						)
 					);
 				}
@@ -139,7 +128,7 @@ function validateZipContents(buf: Buffer): Promise<null> {
 					return reject(
 						new FileValidationError(
 							`ZIP uncompressed content exceeds ${MAX_TOTAL_UNCOMPRESSED_MB} MB`,
-							'File is not a valid ZIP file'
+							m.error_invalid_zip()
 						)
 					);
 				}
@@ -153,7 +142,7 @@ function validateZipContents(buf: Buffer): Promise<null> {
 					return reject(
 						new FileValidationError(
 							'ZIP entry has suspicious compression ratio',
-							'File is not a valid ZIP file'
+							m.error_invalid_zip()
 						)
 					);
 				}
@@ -164,7 +153,7 @@ function validateZipContents(buf: Buffer): Promise<null> {
 			zipfile.on('end', () => resolve(null));
 
 			zipfile.on('error', () => {
-				reject(new FileValidationError('Error reading ZIP file', 'File is not a valid ZIP file'));
+				reject(new FileValidationError('Error reading ZIP file', m.error_invalid_zip()));
 			});
 		});
 	});
