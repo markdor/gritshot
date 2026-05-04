@@ -46,7 +46,7 @@ describe('Create page', () => {
 		await userEvent.type(titleInput, 'Graveln');
 		await userEvent.upload(fitInput, new File([''], 'activity.fit'));
 		await userEvent.upload(photoInput, new File([''], 'photo.jpg', { type: 'image/jpeg' }));
-		const button = page.getByRole('button', { name: 'Generate Card' });
+		const button = page.getByRole('button', { name: 'Generate GritShot' });
 		await expect.element(button).toBeVisible();
 		await expect.element(button).toBeEnabled();
 	});
@@ -69,7 +69,7 @@ describe('Create page', () => {
 
 	test('renders main heading and description', async () => {
 		render(Page, { form: null });
-		await expect.element(page.getByRole('heading', { name: 'Create Your Card' })).toBeVisible();
+		await expect.element(page.getByRole('heading', { name: 'Create Your GritShot' })).toBeVisible();
 		await expect
 			.element(page.getByText('Upload your Garmin FIT file and a trail photo'))
 			.toBeVisible();

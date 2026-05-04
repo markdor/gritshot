@@ -135,6 +135,6 @@ describe('create action', () => {
 
 		const result = await actions.default(makeEvent(fitFile, photoFile));
 
-		expect(result).toMatchObject({ status: 500, data: { error: 'Failed to generate card' } });
+		expect(result).toMatchObject({ status: 500, data: { error: 'Failed to generate GritShot' } });
 	});
 });

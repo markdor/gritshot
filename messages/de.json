@@ -1,0 +1,101 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+
+	"nav_create_button": "GritShot erstellen",
+	"nav_language_label": "Sprache",
+	"nav_language_en": "EN",
+	"nav_language_de": "DE",
+
+	"footer_tagline": "Gemacht für Outdoor-Sportler. Mit ❤️ für die Trails.",
+	"footer_github_aria": "GitHub-Repository",
+	"footer_logo_alt": "GritShot",
+
+	"home_meta_title": "GritShot — Mach dein Abenteuer zum Kunstwerk",
+	"home_meta_description": "Aus deinen Garmin-Aktivitäten und Trail-Fotos werden eindrucksvolle GritShots mit allen Statistiken — fertig zum Teilen.",
+	"home_hero_heading_line1": "Dein Abenteuer,",
+	"home_hero_heading_line2": "stilvoll festgehalten.",
+	"home_hero_subtitle": "Lade deine Garmin-FIT-Datei hoch, füge dein Trail-Foto hinzu und erstelle einen eindrucksvollen GritShot mit allen Statistiken — Distanz, Höhenmeter, Zeit und mehr.",
+	"home_hero_create_button": "GritShot erstellen",
+	"home_hero_see_how": "So funktioniert's",
+	"home_example_card_alt": "Beispiel-GritShot — Gravel-Tour",
+	"home_example_caption": "Dein Foto + Garmin-Statistiken, fertig zum Teilen",
+
+	"home_how_it_works_pill": "So geht's",
+	"home_how_it_works_heading": "In drei Schritten zum fertigen GritShot",
+	"home_step_1_label": "Schritt 1",
+	"home_step_1_title": "FIT-Datei hochladen",
+	"home_step_1_text": "Exportiere deine Aktivität aus Garmin Connect und lade die FIT-Datei hoch. Distanz, Höhenmeter, Pace, Herzfrequenz — alles wird automatisch ausgelesen.",
+	"home_step_2_label": "Schritt 2",
+	"home_step_2_title": "Foto hinzufügen",
+	"home_step_2_text": "Lade dein bestes Foto vom Lauf, der Wanderung oder der Tour hoch. GritShot blendet die Statistiken direkt auf dein Bild ein.",
+	"home_step_3_label": "Schritt 3",
+	"home_step_3_title": "Erfolg teilen",
+	"home_step_3_text": "Lade deinen fertigen GritShot herunter und teile ihn auf WhatsApp, Instagram oder wo immer du deine Outdoor-Abenteuer feierst.",
+
+	"home_features_pill": "Funktionen",
+	"home_features_heading": "Alles, was dein Abenteuer verdient",
+	"home_feature_privacy_title": "Datenschutz an erster Stelle",
+	"home_feature_privacy_text": "Deine Fotos und FIT-Dateien werden auf dem Server verarbeitet, aber niemals gespeichert. Kein Tracking, kein Weiterverkauf.",
+	"home_feature_fit_title": "Direkter FIT-Upload",
+	"home_feature_fit_text": "Lade deine Garmin-FIT-Datei direkt hoch — kein Account nötig.",
+	"home_feature_stats_title": "Alle wichtigen Statistiken",
+	"home_feature_stats_text": "Distanz, Höhenmeter, Pace, Zeit, Herzfrequenz und mehr — wähle, was angezeigt wird.",
+	"home_feature_photo_title": "Eigene GritShots",
+	"home_feature_photo_text": "Blende deine Statistiken auf deinen Trail-Fotos ein — für die persönliche Note.",
+	"home_feature_social_title": "Social-Media-tauglich",
+	"home_feature_social_text": "Optimiert für Instagram, Strava und andere Plattformen.",
+	"home_feature_activities_title": "Laufen, Wandern & Radfahren",
+	"home_feature_activities_text": "Funktioniert mit allen Garmin-Outdoor-Aktivitäten — Trailrunning, Radfahren, Wandern.",
+
+	"home_cta_heading": "Bereit, dein nächstes Abenteuer zu zeigen?",
+	"home_cta_subtitle": "Lade deine FIT-Datei hoch, füge ein Foto hinzu — und in wenigen Minuten ist dein erster GritShot fertig.",
+	"home_cta_button": "GritShot erstellen",
+
+	"create_meta_title": "GritShot erstellen",
+	"create_heading": "GritShot erstellen",
+	"create_subtitle": "Lade deine Garmin-FIT-Datei und ein Trail-Foto hoch, um deinen GritShot zu erstellen.",
+
+	"create_step_1_label": "Schritt 1",
+	"create_step_1_title": "Aktivitätstitel",
+	"create_title_placeholder": "z. B. Graveln im Allgäu",
+
+	"create_step_2_label": "Schritt 2",
+	"create_fit_title": "Garmin-FIT-Datei",
+	"create_fit_label": "FIT-Datei hier ablegen",
+	"create_fit_hint": ".fit oder .zip",
+
+	"create_step_3_label": "Schritt 3",
+	"create_photo_title": "Trail-Foto",
+	"create_photo_label": "Foto hier ablegen",
+	"create_photo_hint": ".jpg",
+
+	"create_button_enter_title": "Aktivitätstitel eingeben, um fortzufahren",
+	"create_button_upload_both": "Beide Dateien hochladen, um fortzufahren",
+	"create_button_upload_fit": "FIT-Datei hochladen, um fortzufahren",
+	"create_button_upload_photo": "Foto hochladen, um fortzufahren",
+	"create_button_generate": "GritShot generieren",
+
+	"dropzone_or_browse": "oder zum Auswählen klicken",
+	"dropzone_click_replace": "Zum Ersetzen klicken",
+
+	"lightbox_dialog_label": "Vorschau deines GritShots",
+	"lightbox_close_label": "Schließen",
+	"lightbox_image_alt": "Dein GritShot",
+	"lightbox_download": "GritShot herunterladen",
+
+	"error_title_required": "Bitte gib einen Aktivitätstitel ein",
+	"error_title_too_long": "Aktivitätstitel darf maximal 28 Zeichen haben",
+	"error_no_fit": "Keine FIT-Datei hochgeladen",
+	"error_no_photo": "Kein Foto hochgeladen",
+	"error_file_too_large": "Dateien dürfen 10 MB nicht überschreiten",
+	"error_generate_failed": "GritShot konnte nicht erstellt werden",
+
+	"error_invalid_fit": "Datei ist keine gültige FIT-Datei",
+	"error_invalid_jpg": "Datei ist keine gültige JPG-Datei",
+	"error_invalid_zip": "Datei ist keine gültige ZIP-Datei",
+	"error_zip_extract_failed": "ZIP-Datei konnte nicht entpackt werden",
+
+	"card_label_distance": "DISTANZ",
+	"card_label_elevation": "ANSTIEG GESAMT",
+	"card_label_duration": "ZEIT"
+}

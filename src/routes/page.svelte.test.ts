@@ -9,15 +9,15 @@ vi.mock('$app/paths', () => ({
 import Page from './+page.svelte';
 
 describe('Homepage', () => {
-	test('"Create Your Card" hero link points to /create', async () => {
+	test('"Create Your GritShot" hero link points to /create', async () => {
 		render(Page);
-		const links = page.getByRole('link', { name: 'Create Your Card' });
+		const links = page.getByRole('link', { name: 'Create Your GritShot' });
 		await expect.element(links.first()).toHaveAttribute('href', '/create');
 	});
 
-	test('"Create Your Card" CTA link points to /create', async () => {
+	test('"Create Your GritShot" CTA link points to /create', async () => {
 		render(Page);
-		const links = page.getByRole('link', { name: 'Create Your Card' });
+		const links = page.getByRole('link', { name: 'Create Your GritShot' });
 		await expect.element(links.last()).toHaveAttribute('href', '/create');
 	});
 });

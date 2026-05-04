@@ -49,7 +49,7 @@ describe('generateCard', () => {
 			toBuffer: vi.fn().mockResolvedValue(Buffer.from('fake-image'))
 		};
 
-		vi.mocked(sharp).mockReturnValue(sharpInstance as any);
+		vi.mocked(sharp).mockReturnValue(sharpInstance as unknown as ReturnType<typeof sharp>);
 		vi.mocked(validateJpeg).mockReturnValue(null);
 		vi.mocked(validateFit).mockReturnValue(undefined);
 		vi.mocked(validateZip).mockResolvedValue(null);

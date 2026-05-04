@@ -7,7 +7,11 @@ describe('Navigation.svelte', () => {
 	it('renders the correct brand name', async () => {
 		render(Navigation);
 
-		await expect.element(page.getByText('GritShot')).toBeInTheDocument();
-		await expect.element(page.getByText('Create Your Card')).toBeInTheDocument();
+		await expect
+			.element(page.getByRole('link', { name: 'GritShot', exact: true }))
+			.toBeInTheDocument();
+		await expect
+			.element(page.getByRole('link', { name: 'Create Your GritShot' }))
+			.toBeInTheDocument();
 	});
 });

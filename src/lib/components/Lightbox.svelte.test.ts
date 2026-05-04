@@ -15,7 +15,7 @@ describe('Lightbox', () => {
 	test('opens when image is provided', async () => {
 		render(Lightbox, { image: FAKE_IMAGE });
 		await expect.element(page.getByRole('dialog')).toBeVisible();
-		await expect.element(page.getByAltText('Your GritShot card')).toBeVisible();
+		await expect.element(page.getByAltText('Your GritShot')).toBeVisible();
 	});
 
 	test('closes when X button is clicked', async () => {
@@ -44,7 +44,7 @@ describe('Lightbox', () => {
 
 		const clickSpy = vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {});
 
-		await userEvent.click(page.getByRole('button', { name: 'Download Card' }));
+		await userEvent.click(page.getByRole('button', { name: 'Download GritShot' }));
 
 		expect(clickSpy).toHaveBeenCalledOnce();
 		const anchor = clickSpy.mock.instances[0] as HTMLAnchorElement;

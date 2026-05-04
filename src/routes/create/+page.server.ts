@@ -18,7 +18,7 @@ function getFilesFromFormData(
 		return fail(422, { error: m.error_title_required() });
 	}
 
-	const sanitizedTitle = title.replace(/[\x00-\x1F\x7F]/g, '').trim();
+	const sanitizedTitle = title.replace(/\p{Cc}/gu, '').trim();
 
 	if (sanitizedTitle.length === 0) {
 		return fail(422, { error: m.error_title_required() });
