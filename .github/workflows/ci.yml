@@ -56,7 +56,7 @@ jobs:
       - uses: actions/create-github-app-token@v3
         id: app-token
         with:
-          app-id: ${{ vars.CICD_APP_ID }}
+          client-id: ${{ vars.CICD_CLIENT_ID }}
           private-key: ${{ secrets.CICD_PRIVATE_KEY }}
 
       - uses: actions/checkout@v6
