@@ -1,5 +1,5 @@
 <script lang="ts">
-	import exampleCard from '$lib/assets/gravel_4-5.jpg';
+	import exampleCard from '$lib/assets/GritShot.jpg';
 	import { resolve } from '$app/paths';
 	import HeroLogo from '$lib/components/layout/HeroLogo.svelte';
 	import { m } from '$lib/paraglide/messages';
@@ -49,19 +49,12 @@
 				<div
 					class="w-full max-w-sm rounded-2xl border border-[#c8d9ca] bg-white/70 p-5 shadow-lg backdrop-blur-sm"
 				>
-					<div class="relative aspect-4/5 overflow-hidden rounded-xl">
+					<div class="relative aspect-3/4 overflow-hidden rounded-xl">
 						<img
 							src={exampleCard}
 							alt={m.home_example_card_alt()}
 							class="h-full w-full object-cover"
 						/>
-
-						<!-- GritShot watermark -->
-						<div
-							class="absolute top-3 right-3 rounded-full bg-black/30 px-2.5 py-1 text-[10px] font-semibold tracking-widest text-white/80 backdrop-blur-sm"
-						>
-							GritShot
-						</div>
 					</div>
 					<p class="mt-3 text-center text-xs text-[#7a9478]">
 						{m.home_example_caption()}
