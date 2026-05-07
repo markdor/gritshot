@@ -40,7 +40,10 @@ describe('Lightbox', () => {
 	});
 
 	test('download button triggers download with correct filename and data', async () => {
-		render(Lightbox, { image: FAKE_IMAGE });
+		vi.useFakeTimers();
+		vi.setSystemTime(new Date(2026, 4, 7));
+
+		render(Lightbox, { image: FAKE_IMAGE, title: 'Morning Run' });
 
 		const clickSpy = vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {});
 
@@ -48,9 +51,27 @@ describe('Lightbox', () => {
 
 		expect(clickSpy).toHaveBeenCalledOnce();
 		const anchor = clickSpy.mock.instances[0] as HTMLAnchorElement;
-		expect(anchor.download).toBe('gritshot.jpg');
+		expect(anchor.download).toBe('GritShot-20260507-Morning Run.jpg');
 		expect(anchor.href).toBe(`data:image/jpeg;base64,${FAKE_IMAGE}`);
 
 		clickSpy.mockRestore();
+		vi.useRealTimers();
+	});
+
+	test('download filename strips filesystem-unsafe characters from title', async () => {
+		vi.useFakeTimers();
+		vi.setSystemTime(new Date(2026, 0, 3));
+
+		render(Lightbox, { image: FAKE_IMAGE, title: 'Trail/Run: 5k?' });
+
+		const clickSpy = vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {});
+
+		await userEvent.click(page.getByRole('button', { name: 'Download GritShot' }));
+
+		const anchor = clickSpy.mock.instances[0] as HTMLAnchorElement;
+		expect(anchor.download).toBe('GritShot-20260103-TrailRun 5k.jpg');
+
+		clickSpy.mockRestore();
+		vi.useRealTimers();
 	});
 });

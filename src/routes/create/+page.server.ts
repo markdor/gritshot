@@ -56,7 +56,7 @@ export const actions = {
 
 		try {
 			const imageBuffer = await generateCard(fitFile, photoFile, title);
-			return { image: imageBuffer.toString('base64') };
+			return { image: imageBuffer.toString('base64'), title };
 		} catch (e: unknown) {
 			if (e instanceof FileValidationError) {
 				logger.error(`File validation error: ${e.message}`);

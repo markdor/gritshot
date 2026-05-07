@@ -3,9 +3,10 @@
 
 	interface Props {
 		image: string | undefined;
+		title?: string;
 	}
 
-	let { image }: Props = $props();
+	let { image, title = '' }: Props = $props();
 
 	let open = $state(false);
 
@@ -23,9 +24,15 @@
 
 	function download() {
 		if (!image) return;
+		const now = new Date();
+		const date =
+			`${now.getFullYear()}` +
+			`${String(now.getMonth() + 1).padStart(2, '0')}` +
+			`${String(now.getDate()).padStart(2, '0')}`;
+		const safeTitle = title.replace(/[\\/:*?"<>|\p{Cc}]/gu, '').trim();
 		const a = document.createElement('a');
 		a.href = `data:image/jpeg;base64,${image}`;
-		a.download = 'gritshot.jpg';
+		a.download = `GritShot-${date}-${safeTitle}.jpg`;
 		a.click();
 	}
 </script>

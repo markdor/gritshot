@@ -31,7 +31,8 @@ describe('create action', () => {
 		const result = await actions.default(makeEvent(fitFile, photoFile));
 
 		expect(result).toMatchObject({
-			image: expect.stringMatching(/^\/9j\//)
+			image: expect.stringMatching(/^\/9j\//),
+			title: 'Graveln'
 		});
 	});
 

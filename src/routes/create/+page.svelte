@@ -223,4 +223,4 @@
 	</div>
 {/if}
 
-<Lightbox image={form?.image} />
+<Lightbox image={form?.image} title={form?.title ?? ''} />
