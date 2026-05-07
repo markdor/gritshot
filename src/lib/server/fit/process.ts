@@ -26,7 +26,7 @@ export async function parseFitData(buffer: Buffer): Promise<FitData> {
 	return {
 		distance: session.total_distance ?? 0,
 		durationAction: session.total_timer_time ?? 0,
-		durationTotal: session.total_elapsed_time ?? 0,
+		durationTotal: session.total_timer_time ?? 0,
 		elevation: session.total_ascent ?? 0
 	};
 }
