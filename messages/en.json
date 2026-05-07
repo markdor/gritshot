@@ -74,6 +74,7 @@
 	"create_button_upload_fit": "Upload your FIT file to continue",
 	"create_button_upload_photo": "Upload your photo to continue",
 	"create_button_generate": "Generate GritShot",
+	"create_generating": "Generating your GritShot…",
 
 	"dropzone_or_browse": "or click to browse",
 	"dropzone_click_replace": "Click to replace",
