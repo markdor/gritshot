@@ -25,6 +25,8 @@ RUN npm ci --omit=dev && npm cache clean --force
 
 ENV NODE_ENV=production
 ENV PORT=3000
+# 2x MAX_UPLOAD_SIZE (10 MB each) plus multipart overhead
+ENV BODY_SIZE_LIMIT=21000000
 
 EXPOSE 3000
 
