@@ -1,5 +1,11 @@
 {
 	"files.associations": {
 		"*.css": "tailwindcss"
-	}
+	},
+	"json.schemas": [
+		{
+			"fileMatch": ["messages/*.json"],
+			"url": "https://inlang.com/schema/inlang-message-format"
+		}
+	]
 }
