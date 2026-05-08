@@ -41,9 +41,14 @@
 			enctype="multipart/form-data"
 			use:enhance={() => {
 				generating = true;
-				return async ({ update }) => {
+				return async ({ update, result }) => {
 					await update();
 					generating = false;
+					if (result.type === 'success') {
+						title = '';
+						fitFile = null;
+						photoFile = null;
+					}
 				};
 			}}
 		>

@@ -29,6 +29,12 @@
 	let dragOver = $state(false);
 	let inputEl: HTMLInputElement;
 
+	$effect(() => {
+		if (file === null && inputEl) {
+			inputEl.value = '';
+		}
+	});
+
 	function handleDrop(e: DragEvent) {
 		e.preventDefault();
 		dragOver = false;
