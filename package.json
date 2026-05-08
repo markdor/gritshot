@@ -27,7 +27,9 @@
 		"test:fixtures": "node --strip-types tests/fixtures/generate-zip-fixtures.ts",
 		"parse-fit-fixtures": "node --strip-types tests/fixtures/parse-fit-fixtures.ts",
 		"test": "npm run test:fixtures && npm run test:unit -- --run && npm run test:e2e",
-		"test:e2e": "playwright test"
+		"test:e2e": "playwright test",
+		"docker:build": "docker build -t gritshot .",
+		"docker:dev": "docker compose up --build"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^2.0.5",
