@@ -60,6 +60,21 @@ const col1Center = divX1 / 2;
 const col2Center = (divX1 + divX2) / 2;
 const col3Center = (divX2 + cardWidth) / 2;
 
+const badgeWidth = 60;
+const badgeHeight = 260;
+const badgeRadius = 18;
+const badgeX = cardWidth - badgeWidth;
+const badgeY = Math.round((cardHeight / 3 - badgeHeight) / 2);
+const badgePath =
+	`M${cardWidth} ${badgeY} ` +
+	`L${badgeX + badgeRadius} ${badgeY} ` +
+	`A${badgeRadius} ${badgeRadius} 0 0 0 ${badgeX} ${badgeY + badgeRadius} ` +
+	`L${badgeX} ${badgeY + badgeHeight - badgeRadius} ` +
+	`A${badgeRadius} ${badgeRadius} 0 0 0 ${badgeX + badgeRadius} ${badgeY + badgeHeight} ` +
+	`L${cardWidth} ${badgeY + badgeHeight} Z`;
+const badgeCenterX = badgeX + badgeWidth / 2;
+const badgeCenterY = badgeY + badgeHeight / 2;
+
 function escapeXml(str: string): string {
 	return str
 		.replace(/&/g, '&amp;')
@@ -133,6 +148,14 @@ export async function generateCard(fitFile: File, photoFile: File, title: string
 
       <rect x="0" y="${barY}" width="${cardWidth}" height="${barHeight}"
             fill="#444444" fill-opacity="0.45" />
+
+      <!-- GritShot badge -->
+      <path d="${badgePath}" fill="black" fill-opacity="0.25" />
+      <text x="${badgeCenterX}" y="${badgeCenterY}" text-anchor="middle"
+            dominant-baseline="central"
+            transform="rotate(-90 ${badgeCenterX} ${badgeCenterY})"
+            font-family="Barlow Condensed" font-size="38"
+            font-weight="400" fill="white" letter-spacing="2">GritShot</text>
 
       <!-- Title -->
       <text x="50" y="${titleY}"
