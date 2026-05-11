@@ -32,7 +32,7 @@
 		"docker:dev": "docker compose up --build"
 	},
 	"devDependencies": {
-		"@eslint/compat": "^2.0.5",
+		"@eslint/compat": "^2.1.0",
 		"@eslint/js": "^10.0.1",
 		"@inlang/paraglide-js": "^2.18.0",
 		"@playwright/test": "^1.59.1",
