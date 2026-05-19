@@ -29,7 +29,8 @@
 		"test": "npm run test:fixtures && npm run test:unit -- --run && npm run test:e2e",
 		"test:e2e": "playwright test",
 		"docker:build": "docker build -t gritshot .",
-		"docker:dev": "docker compose up --build"
+		"docker:dev": "docker compose up --build",
+		"docker:test": "playwright test --config=playwright.docker.config.ts"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^2.1.0",

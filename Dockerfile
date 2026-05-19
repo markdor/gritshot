@@ -44,4 +44,8 @@ ENV BODY_SIZE_LIMIT=21000000
 
 EXPOSE 3000
 
+# @sveltejs/adapter-node reads the public origin from $ORIGIN. We expose it
+# externally as $BASE_URL so it can do double duty later (OAuth callbacks,
+# email links) under one name, and map it back to $ORIGIN here.
+ENTRYPOINT ["/bin/sh", "-c", "if [ -n \"$BASE_URL\" ]; then export ORIGIN=\"$BASE_URL\"; fi; exec \"$@\"", "--"]
 CMD ["node", "build/index.js"]
