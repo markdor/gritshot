@@ -57,10 +57,7 @@ test.describe('Magic-link sign-in flow', () => {
 		'no host-side access to the magic-link DB — running against a remote server or container'
 	);
 
-	test('admin signs in via magic link, visits /admin, then logs out', async ({
-		page,
-		baseURL
-	}) => {
+	test('admin signs in via magic link, visits /admin, then logs out', async ({ page, baseURL }) => {
 		expect(baseURL).toBeTruthy();
 
 		await page.goto('/');
@@ -72,9 +69,7 @@ test.describe('Magic-link sign-in flow', () => {
 		await page.getByLabel('Email address').fill(ADMIN_EMAIL);
 		await page.getByRole('button', { name: 'Send sign-in link' }).click();
 
-		await expect(page.getByRole('status')).toContainText(
-			/sign-in link has been sent/i
-		);
+		await expect(page.getByRole('status')).toContainText(/sign-in link has been sent/i);
 
 		// Token lands in the DB asynchronously (fire-and-forget). Poll briefly.
 		let token: string | null = null;
@@ -111,17 +106,13 @@ test.describe('Magic-link sign-in flow', () => {
 		await expect(page.getByRole('link', { name: 'Login' })).toBeVisible();
 	});
 
-	test('non-whitelisted email gets the same response and no token is created', async ({
-		page
-	}) => {
+	test('non-whitelisted email gets the same response and no token is created', async ({ page }) => {
 		const stranger = 'stranger-not-in-db@e2e.test';
 
 		await page.goto('/login');
 		await page.getByLabel('Email address').fill(stranger);
 		await page.getByRole('button', { name: 'Send sign-in link' }).click();
-		await expect(page.getByRole('status')).toContainText(
-			/sign-in link has been sent/i
-		);
+		await expect(page.getByRole('status')).toContainText(/sign-in link has been sent/i);
 
 		// Wait briefly to give a hypothetical async insert time to land, then
 		// confirm nothing showed up.
@@ -129,7 +120,6 @@ test.describe('Magic-link sign-in flow', () => {
 		const token = readLatestTokenFor(stranger);
 		expect(token, 'no token should be created for a non-whitelisted email').toBeNull();
 	});
-
 });
 
 // Lives outside the describe above because it doesn't need DB access — it

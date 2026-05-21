@@ -59,6 +59,17 @@ export const rateLimit = sqliteTable('rate_limit', {
 	lastRequest: integer('last_request')
 });
 
+export const garminConnection = sqliteTable('garmin_connection', {
+	userId: text('user_id')
+		.primaryKey()
+		.references(() => user.id, { onDelete: 'cascade' }),
+	oauth1Token: text('oauth1_token').notNull(),
+	oauth2Token: text('oauth2_token').notNull(),
+	connectedAt: integer('connected_at', { mode: 'timestamp' }).notNull(),
+	lastRefreshedAt: integer('last_refreshed_at', { mode: 'timestamp' }).notNull()
+});
+
 export type User = typeof user.$inferSelect;
 export type NewUser = typeof user.$inferInsert;
 export type Session = typeof session.$inferSelect;
+export type GarminConnection = typeof garminConnection.$inferSelect;

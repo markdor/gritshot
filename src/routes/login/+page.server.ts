@@ -13,13 +13,7 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 // overwrites our errorCallbackURL on a failed verification (INVALID_TOKEN /
 // EXPIRED_TOKEN). All of them render the same generic message — keeping them
 // indistinguishable avoids leaking why verification failed.
-const KNOWN_ERRORS = new Set([
-	'expired',
-	'invalid',
-	'used',
-	'INVALID_TOKEN',
-	'EXPIRED_TOKEN'
-]);
+const KNOWN_ERRORS = new Set(['expired', 'invalid', 'used', 'INVALID_TOKEN', 'EXPIRED_TOKEN']);
 
 export const load: ServerLoad = ({ locals, url }) => {
 	if (locals.user) throw redirect(303, '/');

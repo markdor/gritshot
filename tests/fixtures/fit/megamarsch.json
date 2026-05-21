@@ -432756,45 +432756,12 @@
 	"time_in_zone": [
 		{
 			"timestamp": "2025-11-08T08:14:33.000Z",
-			"time_in_hr_zone": [
-				0,
-				3287.019,
-				26962.344,
-				2840.792,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 3287.019, 26962.344, 2840.792, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null],
 			"reference_mesg": 18,
 			"reference_index": 0,
-			"hr_zone_high_boundary": [
-				95,
-				114,
-				133,
-				154,
-				174,
-				193
-			],
+			"hr_zone_high_boundary": [95, 114, 133, 154, 174, 193],
 			"max_heart_rate_deprecated": 1,
 			"max_heart_rate": 193,
 			"resting_heart_rate": 0,
@@ -432802,45 +432769,12 @@
 		},
 		{
 			"timestamp": "2025-11-08T08:14:33.000Z",
-			"time_in_hr_zone": [
-				0,
-				3287.019,
-				26962.344,
-				2840.792,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 3287.019, 26962.344, 2840.792, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null],
 			"reference_mesg": 19,
 			"reference_index": 0,
-			"hr_zone_high_boundary": [
-				95,
-				114,
-				133,
-				154,
-				174,
-				193
-			],
+			"hr_zone_high_boundary": [95, 114, 133, 154, 174, 193],
 			"max_heart_rate_deprecated": 1,
 			"max_heart_rate": 193,
 			"resting_heart_rate": 0,

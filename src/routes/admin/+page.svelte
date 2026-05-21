@@ -112,7 +112,7 @@
 			</h2>
 			<div class="overflow-hidden rounded-xl border border-[#4e7352]/30">
 				<table class="min-w-full divide-y divide-[#4e7352]/20 text-sm">
-					<thead class="bg-[#4e7352]/15 text-left text-xs tracking-wide uppercase text-[#4a5e43]">
+					<thead class="bg-[#4e7352]/15 text-left text-xs tracking-wide text-[#4a5e43] uppercase">
 						<tr>
 							<th class="px-4 py-3 font-semibold">{m.admin_field_email()}</th>
 							<th class="px-4 py-3 font-semibold">{m.admin_field_username()}</th>

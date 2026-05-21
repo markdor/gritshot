@@ -1,8 +1,8 @@
 {
 	"version": "6",
 	"dialect": "sqlite",
-	"id": "29bd8e6b-6549-4ccd-ab32-44d05cdd92a4",
-	"prevId": "00000000-0000-0000-0000-000000000000",
+	"id": "21d91688-b850-4459-9126-74159a3245a8",
+	"prevId": "29bd8e6b-6549-4ccd-ab32-44d05cdd92a4",
 	"tables": {
 		"account": {
 			"name": "account",
@@ -104,6 +104,61 @@
 				"account_user_id_user_id_fk": {
 					"name": "account_user_id_user_id_fk",
 					"tableFrom": "account",
+					"tableTo": "user",
+					"columnsFrom": ["user_id"],
+					"columnsTo": ["id"],
+					"onDelete": "cascade",
+					"onUpdate": "no action"
+				}
+			},
+			"compositePrimaryKeys": {},
+			"uniqueConstraints": {},
+			"checkConstraints": {}
+		},
+		"garmin_connection": {
+			"name": "garmin_connection",
+			"columns": {
+				"user_id": {
+					"name": "user_id",
+					"type": "text",
+					"primaryKey": true,
+					"notNull": true,
+					"autoincrement": false
+				},
+				"oauth1_token": {
+					"name": "oauth1_token",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": true,
+					"autoincrement": false
+				},
+				"oauth2_token": {
+					"name": "oauth2_token",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": true,
+					"autoincrement": false
+				},
+				"connected_at": {
+					"name": "connected_at",
+					"type": "integer",
+					"primaryKey": false,
+					"notNull": true,
+					"autoincrement": false
+				},
+				"last_refreshed_at": {
+					"name": "last_refreshed_at",
+					"type": "integer",
+					"primaryKey": false,
+					"notNull": true,
+					"autoincrement": false
+				}
+			},
+			"indexes": {},
+			"foreignKeys": {
+				"garmin_connection_user_id_user_id_fk": {
+					"name": "garmin_connection_user_id_user_id_fk",
+					"tableFrom": "garmin_connection",
 					"tableTo": "user",
 					"columnsFrom": ["user_id"],
 					"columnsTo": ["id"],

@@ -1,9 +1,14 @@
 import { fail } from '@sveltejs/kit';
-import type { RequestEvent, ActionFailure } from '@sveltejs/kit';
+import type { RequestEvent, ActionFailure, ServerLoad } from '@sveltejs/kit';
 import { generateCard } from '$lib/server/card/generate';
 import { FileValidationError } from '$lib/server/FileValidationError';
+import { hasGarminConnection } from '$lib/server/garmin/client';
 import { logger } from '$lib/server/logger.js';
 import { m } from '$lib/paraglide/messages';
+
+export const load: ServerLoad = ({ locals }) => ({
+	showGarminBanner: locals.user ? hasGarminConnection(locals.user.id) : false
+});
 
 const MAX_UPLOAD_SIZE = 10 * 1024 * 1024;
 

@@ -18,9 +18,7 @@ test.describe('Create GritShot flow', () => {
 
 		// Homepage renders in English (preferredLanguage strategy honors Accept-Language).
 		await expect(page.getByRole('heading', { name: /Your adventure,/ })).toBeVisible();
-		await expect(
-			page.getByRole('link', { name: 'Create Your GritShot' }).first()
-		).toBeVisible();
+		await expect(page.getByRole('link', { name: 'Create Your GritShot' }).first()).toBeVisible();
 
 		// Switch to German via the language toggle in the navigation.
 		await page.getByRole('button', { name: 'DE', exact: true }).click();
@@ -57,9 +55,7 @@ test.describe('Create GritShot flow', () => {
 		await submitButton.click();
 
 		// Waiting donut overlay should appear (role=status with the German label).
-		await expect(
-			page.getByRole('status', { name: 'Dein GritShot wird generiert…' })
-		).toBeVisible();
+		await expect(page.getByRole('status', { name: 'Dein GritShot wird generiert…' })).toBeVisible();
 
 		// Lightbox dialog opens with the generated image.
 		const dialog = page.getByRole('dialog', { name: 'Vorschau deines GritShots' });

@@ -7,6 +7,7 @@
 	"nav_language_de": "DE",
 	"nav_login_button": "Anmelden",
 	"nav_user_admin": "Admin",
+	"nav_user_garmin": "Garmin-Aktivität",
 	"nav_user_logout": "Abmelden",
 
 	"footer_tagline": "Gemacht für Outdoor-Sportler. Mit ❤️ für die Trails.",
@@ -133,5 +134,42 @@
 	"admin_save_button": "Speichern",
 	"admin_cancel_button": "Abbrechen",
 	"admin_error_self_delete": "Du kannst deinen eigenen Eintrag nicht löschen.",
-	"admin_warn_self_demote_blocked": "Dein eigener Admin-Flag kann nicht entfernt werden — ohne diese Änderung gespeichert."
+	"admin_warn_self_demote_blocked": "Dein eigener Admin-Flag kann nicht entfernt werden — ohne diese Änderung gespeichert.",
+
+	"nav_garmin_connect": "Garmin",
+
+	"garmin_connect_meta_title": "Garmin verbinden — GritShot",
+	"garmin_connect_heading": "Garmin-Konto verbinden",
+	"garmin_connect_subtitle": "Einmal anmelden und direkt eine deiner letzten Aktivitäten auswählen — kein manueller FIT-Export mehr.",
+	"garmin_connect_email_label": "Garmin-E-Mail",
+	"garmin_connect_password_label": "Garmin-Passwort",
+	"garmin_connect_submit": "Garmin verbinden",
+	"garmin_connect_submitting": "Wird verbunden…",
+	"garmin_connect_credentials_notice": "Deine Anmeldedaten werden niemals gespeichert — nur die entstandenen Garmin-Tokens, verschlüsselt abgelegt. Zwei-Faktor-Authentifizierung wird nicht unterstützt.",
+	"garmin_connected_status": "Dein Garmin-Konto ist verbunden.",
+	"garmin_connected_pick_activity": "Letzte Aktivität auswählen",
+	"garmin_disconnect_button": "Garmin trennen",
+	"garmin_disconnect_confirm": "Damit wird deine Garmin-Verbindung zu GritShot entfernt.",
+
+	"garmin_create_meta_title": "GritShot aus Garmin-Aktivität — GritShot",
+	"garmin_create_heading": "GritShot aus Garmin-Aktivität",
+	"garmin_create_subtitle": "Wähle eine deiner letzten 5 Garmin-Aktivitäten, lade ein Foto hoch — wir bauen die Karte.",
+	"garmin_create_empty_heading": "Noch keine Garmin-Verbindung",
+	"garmin_create_empty_subtitle": "Verbinde dein Garmin-Konto, um direkt eine deiner letzten Aktivitäten auszuwählen — ohne FIT-Datei hochladen zu müssen.",
+	"garmin_create_connect_cta": "Garmin verbinden",
+	"garmin_create_activity_picker_heading": "Letzte Aktivitäten",
+	"garmin_create_activity_select_one": "Aktivität auswählen",
+	"garmin_create_no_recent_activities": "Keine aktuellen Aktivitäten auf deinem Garmin-Konto gefunden.",
+	"garmin_create_button_select_activity": "Aktivität auswählen, um fortzufahren",
+
+	"garmin_banner_text": "Garmin verbunden? Direkt eine letzte Aktivität auswählen.",
+	"garmin_banner_cta": "Garmin-Aktivität nutzen",
+
+	"garmin_error_auth_login": "Garmin hat diese Anmeldedaten abgelehnt. Zwei-Faktor-Authentifizierung wird nicht unterstützt.",
+	"garmin_error_auth_session": "Deine Garmin-Sitzung ist abgelaufen. Bitte erneut verbinden.",
+	"garmin_error_network": "Garmin ist gerade nicht erreichbar. Bitte gleich nochmal versuchen.",
+	"garmin_error_email_required": "Bitte gib deine Garmin-E-Mail ein.",
+	"garmin_error_password_required": "Bitte gib dein Garmin-Passwort ein.",
+	"garmin_error_no_activity_selected": "Bitte wähle eine Aktivität aus.",
+	"garmin_error_download_failed": "Diese Aktivität konnte nicht von Garmin geladen werden."
 }

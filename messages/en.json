@@ -7,6 +7,7 @@
 	"nav_language_de": "DE",
 	"nav_login_button": "Login",
 	"nav_user_admin": "Admin",
+	"nav_user_garmin": "Garmin activity",
 	"nav_user_logout": "Logout",
 
 	"footer_tagline": "Built for outdoor athletes. Made with ❤️ for the trails.",
@@ -133,5 +134,42 @@
 	"admin_save_button": "Save",
 	"admin_cancel_button": "Cancel",
 	"admin_error_self_delete": "You can't delete your own account.",
-	"admin_warn_self_demote_blocked": "Your own admin flag can't be removed — saved without that change."
+	"admin_warn_self_demote_blocked": "Your own admin flag can't be removed — saved without that change.",
+
+	"nav_garmin_connect": "Garmin",
+
+	"garmin_connect_meta_title": "Connect Garmin — GritShot",
+	"garmin_connect_heading": "Connect your Garmin account",
+	"garmin_connect_subtitle": "Sign in once and pick a recent activity instead of exporting FIT files by hand.",
+	"garmin_connect_email_label": "Garmin email",
+	"garmin_connect_password_label": "Garmin password",
+	"garmin_connect_submit": "Connect Garmin",
+	"garmin_connect_submitting": "Connecting…",
+	"garmin_connect_credentials_notice": "Your credentials are never stored — only the resulting Garmin tokens, encrypted at rest. Two-factor authentication is not supported.",
+	"garmin_connected_status": "Your Garmin account is connected.",
+	"garmin_connected_pick_activity": "Pick a recent activity",
+	"garmin_disconnect_button": "Disconnect Garmin",
+	"garmin_disconnect_confirm": "This will remove your Garmin connection from GritShot.",
+
+	"garmin_create_meta_title": "Create from Garmin activity — GritShot",
+	"garmin_create_heading": "Create from a Garmin activity",
+	"garmin_create_subtitle": "Pick one of your last 5 Garmin activities, add a photo, and we'll build the card.",
+	"garmin_create_empty_heading": "No Garmin connection yet",
+	"garmin_create_empty_subtitle": "Connect your Garmin account to pick a recent activity directly instead of uploading a FIT file.",
+	"garmin_create_connect_cta": "Connect Garmin",
+	"garmin_create_activity_picker_heading": "Recent activities",
+	"garmin_create_activity_select_one": "Select an activity",
+	"garmin_create_no_recent_activities": "No recent activities found on your Garmin account.",
+	"garmin_create_button_select_activity": "Select an activity to continue",
+
+	"garmin_banner_text": "Connected to Garmin? Pick a recent activity instead.",
+	"garmin_banner_cta": "Use Garmin activity",
+
+	"garmin_error_auth_login": "Garmin rejected those credentials. Two-factor authentication is not supported.",
+	"garmin_error_auth_session": "Your Garmin session expired. Please reconnect.",
+	"garmin_error_network": "Garmin is unreachable right now. Please try again in a moment.",
+	"garmin_error_email_required": "Please enter your Garmin email.",
+	"garmin_error_password_required": "Please enter your Garmin password.",
+	"garmin_error_no_activity_selected": "Please pick an activity.",
+	"garmin_error_download_failed": "Could not download that activity from Garmin."
 }

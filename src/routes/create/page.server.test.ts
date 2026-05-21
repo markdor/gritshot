@@ -5,6 +5,9 @@ import type { RequestEvent } from '@sveltejs/kit';
 import { FileValidationError } from '$lib/server/FileValidationError.js';
 
 vi.mock('$lib/server/logger', () => ({ logger: { error: vi.fn(), info: vi.fn() } }));
+// Stub out the garmin client so loading the page module doesn't pull in
+// db + crypto (which would need GARMIN_TOKEN_KEY in test env).
+vi.mock('$lib/server/garmin/client', () => ({ hasGarminConnection: vi.fn(() => false) }));
 
 import { actions } from './+page.server.js';
 import * as generateModule from '$lib/server/card/generate';

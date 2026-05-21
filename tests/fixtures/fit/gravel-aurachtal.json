@@ -142721,49 +142721,12 @@
 	"time_in_zone": [
 		{
 			"timestamp": "2026-04-27T13:21:56.000Z",
-			"time_in_hr_zone": [
-				15.995,
-				605.997,
-				3411.981,
-				5143.892,
-				679.996,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [15.995, 605.997, 3411.981, 5143.892, 679.996, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 18,
 			"reference_index": 0,
-			"hr_zone_high_boundary": [
-				98,
-				117,
-				137,
-				159,
-				179,
-				199
-			],
+			"hr_zone_high_boundary": [98, 117, 137, 159, 179, 199],
 			"max_heart_rate_deprecated": 1,
 			"max_heart_rate": 199,
 			"resting_heart_rate": 0,
@@ -142771,49 +142734,12 @@
 		},
 		{
 			"timestamp": "2026-04-27T13:21:56.000Z",
-			"time_in_hr_zone": [
-				15.995,
-				105.002,
-				444.998,
-				219.002,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [15.995, 105.002, 444.998, 219.002, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 19,
 			"reference_index": 0,
-			"hr_zone_high_boundary": [
-				98,
-				117,
-				137,
-				159,
-				179,
-				199
-			],
+			"hr_zone_high_boundary": [98, 117, 137, 159, 179, 199],
 			"max_heart_rate_deprecated": 1,
 			"max_heart_rate": 199,
 			"resting_heart_rate": 0,
@@ -142821,49 +142747,12 @@
 		},
 		{
 			"timestamp": "2026-04-27T13:21:56.000Z",
-			"time_in_hr_zone": [
-				0,
-				0,
-				370.007,
-				467.986,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 370.007, 467.986, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 19,
 			"reference_index": 1,
-			"hr_zone_high_boundary": [
-				98,
-				117,
-				137,
-				159,
-				179,
-				199
-			],
+			"hr_zone_high_boundary": [98, 117, 137, 159, 179, 199],
 			"max_heart_rate_deprecated": 1,
 			"max_heart_rate": 199,
 			"resting_heart_rate": 0,
@@ -142871,49 +142760,12 @@
 		},
 		{
 			"timestamp": "2026-04-27T13:21:56.000Z",
-			"time_in_hr_zone": [
-				0,
-				82.997,
-				415,
-				231.99,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 82.997, 415, 231.99, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 19,
 			"reference_index": 2,
-			"hr_zone_high_boundary": [
-				98,
-				117,
-				137,
-				159,
-				179,
-				199
-			],
+			"hr_zone_high_boundary": [98, 117, 137, 159, 179, 199],
 			"max_heart_rate_deprecated": 1,
 			"max_heart_rate": 199,
 			"resting_heart_rate": 0,
@@ -142921,49 +142773,12 @@
 		},
 		{
 			"timestamp": "2026-04-27T13:21:56.000Z",
-			"time_in_hr_zone": [
-				0,
-				28.999,
-				290.002,
-				583.985,
-				116.999,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 28.999, 290.002, 583.985, 116.999, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 19,
 			"reference_index": 3,
-			"hr_zone_high_boundary": [
-				98,
-				117,
-				137,
-				159,
-				179,
-				199
-			],
+			"hr_zone_high_boundary": [98, 117, 137, 159, 179, 199],
 			"max_heart_rate_deprecated": 1,
 			"max_heart_rate": 199,
 			"resting_heart_rate": 0,
@@ -142971,49 +142786,12 @@
 		},
 		{
 			"timestamp": "2026-04-27T13:21:56.000Z",
-			"time_in_hr_zone": [
-				0,
-				189,
-				248.991,
-				360.999,
-				39,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 189, 248.991, 360.999, 39, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 19,
 			"reference_index": 4,
-			"hr_zone_high_boundary": [
-				98,
-				117,
-				137,
-				159,
-				179,
-				199
-			],
+			"hr_zone_high_boundary": [98, 117, 137, 159, 179, 199],
 			"max_heart_rate_deprecated": 1,
 			"max_heart_rate": 199,
 			"resting_heart_rate": 0,
@@ -143021,49 +142799,12 @@
 		},
 		{
 			"timestamp": "2026-04-27T13:21:56.000Z",
-			"time_in_hr_zone": [
-				0,
-				63,
-				466.002,
-				398.991,
-				10.999,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 63, 466.002, 398.991, 10.999, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 19,
 			"reference_index": 5,
-			"hr_zone_high_boundary": [
-				98,
-				117,
-				137,
-				159,
-				179,
-				199
-			],
+			"hr_zone_high_boundary": [98, 117, 137, 159, 179, 199],
 			"max_heart_rate_deprecated": 1,
 			"max_heart_rate": 199,
 			"resting_heart_rate": 0,
@@ -143071,49 +142812,12 @@
 		},
 		{
 			"timestamp": "2026-04-27T13:21:56.000Z",
-			"time_in_hr_zone": [
-				0,
-				5,
-				339.985,
-				320.002,
-				173.999,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 5, 339.985, 320.002, 173.999, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 19,
 			"reference_index": 6,
-			"hr_zone_high_boundary": [
-				98,
-				117,
-				137,
-				159,
-				179,
-				199
-			],
+			"hr_zone_high_boundary": [98, 117, 137, 159, 179, 199],
 			"max_heart_rate_deprecated": 1,
 			"max_heart_rate": 199,
 			"resting_heart_rate": 0,
@@ -143121,49 +142825,12 @@
 		},
 		{
 			"timestamp": "2026-04-27T13:21:56.000Z",
-			"time_in_hr_zone": [
-				0,
-				0,
-				62.002,
-				628.984,
-				203.998,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 62.002, 628.984, 203.998, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 19,
 			"reference_index": 7,
-			"hr_zone_high_boundary": [
-				98,
-				117,
-				137,
-				159,
-				179,
-				199
-			],
+			"hr_zone_high_boundary": [98, 117, 137, 159, 179, 199],
 			"max_heart_rate_deprecated": 1,
 			"max_heart_rate": 199,
 			"resting_heart_rate": 0,
@@ -143171,49 +142838,12 @@
 		},
 		{
 			"timestamp": "2026-04-27T13:21:56.000Z",
-			"time_in_hr_zone": [
-				0,
-				0,
-				86,
-				504.988,
-				110,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 86, 504.988, 110, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 19,
 			"reference_index": 8,
-			"hr_zone_high_boundary": [
-				98,
-				117,
-				137,
-				159,
-				179,
-				199
-			],
+			"hr_zone_high_boundary": [98, 117, 137, 159, 179, 199],
 			"max_heart_rate_deprecated": 1,
 			"max_heart_rate": 199,
 			"resting_heart_rate": 0,
@@ -143221,49 +142851,12 @@
 		},
 		{
 			"timestamp": "2026-04-27T13:21:56.000Z",
-			"time_in_hr_zone": [
-				0,
-				49,
-				282.991,
-				488.997,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 49, 282.991, 488.997, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 19,
 			"reference_index": 9,
-			"hr_zone_high_boundary": [
-				98,
-				117,
-				137,
-				159,
-				179,
-				199
-			],
+			"hr_zone_high_boundary": [98, 117, 137, 159, 179, 199],
 			"max_heart_rate_deprecated": 1,
 			"max_heart_rate": 199,
 			"resting_heart_rate": 0,
@@ -143271,49 +142864,12 @@
 		},
 		{
 			"timestamp": "2026-04-27T13:21:56.000Z",
-			"time_in_hr_zone": [
-				0,
-				82.999,
-				305.003,
-				349.986,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 82.999, 305.003, 349.986, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 19,
 			"reference_index": 10,
-			"hr_zone_high_boundary": [
-				98,
-				117,
-				137,
-				159,
-				179,
-				199
-			],
+			"hr_zone_high_boundary": [98, 117, 137, 159, 179, 199],
 			"max_heart_rate_deprecated": 1,
 			"max_heart_rate": 199,
 			"resting_heart_rate": 0,
@@ -143321,2888 +142877,520 @@
 		},
 		{
 			"timestamp": "2026-04-27T13:21:56.000Z",
-			"time_in_hr_zone": [
-				0,
-				0,
-				101,
-				587.982,
-				25.001,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 101, 587.982, 25.001, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 19,
 			"reference_index": 11,
-			"hr_zone_high_boundary": [
-				98,
-				117,
-				137,
-				159,
-				179,
-				199
-			],
+			"hr_zone_high_boundary": [98, 117, 137, 159, 179, 199],
 			"max_heart_rate_deprecated": 1,
 			"max_heart_rate": 199,
 			"resting_heart_rate": 0,
 			"threshold_heart_rate": 178
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				8,
-				323,
-				117,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 8, 323, 117, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 0,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				21,
-				426,
-				39,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 21, 426, 39, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 1,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				258778,
-				107,
-				69,
-				0,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [258778, 107, 69, 0, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 2,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				31,
-				201,
-				0,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 31, 201, 0, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 3,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				44,
-				0,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 44, 0, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 4,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				47,
-				81,
-				43,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 47, 81, 43, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 5,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				50,
-				238,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 50, 238, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 6,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				129,
-				150,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 129, 150, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 7,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				28,
-				404,
-				420,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 28, 404, 420, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 8,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				3,
-				5,
-				0,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 3, 5, 0, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 9,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				0,
-				0,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 0, 0, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 10,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				221,
-				0,
-				0,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 221, 0, 0, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 11,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				39,
-				86,
-				0,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 39, 86, 0, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 12,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				30,
-				110,
-				0,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 30, 110, 0, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 13,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				34,
-				25,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 34, 25, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 14,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				35,
-				80,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 35, 80, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 15,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				19,
-				197,
-				117,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 19, 197, 117, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 16,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				0,
-				0,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 0, 0, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 17,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				0,
-				0,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 0, 0, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 18,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				0,
-				0,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 0, 0, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 19,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				0,
-				0,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 0, 0, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 20,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				0,
-				0,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 0, 0, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 21,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				0,
-				0,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 0, 0, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 22,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				0,
-				0,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 0, 0, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 23,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				0,
-				0,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 0, 0, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 24,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				0,
-				0,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 0, 0, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 25,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				0,
-				0,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 0, 0, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 26,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				0,
-				159,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 0, 159, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 27,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				0,
-				0,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 0, 0, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 28,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				0,
-				0,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 0, 0, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 29,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				29,
-				190,
-				191,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 29, 190, 191, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 30,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				82,
-				118,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 82, 118, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 31,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				550,
-				118,
-				0,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 550, 118, 0, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 32,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				78,
-				0,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 78, 0, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 33,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				31,
-				21,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 31, 21, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 34,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				0,
-				0,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 0, 0, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 35,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				9,
-				129,
-				25,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 9, 129, 25, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 36,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				0,
-				0,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 0, 0, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 37,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				0,
-				0,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 0, 0, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 38,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				0,
-				0,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 0, 0, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 39,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				0,
-				0,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 0, 0, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 40,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				43,
-				84,
-				336,
-				14,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 43, 84, 336, 14, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 41,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				0,
-				0,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 0, 0, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 42,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				0,
-				0,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 0, 0, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 43,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				0,
-				0,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 0, 0, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 44,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				0,
-				0,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 0, 0, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 45,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				0,
-				0,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 0, 0, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 46,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				0,
-				0,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 0, 0, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 47,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				0,
-				0,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 0, 0, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 48,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				0,
-				0,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 0, 0, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 49,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				0,
-				0,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 0, 0, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 50,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				7,
-				98,
-				82,
-				11,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 7, 98, 82, 11, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 51,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				19,
-				70,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 19, 70, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 52,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				71,
-				4,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 71, 4, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 53,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				5,
-				167,
-				0,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 5, 167, 0, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 54,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				715,
-				21,
-				0,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 715, 21, 0, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 55,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				5,
-				446,
-				710,
-				237,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 5, 446, 710, 237, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 56,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				0,
-				415,
-				145,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 0, 415, 145, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 57,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				0,
-				17,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 0, 17, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 58,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				0,
-				287,
-				314,
-				106,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 0, 287, 314, 106, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 59,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				325,
-				196,
-				499,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 325, 196, 499, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 60,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				71,
-				30,
-				0,
-				0,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 71, 30, 0, 0, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 61,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		},
 		{
-			"time_in_hr_zone": [
-				0,
-				12,
-				370,
-				931,
-				25,
-				0,
-				0
-			],
-			"time_in_power_zone": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
-			"power_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			],
+			"time_in_hr_zone": [0, 12, 370, 931, 25, 0, 0],
+			"time_in_power_zone": [null, null, null, null, null, null, null, null, null, null],
+			"power_zone_high_boundary": [null, null, null, null, null, null, null, null, null, null],
 			"reference_mesg": 312,
 			"reference_index": 62,
-			"hr_zone_high_boundary": [
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			]
+			"hr_zone_high_boundary": [null, null, null, null, null, null]
 		}
 	],
 	"activity_metrics": [

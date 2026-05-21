@@ -103,6 +103,14 @@ function formatElevation(m: number): string {
 export async function generateCard(fitFile: File, photoFile: File, title: string): Promise<Buffer> {
 	const photoBuffer: Buffer = await readAndValidatePhoto(photoFile);
 	const fitBuffer: Buffer = await readAndValidateFit(fitFile);
+	return renderCard(fitBuffer, photoBuffer, title);
+}
+
+export async function renderCard(
+	fitBuffer: Buffer,
+	photoBuffer: Buffer,
+	title: string
+): Promise<Buffer> {
 	const fitData = await parseFitData(fitBuffer);
 
 	const croppedBuffer = await sharp(photoBuffer)

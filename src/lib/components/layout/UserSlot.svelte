@@ -61,6 +61,14 @@
 				role="menu"
 				class="absolute right-0 z-20 mt-2 w-44 overflow-hidden rounded-lg border border-[#4e7352]/40 bg-[#1e2e1f] py-1 text-sm shadow-lg"
 			>
+				<a
+					role="menuitem"
+					href={resolve('/garmin/create')}
+					onclick={close}
+					class="block px-4 py-2 text-white/90 hover:bg-[#4e7352]/30 hover:text-white"
+				>
+					{m.nav_user_garmin()}
+				</a>
 				{#if user.isAdmin}
 					<a
 						role="menuitem"

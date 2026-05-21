@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { resolve } from '$app/paths';
 	import HeroLogo from '$lib/components/layout/HeroLogo.svelte';
 	import Dropzone from '$lib/components/Dropzone.svelte';
 	import Lightbox from '$lib/components/Lightbox.svelte';
 	import { m } from '$lib/paraglide/messages';
-	import type { ActionData } from './$types';
+	import type { PageData, ActionData } from './$types';
 
-	let { form }: { form: ActionData } = $props();
+	let { data, form }: { data: PageData; form: ActionData } = $props();
 
 	let title = $state('');
 	let fitFile: File | null = $state(null);
@@ -34,6 +35,16 @@
 				{m.create_subtitle()}
 			</p>
 		</div>
+
+		{#if data.showGarminBanner}
+			<a
+				href={resolve('/garmin/create')}
+				class="mb-6 flex items-center justify-between gap-4 rounded-xl border border-[#4e7352]/30 bg-white/60 px-4 py-3 text-sm text-[#2a3d2c] transition-colors hover:bg-white/80"
+			>
+				<span>{m.garmin_banner_text()}</span>
+				<span class="font-semibold text-[#4e7352]">{m.garmin_banner_cta()} →</span>
+			</a>
+		{/if}
 
 		<!-- Upload Grid -->
 		<form

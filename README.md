@@ -59,11 +59,11 @@ A prebuilt image is published at `ghcr.io/markdor/gritshot:latest`. The containe
 
 ### Environment variables
 
-| Variable          | Required | Default      | Description                                                                  |
-| ----------------- | -------- | ------------ | ---------------------------------------------------------------------------- |
-| `BASE_URL`        | yes      | —            | Public URL the app is reached at, e.g. `https://gritshot.example.com`        |
-| `PORT`            | no       | `3000`       | Port the server listens on                                                   |
-| `BODY_SIZE_LIMIT` | no       | `21000000`   | Max request body size in bytes (default 20 MB + multipart overhead)          |
+| Variable          | Required | Default    | Description                                                           |
+| ----------------- | -------- | ---------- | --------------------------------------------------------------------- |
+| `BASE_URL`        | yes      | —          | Public URL the app is reached at, e.g. `https://gritshot.example.com` |
+| `PORT`            | no       | `3000`     | Port the server listens on                                            |
+| `BODY_SIZE_LIMIT` | no       | `21000000` | Max request body size in bytes (default 20 MB + multipart overhead)   |
 
 ### Local
 
