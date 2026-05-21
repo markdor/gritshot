@@ -5,6 +5,9 @@
 	"nav_language_label": "Sprache",
 	"nav_language_en": "EN",
 	"nav_language_de": "DE",
+	"nav_login_button": "Anmelden",
+	"nav_user_admin": "Admin",
+	"nav_user_logout": "Abmelden",
 
 	"footer_tagline": "Gemacht für Outdoor-Sportler. Mit ❤️ für die Trails.",
 	"footer_github_aria": "GitHub-Repository",
@@ -98,5 +101,37 @@
 
 	"card_label_distance": "DISTANZ",
 	"card_label_elevation": "ANSTIEG GESAMT",
-	"card_label_duration": "ZEIT"
+	"card_label_duration": "ZEIT",
+
+	"login_meta_title": "Anmelden — GritShot",
+	"login_heading": "Bei GritShot anmelden",
+	"login_subtitle": "Gib deine E-Mail-Adresse ein — wenn sie registriert ist, schicken wir dir einen Einmal-Anmeldelink.",
+	"login_email_label": "E-Mail-Adresse",
+	"login_email_placeholder": "du@example.com",
+	"login_submit_button": "Anmeldelink senden",
+	"login_submitting": "Wird gesendet…",
+	"login_success_message": "Falls deine E-Mail-Adresse registriert ist, wurde dir ein Anmeldelink geschickt. Der Link ist 24 Stunden gültig.",
+	"login_invalid_email": "Bitte gib eine gültige E-Mail-Adresse ein.",
+	"login_error_link_invalid": "Dieser Anmeldelink ist ungültig oder abgelaufen. Fordere unten einen neuen an.",
+
+	"admin_meta_title": "Admin — GritShot",
+	"admin_heading": "Benutzerverwaltung",
+	"admin_subtitle": "Verwalte die Liste der Nutzer, die sich bei GritShot anmelden dürfen.",
+	"admin_create_heading": "Nutzer hinzufügen",
+	"admin_create_button": "Hinzufügen",
+	"admin_users_heading": "Registrierte Nutzer",
+	"admin_actions_heading": "Aktionen",
+	"admin_field_email": "E-Mail",
+	"admin_field_username": "Nutzername",
+	"admin_field_admin": "Admin",
+	"admin_field_required": "Pflichtfeld.",
+	"admin_field_invalid": "Ungültiger Wert.",
+	"admin_field_taken": "Bereits vergeben.",
+	"admin_badge_admin": "Admin",
+	"admin_edit_button": "Bearbeiten",
+	"admin_delete_button": "Löschen",
+	"admin_save_button": "Speichern",
+	"admin_cancel_button": "Abbrechen",
+	"admin_error_self_delete": "Du kannst deinen eigenen Eintrag nicht löschen.",
+	"admin_warn_self_demote_blocked": "Dein eigener Admin-Flag kann nicht entfernt werden — ohne diese Änderung gespeichert."
 }

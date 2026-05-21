@@ -5,3 +5,8 @@ services:
     ports:
       - '3000:3000'
     env_file: .env
+    volumes:
+      - gritshot-data:/data
+
+volumes:
+  gritshot-data:

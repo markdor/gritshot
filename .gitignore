@@ -33,3 +33,9 @@ test-results
 # Test fixtures
 tests/fixtures/zip/*.zip
 !tests/fixtures/zip/valid.zip
+
+# Local SQLite database files (dev + tests)
+/local.db
+/local.db-*
+/*.db
+/*.db-*

@@ -27,6 +27,7 @@ COPY --from=builder /app/package-lock.json ./package-lock.json
 COPY --from=builder /app/.npmrc* ./
 COPY --from=builder /app/build ./build
 COPY --from=builder /app/static/fonts ./static/fonts
+COPY --from=builder /app/drizzle ./drizzle
 
 RUN npm ci --omit=dev && npm cache clean --force
 

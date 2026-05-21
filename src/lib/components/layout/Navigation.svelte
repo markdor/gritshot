@@ -2,6 +2,10 @@
 	import { resolve } from '$app/paths';
 	import { m } from '$lib/paraglide/messages';
 	import { getLocale, setLocale, locales, type Locale } from '$lib/paraglide/runtime';
+	import UserSlot from './UserSlot.svelte';
+
+	type LayoutUser = { id: string; username: string; isAdmin: boolean };
+	let { user = null }: { user?: LayoutUser | null } = $props();
 
 	const currentLocale = getLocale();
 
@@ -50,6 +54,7 @@
 			>
 				{m.nav_create_button()}
 			</a>
+			<UserSlot {user} />
 		</div>
 	</div>
 </nav>

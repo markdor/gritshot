@@ -5,6 +5,9 @@
 	"nav_language_label": "Language",
 	"nav_language_en": "EN",
 	"nav_language_de": "DE",
+	"nav_login_button": "Login",
+	"nav_user_admin": "Admin",
+	"nav_user_logout": "Logout",
 
 	"footer_tagline": "Built for outdoor athletes. Made with ❤️ for the trails.",
 	"footer_github_aria": "GitHub Repository",
@@ -98,5 +101,37 @@
 
 	"card_label_distance": "DISTANCE",
 	"card_label_elevation": "ELEVATION",
-	"card_label_duration": "TIME"
+	"card_label_duration": "TIME",
+
+	"login_meta_title": "Sign in — GritShot",
+	"login_heading": "Sign in to GritShot",
+	"login_subtitle": "Enter your email — if it's registered, we'll send you a one-time sign-in link.",
+	"login_email_label": "Email address",
+	"login_email_placeholder": "you@example.com",
+	"login_submit_button": "Send sign-in link",
+	"login_submitting": "Sending…",
+	"login_success_message": "If your email address is registered, a sign-in link has been sent. The link is valid for 24 hours.",
+	"login_invalid_email": "Please enter a valid email address.",
+	"login_error_link_invalid": "This sign-in link is invalid or has expired. Request a new one below.",
+
+	"admin_meta_title": "Admin — GritShot",
+	"admin_heading": "User administration",
+	"admin_subtitle": "Manage the allow-list of users who can sign in to GritShot.",
+	"admin_create_heading": "Add a user",
+	"admin_create_button": "Add user",
+	"admin_users_heading": "Registered users",
+	"admin_actions_heading": "Actions",
+	"admin_field_email": "Email",
+	"admin_field_username": "Username",
+	"admin_field_admin": "Admin",
+	"admin_field_required": "Required.",
+	"admin_field_invalid": "Invalid value.",
+	"admin_field_taken": "Already in use.",
+	"admin_badge_admin": "Admin",
+	"admin_edit_button": "Edit",
+	"admin_delete_button": "Delete",
+	"admin_save_button": "Save",
+	"admin_cancel_button": "Cancel",
+	"admin_error_self_delete": "You can't delete your own account.",
+	"admin_warn_self_demote_blocked": "Your own admin flag can't be removed — saved without that change."
 }

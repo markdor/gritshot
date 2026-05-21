@@ -3,7 +3,7 @@
 	import Navigation from '$lib/components/layout/Navigation.svelte';
 	import Footer from '$lib/components/layout/Footer.svelte';
 
-	let { children } = $props();
+	let { data, children } = $props();
 </script>
 
 <svelte:head>
@@ -15,7 +15,7 @@
 	<link rel="manifest" href="/site.webmanifest" />
 </svelte:head>
 
-<Navigation />
+<Navigation user={data.user} />
 
 {@render children()}
 
