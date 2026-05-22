@@ -14,6 +14,11 @@ vi.mock('$lib/server/garmin/download', () => ({
 import { load, actions } from './+page.server';
 import { hasGarminConnection, withGarminClient } from '$lib/server/garmin/client';
 import { downloadActivityZip } from '$lib/server/garmin/download';
+import {
+	GarminAuthError,
+	GarminNetworkError,
+	GarminNotConnectedError
+} from '$lib/server/garmin/errors';
 
 const zipBuffer = readFileSync(resolvePath('tests/fixtures/zip/valid.zip'));
 const jpgBuffer = readFileSync(resolvePath('tests/fixtures/photos/valid.jpg'));
@@ -49,6 +54,38 @@ describe('garmin/create load', () => {
 		} as unknown as Parameters<typeof load>[0]);
 		expect(result).toEqual({ connected: false });
 		expect(withGarminClient).not.toHaveBeenCalled();
+	});
+
+	it('returns an auth-session error when withGarminClient throws GarminAuthError', async () => {
+		vi.mocked(hasGarminConnection).mockReturnValue(true);
+		vi.mocked(withGarminClient).mockRejectedValueOnce(new GarminAuthError('stale tokens'));
+
+		const result = (await load({
+			locals: { user: { id: 'u1' } }
+		} as unknown as Parameters<typeof load>[0])) as {
+			connected: true;
+			activities: unknown[];
+			error: string | null;
+		};
+
+		expect(result.connected).toBe(true);
+		expect(result.activities).toEqual([]);
+		expect(result.error).toMatch(/session expired/i);
+	});
+
+	it('returns a network error for any other failure during activity load', async () => {
+		vi.mocked(hasGarminConnection).mockReturnValue(true);
+		vi.mocked(withGarminClient).mockRejectedValueOnce(new Error('boom'));
+
+		const result = (await load({
+			locals: { user: { id: 'u1' } }
+		} as unknown as Parameters<typeof load>[0])) as {
+			connected: true;
+			activities: unknown[];
+			error: string | null;
+		};
+
+		expect(result.error).toMatch(/unreachable/i);
 	});
 
 	it('maps activities to lean DTOs', async () => {
@@ -150,6 +187,73 @@ describe('garmin/create default action', () => {
 			makeActionEvent({ title: 'Run', activityId: '12345', photoFile: oversized })
 		);
 		expect(result).toMatchObject({ status: 422, data: { error: 'Files must not exceed 10 MB' } });
+	});
+
+	it('returns 422 when the user has no garmin connection at submit time', async () => {
+		vi.mocked(withGarminClient).mockRejectedValueOnce(new GarminNotConnectedError());
+
+		const result = await actions.default(
+			makeActionEvent({
+				title: 'Run',
+				activityId: '12345',
+				photoFile: new File([jpgBuffer], 'valid.jpg', { type: 'image/jpeg' })
+			})
+		);
+		expect(result).toMatchObject({ status: 422 });
+	});
+
+	it('returns 401 when garmin tokens are rejected during download', async () => {
+		vi.mocked(withGarminClient).mockRejectedValueOnce(new GarminAuthError('stale'));
+
+		const result = await actions.default(
+			makeActionEvent({
+				title: 'Run',
+				activityId: '12345',
+				photoFile: new File([jpgBuffer], 'valid.jpg', { type: 'image/jpeg' })
+			})
+		);
+		expect(result).toMatchObject({ status: 401 });
+	});
+
+	it('returns 502 when garmin is unreachable during download', async () => {
+		vi.mocked(withGarminClient).mockRejectedValueOnce(new GarminNetworkError('ETIMEDOUT'));
+
+		const result = await actions.default(
+			makeActionEvent({
+				title: 'Run',
+				activityId: '12345',
+				photoFile: new File([jpgBuffer], 'valid.jpg', { type: 'image/jpeg' })
+			})
+		);
+		expect(result).toMatchObject({ status: 502 });
+	});
+
+	it('returns 422 with the userMessage when downloaded data fails validation', async () => {
+		vi.mocked(withGarminClient).mockImplementation(async (_id, fn) => fn({} as never));
+		// Not a real ZIP — validateZip will throw a FileValidationError.
+		vi.mocked(downloadActivityZip).mockResolvedValueOnce(Buffer.from('definitely-not-a-zip'));
+
+		const result = await actions.default(
+			makeActionEvent({
+				title: 'Run',
+				activityId: '12345',
+				photoFile: new File([jpgBuffer], 'valid.jpg', { type: 'image/jpeg' })
+			})
+		);
+		expect(result).toMatchObject({ status: 422, data: { error: 'File is not a valid ZIP file' } });
+	});
+
+	it('returns 500 on unexpected errors', async () => {
+		vi.mocked(withGarminClient).mockRejectedValueOnce(new Error('out of memory'));
+
+		const result = await actions.default(
+			makeActionEvent({
+				title: 'Run',
+				activityId: '12345',
+				photoFile: new File([jpgBuffer], 'valid.jpg', { type: 'image/jpeg' })
+			})
+		);
+		expect(result).toMatchObject({ status: 500, data: { error: 'Failed to generate GritShot' } });
 	});
 
 	it('generates a card when garmin download yields a valid zip', async () => {

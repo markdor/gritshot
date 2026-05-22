@@ -9,6 +9,35 @@ import type { Plugin } from 'vite';
 
 const { version } = JSON.parse(readFileSync('package.json', 'utf-8'));
 
+// Vitest tears down the SSR module runner before SvelteKit's dev middleware
+// finishes draining late requests from the headless browser (favicons, source
+// maps, etc.). Vite then logs a noisy "transport was disconnected" stack trace
+// AFTER all tests have already passed. Exit code is 0; this is purely cosmetic.
+// The Vite SSR runner uses its own internal logger that customLogger can't
+// reach, so we filter at the stderr boundary — only when running under Vitest
+// and only for this exact, harmless pattern. Real errors are not touched.
+if (process.env.VITEST) {
+	const originalWrite = process.stderr.write.bind(process.stderr);
+	let suppressing = false;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	process.stderr.write = ((chunk: any, ...rest: any[]) => {
+		const text = typeof chunk === 'string' ? chunk : chunk?.toString?.() ?? '';
+		if (text.includes('transport was disconnected, cannot call "fetchModule"')) {
+			// Swallow this line AND the stack-trace block that immediately follows.
+			suppressing = true;
+			return true;
+		}
+		// Continuation lines of the same trace start with whitespace; the next
+		// non-indented line ends the block.
+		if (suppressing) {
+			if (/^\s/.test(text) || text.trim() === '') return true;
+			suppressing = false;
+		}
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		return (originalWrite as any)(chunk, ...rest);
+	}) as typeof process.stderr.write;
+}
+
 const copyFontsPlugin: Plugin = {
 	name: 'copy-fonts-to-static',
 	buildStart() {
