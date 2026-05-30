@@ -74,7 +74,7 @@
 		"better-auth": "^1.6.11",
 		"better-sqlite3": "^12.10.0",
 		"drizzle-orm": "^0.45.2",
-		"fit-file-parser": "^3.0.0",
+		"fit-file-parser": "^3.0.1",
 		"garmin-connect": "^1.6.2",
 		"nodemailer": "^8.0.7",
 		"pino": "^10.3.1",
