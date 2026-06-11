@@ -85,7 +85,7 @@ jobs:
   docker:
     needs: [test, release]
     runs-on: ubuntu-latest
-    if: always() && needs.test.result == 'success' && (needs.release.result == 'skipped' || needs.release.outputs.new_release_published == 'true')
+    if: always() && needs.test.result == 'success' && github.ref == 'refs/heads/main' && needs.release.outputs.new_release_published == 'true'
     permissions:
       contents: read
       packages: write
@@ -106,7 +106,6 @@ jobs:
         with:
           images: ghcr.io/${{ github.repository }}
           tags: |
-            type=raw,value=develop,enable=${{ github.ref != 'refs/heads/main' }}
             type=raw,value=latest,enable=${{ needs.release.outputs.new_release_published == 'true' }}
             type=raw,value=${{ needs.release.outputs.new_release_version }},enable=${{ needs.release.outputs.new_release_published == 'true' }}
 
