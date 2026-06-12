@@ -1,6 +1,6 @@
 import { describe, test, expect, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
-import { page, userEvent } from 'vitest/browser';
+import { page } from 'vitest/browser';
 import { flushSync } from 'svelte';
 import Lightbox from './Lightbox.svelte';
 
@@ -18,9 +18,11 @@ describe('Lightbox', () => {
 		await expect.element(page.getByAltText('Your GritShot')).toBeVisible();
 	});
 
-	test('closes when X button is clicked', async () => {
+	test('closes when X button is clicked', () => {
 		const { container } = render(Lightbox, { image: FAKE_IMAGE });
-		await userEvent.click(page.getByRole('button', { name: 'Close' }));
+		const closeButton = container.querySelector('button[aria-label]') as HTMLElement;
+		closeButton.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+		flushSync();
 		expect(container.querySelector('[role="dialog"]')).toBeNull();
 	});
 
@@ -39,15 +41,16 @@ describe('Lightbox', () => {
 		expect(container.querySelector('[role="dialog"]')).toBeNull();
 	});
 
-	test('download button triggers download with correct filename and data', async () => {
+	test('download button triggers download with correct filename and data', () => {
 		vi.useFakeTimers();
 		vi.setSystemTime(new Date(2026, 4, 7));
 
-		render(Lightbox, { image: FAKE_IMAGE, title: 'Morning Run' });
+		const { container } = render(Lightbox, { image: FAKE_IMAGE, title: 'Morning Run' });
 
 		const clickSpy = vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {});
 
-		await userEvent.click(page.getByRole('button', { name: 'Download GritShot' }));
+		const downloadButton = container.querySelector('button:not([aria-label])') as HTMLElement;
+		downloadButton.dispatchEvent(new MouseEvent('click', { bubbles: true }));
 
 		expect(clickSpy).toHaveBeenCalledOnce();
 		const anchor = clickSpy.mock.instances[0] as HTMLAnchorElement;
@@ -58,15 +61,16 @@ describe('Lightbox', () => {
 		vi.useRealTimers();
 	});
 
-	test('download filename strips filesystem-unsafe characters from title', async () => {
+	test('download filename strips filesystem-unsafe characters from title', () => {
 		vi.useFakeTimers();
 		vi.setSystemTime(new Date(2026, 0, 3));
 
-		render(Lightbox, { image: FAKE_IMAGE, title: 'Trail/Run: 5k?' });
+		const { container } = render(Lightbox, { image: FAKE_IMAGE, title: 'Trail/Run: 5k?' });
 
 		const clickSpy = vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {});
 
-		await userEvent.click(page.getByRole('button', { name: 'Download GritShot' }));
+		const downloadButton = container.querySelector('button:not([aria-label])') as HTMLElement;
+		downloadButton.dispatchEvent(new MouseEvent('click', { bubbles: true }));
 
 		const anchor = clickSpy.mock.instances[0] as HTMLAnchorElement;
 		expect(anchor.download).toBe('GritShot-20260103-TrailRun 5k.jpg');

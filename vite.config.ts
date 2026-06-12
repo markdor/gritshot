@@ -70,6 +70,12 @@ export default defineConfig({
 		__APP_VERSION__: JSON.stringify(version)
 	},
 	test: {
+		// SvelteKit eager-evaluates server route modules during browser tests,
+		// which imports garmin/crypto.ts — that fails fast at import time without
+		// a valid key. Deterministic 32-byte test key (same as E2E).
+		env: {
+			GARMIN_TOKEN_KEY: 'QkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkI='
+		},
 		coverage: {
 			provider: 'v8',
 			reporter: ['text', 'lcov', 'html', 'json', 'json-summary'],
