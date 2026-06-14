@@ -9,6 +9,9 @@ updates:
       patch-updates:
         patterns: ["*"]
         update-types: ["patch"]
+      minor-updates:
+        patterns: ["*"]
+        update-types: ["minor"]
     ignore:
       # Major-Updates macht der Maintainer manuell mit ncu
       - dependency-name: "*"
@@ -22,6 +25,9 @@ updates:
       patch-updates:
         patterns: ["*"]
         update-types: ["patch"]
+      minor-updates:
+        patterns: ["*"]
+        update-types: ["minor"]
     open-pull-requests-limit: 10
     ignore:
       - dependency-name: "*"
