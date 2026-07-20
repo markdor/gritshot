@@ -39,3 +39,6 @@ tests/fixtures/zip/*.zip
 /local.db-*
 /*.db
 /*.db-*
+
+# Claude Code: personal/local overrides, not shared project config
+/.claude/settings.local.json
