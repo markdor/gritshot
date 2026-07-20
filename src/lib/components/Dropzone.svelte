@@ -56,6 +56,7 @@
 		}
 
 		file = result;
+		if (!inputEl) return;
 		const dt = new DataTransfer();
 		dt.items.add(result);
 		inputEl.files = dt.files;
