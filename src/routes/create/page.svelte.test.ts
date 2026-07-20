@@ -3,6 +3,10 @@ import { render } from 'vitest-browser-svelte';
 import { page, userEvent } from 'vitest/browser';
 import Page from './+page.svelte';
 
+async function waitForPhotoCompression() {
+	await expect.element(page.getByText('Optimizing your photo…')).not.toBeInTheDocument();
+}
+
 describe('Create page', () => {
 	test('submit button is initially disabled with "Enter an activity title to continue"', async () => {
 		render(Page, { data: { user: null, showGarminBanner: false }, form: null });
@@ -28,6 +32,7 @@ describe('Create page', () => {
 		const photoInput = container.querySelector('input[name="photoFile"]') as HTMLInputElement;
 		await userEvent.type(titleInput, 'Graveln');
 		await userEvent.upload(photoInput, new File([''], 'photo.jpg', { type: 'image/jpeg' }));
+		await waitForPhotoCompression();
 		const button = page.getByRole('button', { name: 'Upload your FIT file to continue' });
 		await expect.element(button).toBeVisible();
 		await expect.element(button).toBeDisabled();
@@ -58,6 +63,7 @@ describe('Create page', () => {
 		await userEvent.type(titleInput, 'Graveln');
 		await userEvent.upload(fitInput, new File([''], 'activity.fit'));
 		await userEvent.upload(photoInput, new File([''], 'photo.jpg', { type: 'image/jpeg' }));
+		await waitForPhotoCompression();
 		const button = page.getByRole('button', { name: 'Generate GritShot' });
 		await expect.element(button).toBeVisible();
 		await expect.element(button).toBeEnabled();
@@ -81,6 +87,7 @@ describe('Create page', () => {
 		});
 		const photoInput = container.querySelector('input[name="photoFile"]') as HTMLInputElement;
 		await userEvent.upload(photoInput, new File(['img'], 'summit.jpg', { type: 'image/jpeg' }));
+		await waitForPhotoCompression();
 		await expect.element(page.getByText('summit.jpg')).toBeVisible();
 		await expect.element(page.getByText('Click to replace')).toBeVisible();
 	});
