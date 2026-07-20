@@ -5,6 +5,7 @@
 	import HeroLogo from '$lib/components/layout/HeroLogo.svelte';
 	import Dropzone from '$lib/components/Dropzone.svelte';
 	import Lightbox from '$lib/components/Lightbox.svelte';
+	import { compressPhoto } from '$lib/client/compressPhoto';
 	import { m } from '$lib/paraglide/messages';
 	import type { PageData, ActionData } from './$types';
 
@@ -25,6 +26,7 @@
 	let title = $state(initialActivity ? truncate(initialActivity.name) : '');
 	let photoFile: File | null = $state(null);
 	let generating = $state(false);
+	let compressingPhoto = $state(false);
 
 	function onPickActivity(id: number, name: string) {
 		selectedActivityId = id;
@@ -221,6 +223,8 @@
 						hint={m.create_photo_hint()}
 						validate={(f) => f.type === 'image/jpeg' || f.name.toLowerCase().endsWith('.jpg')}
 						bind:file={photoFile}
+						transform={compressPhoto}
+						bind:processing={compressingPhoto}
 					>
 						{#snippet icon()}
 							<svg
@@ -255,15 +259,41 @@
 					<div class="mt-4">
 						<button
 							type="submit"
-							disabled={!title || !selectedActivityId || !photoFile || generating}
+							disabled={!title ||
+								!selectedActivityId ||
+								!photoFile ||
+								generating ||
+								compressingPhoto}
 							class="flex w-full items-center justify-center gap-3 rounded-full py-3.5 text-base font-semibold transition-colors
-							{title && selectedActivityId && photoFile && !generating
+							{title && selectedActivityId && photoFile && !generating && !compressingPhoto
 								? 'cursor-pointer bg-[#4e7352] text-white shadow-sm hover:bg-[#3d5c42]'
-								: generating
+								: generating || compressingPhoto
 									? 'cursor-wait bg-[#4e7352] text-white shadow-sm'
 									: 'cursor-not-allowed bg-[#c8d9ca] text-[#9ab89e]'}"
 						>
-							{#if generating}
+							{#if compressingPhoto}
+								<svg
+									class="h-5 w-5 animate-spin"
+									fill="none"
+									viewBox="0 0 24 24"
+									aria-hidden="true"
+								>
+									<circle
+										class="opacity-25"
+										cx="12"
+										cy="12"
+										r="10"
+										stroke="currentColor"
+										stroke-width="4"
+									></circle>
+									<path
+										class="opacity-75"
+										fill="currentColor"
+										d="M4 12a8 8 0 0 1 8-8v4a4 4 0 0 0-4 4H4z"
+									></path>
+								</svg>
+								{m.create_compressing_photo()}
+							{:else if generating}
 								<svg
 									class="h-5 w-5 animate-spin"
 									fill="none"
@@ -302,11 +332,11 @@
 	</section>
 </div>
 
-{#if generating}
+{#if generating || compressingPhoto}
 	<div
 		role="status"
 		aria-live="polite"
-		aria-label={m.create_generating()}
+		aria-label={compressingPhoto ? m.create_compressing_photo() : m.create_generating()}
 		class="fixed inset-0 z-40 flex flex-col items-center justify-center gap-5 bg-[#f5f1e6]/85 backdrop-blur-sm"
 	>
 		<svg
@@ -320,7 +350,9 @@
 			<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 0 1 8-8v4a4 4 0 0 0-4 4H4z"
 			></path>
 		</svg>
-		<p class="text-base font-semibold text-[#2a3d2c]">{m.create_generating()}</p>
+		<p class="text-base font-semibold text-[#2a3d2c]">
+			{compressingPhoto ? m.create_compressing_photo() : m.create_generating()}
+		</p>
 	</div>
 {/if}
 

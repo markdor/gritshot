@@ -79,6 +79,7 @@
 	"create_button_upload_photo": "Foto hochladen, um fortzufahren",
 	"create_button_generate": "GritShot generieren",
 	"create_generating": "Dein GritShot wird generiert…",
+	"create_compressing_photo": "Foto wird optimiert…",
 
 	"dropzone_or_browse": "oder zum Auswählen klicken",
 	"dropzone_click_replace": "Zum Ersetzen klicken",

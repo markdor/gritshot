@@ -12,6 +12,8 @@
 		validate: (file: File) => boolean;
 		file: File | null;
 		icon: Snippet;
+		transform?: (file: File) => Promise<File>;
+		processing?: boolean;
 	}
 
 	let {
@@ -23,7 +25,10 @@
 		hint,
 		validate,
 		file = $bindable(),
-		icon
+		icon,
+		transform,
+		// eslint-disable-next-line no-useless-assignment -- read externally via bind:processing
+		processing = $bindable(false)
 	}: Props = $props();
 
 	let dragOver = $state(false);
@@ -35,21 +40,44 @@
 		}
 	});
 
+	async function applyFile(f: File) {
+		file = f;
+
+		let result = f;
+		if (transform) {
+			processing = true;
+			try {
+				result = await transform(f);
+			} catch {
+				result = f;
+			} finally {
+				processing = false;
+			}
+		}
+
+		file = result;
+		const dt = new DataTransfer();
+		dt.items.add(result);
+		inputEl.files = dt.files;
+	}
+
 	function handleDrop(e: DragEvent) {
 		e.preventDefault();
 		dragOver = false;
 		const f = e.dataTransfer?.files[0];
 		if (f && validate(f)) {
-			file = f;
-			const dt = new DataTransfer();
-			dt.items.add(f);
-			inputEl.files = dt.files;
+			void applyFile(f);
 		}
 	}
 
 	function handleInput(e: Event) {
 		const input = e.target as HTMLInputElement;
-		file = input.files?.[0] ?? null;
+		const f = input.files?.[0] ?? null;
+		if (f) {
+			void applyFile(f);
+		} else {
+			file = null;
+		}
 	}
 
 	function formatFileSize(bytes: number): string {
