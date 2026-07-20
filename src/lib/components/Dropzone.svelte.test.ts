@@ -1,4 +1,4 @@
-import { describe, test, expect } from 'vitest';
+import { describe, test, expect, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import { page, userEvent } from 'vitest/browser';
 import { createRawSnippet } from 'svelte';
@@ -77,6 +77,34 @@ describe('Dropzone', () => {
 			const { container } = render(Dropzone, defaultProps);
 			dropFile(container, new File([''], 'photo.jpg'));
 			await expect.element(page.getByText('Drop file here')).toBeVisible();
+		});
+	});
+
+	describe('transform', () => {
+		test('replaces the selected file with the transform result', async () => {
+			const transformed = new File([new Uint8Array(10)], 'transformed.fit');
+			const transform = vi.fn().mockResolvedValue(transformed);
+			const { container } = render(Dropzone, { ...defaultProps, transform });
+
+			const input = container.querySelector('input[type="file"]') as HTMLInputElement;
+			await userEvent.upload(input, new File([new Uint8Array(500)], 'activity.fit'));
+
+			expect(transform).toHaveBeenCalledOnce();
+			await expect.element(page.getByText('transformed.fit')).toBeVisible();
+			expect(input.files?.[0]).toBe(transformed);
+		});
+
+		test('falls back to the original file when the transform rejects', async () => {
+			const transform = vi.fn().mockRejectedValue(new Error('unsupported browser'));
+			const { container } = render(Dropzone, { ...defaultProps, transform });
+
+			const input = container.querySelector('input[type="file"]') as HTMLInputElement;
+			await userEvent.upload(input, new File([new Uint8Array(500)], 'activity.fit'));
+
+			expect(transform).toHaveBeenCalledOnce();
+			await expect.element(page.getByText('activity.fit')).toBeVisible();
+			expect(input.files?.[0]?.name).toBe('activity.fit');
+			expect(input.files?.[0]?.size).toBe(500);
 		});
 	});
 });

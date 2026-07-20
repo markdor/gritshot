@@ -29,6 +29,7 @@ const fakeFitData = {
 
 describe('generateCard', () => {
 	let sharpInstance: {
+		metadata: ReturnType<typeof vi.fn>;
 		resize: ReturnType<typeof vi.fn>;
 		extract: ReturnType<typeof vi.fn>;
 		blur: ReturnType<typeof vi.fn>;
@@ -41,6 +42,7 @@ describe('generateCard', () => {
 		vi.clearAllMocks();
 
 		sharpInstance = {
+			metadata: vi.fn().mockResolvedValue({ width: 800, height: 600 }),
 			resize: vi.fn().mockReturnThis(),
 			extract: vi.fn().mockReturnThis(),
 			blur: vi.fn().mockReturnThis(),
@@ -133,6 +135,30 @@ describe('generateCard', () => {
 			await expect(
 				generateCard(makeFile('run.zip'), makeFile('photo.jpg'), 'Graveln')
 			).rejects.toThrow(FileValidationError);
+		});
+	});
+
+	describe('photo resize', () => {
+		it('skips resize/crop when the photo is already exactly 1080x1440', async () => {
+			sharpInstance.metadata = vi.fn().mockResolvedValue({ width: 1080, height: 1440 });
+			const photoBuffer = Buffer.from('exact-size-photo');
+
+			await generateCard(makeFile('run.fit'), makeFile('photo.jpg', photoBuffer), 'Graveln');
+
+			expect(sharpInstance.resize).not.toHaveBeenCalled();
+			const sharpInputs = vi.mocked(sharp).mock.calls.map(([input]) => input);
+			expect(sharpInputs).toContainEqual(photoBuffer);
+		});
+
+		it('resizes/crops when the photo does not exactly match the target size', async () => {
+			sharpInstance.metadata = vi.fn().mockResolvedValue({ width: 800, height: 600 });
+
+			await generateCard(makeFile('run.fit'), makeFile('photo.jpg'), 'Graveln');
+
+			expect(sharpInstance.resize).toHaveBeenCalledWith(1080, 1440, {
+				fit: 'cover',
+				position: 'centre'
+			});
 		});
 	});
 

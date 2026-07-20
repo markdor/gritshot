@@ -113,9 +113,13 @@ export async function renderCard(
 ): Promise<Buffer> {
 	const fitData = await parseFitData(fitBuffer);
 
-	const croppedBuffer = await sharp(photoBuffer)
-		.resize(cardWidth, cardHeight, { fit: 'cover', position: 'centre' })
-		.toBuffer();
+	const photoMetadata = await sharp(photoBuffer).metadata();
+	const isAlreadySized = photoMetadata.width === cardWidth && photoMetadata.height === cardHeight;
+	const croppedBuffer = isAlreadySized
+		? photoBuffer
+		: await sharp(photoBuffer)
+				.resize(cardWidth, cardHeight, { fit: 'cover', position: 'centre' })
+				.toBuffer();
 
 	const titleY = barY + 75;
 	const labelY = barY + 136;
