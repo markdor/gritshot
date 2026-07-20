@@ -14,17 +14,13 @@ describe('Login page', () => {
 
 	test('shows the invalid-link alert when data.error is set', async () => {
 		render(Page, { data: { error: 'invalid' }, form: null });
-		await expect
-			.element(page.getByRole('alert'))
-			.toHaveTextContent(/invalid or has expired/i);
+		await expect.element(page.getByRole('alert')).toHaveTextContent(/invalid or has expired/i);
 	});
 
 	test('renders the success message and hides the form after submit', async () => {
 		const { container } = render(Page, { data: { error: null }, form: { sent: true } });
 
-		await expect
-			.element(page.getByRole('status'))
-			.toHaveTextContent(/sign-in link has been sent/i);
+		await expect.element(page.getByRole('status')).toHaveTextContent(/sign-in link has been sent/i);
 		// Form (and the heading above it) collapse on the sent state.
 		expect(container.querySelector('form')).toBeNull();
 		expect(page.getByRole('heading', { name: 'Sign in to GritShot' }).elements()).toHaveLength(0);

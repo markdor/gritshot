@@ -21,7 +21,7 @@ if (process.env.VITEST) {
 	let suppressing = false;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	process.stderr.write = ((chunk: any, ...rest: any[]) => {
-		const text = typeof chunk === 'string' ? chunk : chunk?.toString?.() ?? '';
+		const text = typeof chunk === 'string' ? chunk : (chunk?.toString?.() ?? '');
 		if (text.includes('transport was disconnected, cannot call "fetchModule"')) {
 			// Swallow this line AND the stack-trace block that immediately follows.
 			suppressing = true;

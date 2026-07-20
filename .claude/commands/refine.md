@@ -15,6 +15,7 @@ Falls kein Argument übergeben wurde: Frage den User nach der Issue-Nummer und b
 ## Phase 1 – Kontext laden
 
 Führe **parallel** aus:
+
 1. `gh issue view $ARGUMENTS --json number,title,body,labels,state,comments` – lädt das bestehende Issue.
 2. Lies `CLAUDE.md` – Architektur, Stack, bereits implementierte Features, UI-Konventionen.
 
@@ -31,7 +32,7 @@ Stelle dem User **3–4 gezielte Fragen** via `AskUserQuestion`. Wähle nur die 
 - **Motivation**: Warum brauchen wir das? Welches Problem löst es konkret?
 - **Akzeptanzkriterien**: Was muss am Ende funktionieren, damit das Issue als „done" gilt?
 - **UX/Interaktion**: Wie stellt du dir die Bedienung vor? Gibt es Mockups oder Vorgaben zu bestehenden Seiten?
-- **Scope-Abgrenzung**: Was gehört explizit *nicht* in dieses Issue?
+- **Scope-Abgrenzung**: Was gehört explizit _nicht_ in dieses Issue?
 - **Priorität/Abhängigkeiten**: Hängt das von einem anderen Issue ab? Gibt es eine Deadline?
 
 Stelle nie eine Frage, deren Antwort du aus CLAUDE.md oder dem vorhandenen Issue-Text ableiten kannst.
@@ -43,13 +44,14 @@ Stelle nie eine Frage, deren Antwort du aus CLAUDE.md oder dem vorhandenen Issue
 Spawne einen **Explore-Agenten** (subagent_type: `Explore`, Breadth: `medium`) mit folgendem Auftrag:
 
 > Analysiere den Code für Issue #$ARGUMENTS ("$ISSUE_TITLE"). Finde:
+>
 > 1. Betroffene Routen und SvelteKit-Komponenten (pages, layouts, +page.svelte, +page.server.ts)
 > 2. Betroffenes Drizzle-Datenbankschema (src/lib/server/db/schema.ts)
-> 3. Betroffene Server-Module unter src/lib/server/** (fit/, zip/, jpg/, card/, garmin/)
+> 3. Betroffene Server-Module unter src/lib/server/\*\* (fit/, zip/, jpg/, card/, garmin/)
 > 4. Bestehende ähnliche Implementierungen, die als Vorlage dienen können
 > 5. Auth/Security-Relevanz: Braucht die Seite/Action einen Auth-Guard (`requireUser(locals)`)? Berührt es Zip-/FIT-Parsing oder Garmin-Token-Handling?
 > 6. Geschätzter Impact: Welche Tests müssten angepasst/geschrieben werden, ggf. neuer Fixture unter tests/fixtures/?
-> Gib eine kompakte Liste der betroffenen Dateien mit je einem Satz Erklärung zurück.
+>    Gib eine kompakte Liste der betroffenen Dateien mit je einem Satz Erklärung zurück.
 
 Warte auf das Ergebnis des Agenten.
 
@@ -61,21 +63,26 @@ Kombiniere Interview-Antworten + Codebase-Analyse zu einem vollständig ausformu
 
 ```markdown
 ## Kontext & Motivation
+
 <!-- Warum brauchen wir das? Welches Problem löst es für die Familie? -->
 
 ## Ziel
+
 <!-- Ein-Satz-Zusammenfassung: Was soll am Ende möglich sein? -->
 
 ## Akzeptanzkriterien
+
 - [ ] ...
 - [ ] ...
 
 ## UI / UX
+
 <!-- Beschreibung der Interaktion, betroffene Seiten, Navigation -->
 <!-- Verweis auf bestehende Seiten/Komponenten als Vorlage, falls passend -->
 <!-- Neue user-facing Strings: kurz auflisten, welche neuen Paraglide-Keys nötig sind (messages/en.json + de.json) -->
 
 ## Technischer Kontext
+
 <!-- Betroffene Dateien (mit Pfad), Schema-Änderungen, neue/geänderte Server-Module -->
 <!-- Beispiel:
 - `src/routes/create/+page.svelte` – neue Sektion, analog zu bestehendem Upload-Flow
@@ -84,9 +91,11 @@ Kombiniere Interview-Antworten + Codebase-Analyse zu einem vollständig ausformu
 -->
 
 ## Sicherheits- & Qualitätshinweise
+
 <!-- Auth-Guard nötig? Validierung? Rate-Limiting? Welche Tests? -->
 
 ## Offene Fragen
+
 <!-- Was muss noch geklärt werden, bevor mit der Implementierung begonnen werden kann? -->
 <!-- Leer lassen, falls keine offenen Fragen -->
 ```
@@ -100,6 +109,7 @@ Fülle alle Sektionen aus. Lasse keine Sektion leer – schreibe notfalls „Kei
 Zeige dem User das fertig ausformulierte Issue **als Plaintext** (nicht in einem Tool-Aufruf versteckt). Fasse darunter in 2–3 Stichpunkten zusammen, was der Explore-Agent an technischem Kontext beigesteuert hat.
 
 Frage dann:
+
 - Ob der Inhalt so passt oder noch etwas angepasst werden soll.
 - Welche **Labels** gesetzt werden sollen. Schlage passende aus den vorhandenen vor: `enhancement`, `bug`, `question`, `documentation`. Mehrfachauswahl möglich.
 

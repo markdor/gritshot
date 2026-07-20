@@ -15,12 +15,14 @@ Falls kein Argument übergeben wurde: Frage den User nach der Issue-Nummer und b
 ## Phase 1 – Kontext laden
 
 Führe **parallel** aus:
+
 1. `gh issue view $ARGUMENTS --json number,title,body,labels,state,comments` – lädt das Issue.
 2. Lies `CLAUDE.md` – Architektur, Stack, Konventionen, Teststrategie, Error-Handling-Pattern.
 
 Merke dir Titel, Body und Labels des Issues.
 
 **Vollständigkeits-Check:** Prüfe, ob der Issue-Body Akzeptanzkriterien und technischen Kontext enthält (Sektionen wie „Akzeptanzkriterien", „Technischer Kontext" – typisches Ergebnis von `/refine`). Fehlen diese und ist der Body nur ein kurzer Stichpunkt, weise den User darauf hin und frage per `AskUserQuestion`, ob:
+
 - er das Issue erst mit `/refine $ARGUMENTS` ausformulieren lassen möchte (dann brich hier ab), oder
 - direkt mit dem vorhandenen (knappen) Body weitergemacht werden soll.
 
@@ -41,13 +43,14 @@ Dieser Skill arbeitet **niemals direkt auf `main`**. Prüfe den aktuellen Branch
 Spawne einen **Explore-Agenten** (subagent_type: `Explore`, Breadth: `medium`) mit folgendem Auftrag:
 
 > Analysiere den Code für Issue #$ARGUMENTS ("$ISSUE_TITLE"). Finde:
+>
 > 1. Betroffene Routen und SvelteKit-Komponenten (pages, layouts, +page.svelte, +page.server.ts)
 > 2. Betroffenes Drizzle-Datenbankschema (src/lib/server/db/schema.ts) und ob eine neue Migration nötig ist (`npm run db:generate`)
-> 3. Betroffene Server-Module unter src/lib/server/** (fit/, zip/, jpg/, card/, garmin/) und ob neue Paraglide-Strings nötig sind (messages/en.json + messages/de.json)
+> 3. Betroffene Server-Module unter src/lib/server/\*\* (fit/, zip/, jpg/, card/, garmin/) und ob neue Paraglide-Strings nötig sind (messages/en.json + messages/de.json)
 > 4. Bestehende ähnliche Implementierungen, die als Vorlage für Struktur, Error-Handling (`FileValidationError` + `userMessage`) und Tests dienen können
 > 5. Auth/Security-Relevanz: Braucht die Route/Action einen Auth-Guard (`requireUser(locals)`)? Berührt die Änderung Zip-/FIT-Parsing (Path-Traversal, Zip-Bomben – siehe tests/fixtures/zip/) oder Garmin-Token-Handling (garmin/crypto.ts)? Rate-Limiting nötig (rateLimit.ts)?
 > 6. Betroffene Tests: welche `*.svelte.test.ts` (client) bzw. `*.test.ts` (server) müssten neu geschrieben oder angepasst werden, plus ob ein neuer Fixture unter tests/fixtures/ sinnvoll wäre
-> Gib eine kompakte Liste der betroffenen Dateien mit je einem Satz Erklärung zurück.
+>    Gib eine kompakte Liste der betroffenen Dateien mit je einem Satz Erklärung zurück.
 
 Warte auf das Ergebnis des Agenten.
 
@@ -71,6 +74,7 @@ Gehe anschließend über `EnterPlanMode` in den Plan-Mode und lege den Plan dem 
 ## Phase 5 – Übergabe an die Implementierung
 
 Nach Freigabe des Plans:
+
 - Lege die Schritte des Plans als Todos via `TodoWrite` an, damit der Fortschritt im weiteren Chat-Verlauf sichtbar bleibt. Übernimm dabei die Zuordnung aus Phase 4: welches Todo welche(s) Akzeptanzkriterium/-ien abdeckt.
 - Beginne **nicht automatisch** mit dem Schreiben von Code – warte auf die nächste Nachricht des Users bzw. mache im selben Turn direkt mit dem ersten Todo weiter, falls der User das beim Freigeben so signalisiert (z. B. „leg los").
 

@@ -14,15 +14,13 @@ vi.mock('$lib/server/logger', () => ({
 // (drizzle returns an SQL expression object) — we trust the production code
 // targets the right user and only assert observable behavior.
 const store = {
-	row: null as
-		| null
-		| {
-				userId: string;
-				oauth1Token: string;
-				oauth2Token: string;
-				connectedAt: Date;
-				lastRefreshedAt: Date;
-		  }
+	row: null as null | {
+		userId: string;
+		oauth1Token: string;
+		oauth2Token: string;
+		connectedAt: Date;
+		lastRefreshedAt: Date;
+	}
 };
 
 vi.mock('$lib/server/db', () => ({
@@ -83,12 +81,7 @@ vi.mock('garmin-connect', () => ({
 	}
 }));
 
-import {
-	loginAndStore,
-	withGarminClient,
-	disconnect,
-	hasGarminConnection
-} from './client';
+import { loginAndStore, withGarminClient, disconnect, hasGarminConnection } from './client';
 import { GarminAuthError, GarminNetworkError, GarminNotConnectedError } from './errors';
 import { decryptToken } from './crypto';
 
