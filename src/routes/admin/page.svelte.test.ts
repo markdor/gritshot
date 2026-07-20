@@ -56,8 +56,12 @@ describe('Admin page', () => {
 		const deleteForms = container.querySelectorAll('form[action="?/delete"]');
 		expect(deleteForms).toHaveLength(2);
 
-		const selfDeleteBtn = deleteForms[0].querySelector('button[type="submit"]') as HTMLButtonElement;
-		const otherDeleteBtn = deleteForms[1].querySelector('button[type="submit"]') as HTMLButtonElement;
+		const selfDeleteBtn = deleteForms[0].querySelector(
+			'button[type="submit"]'
+		) as HTMLButtonElement;
+		const otherDeleteBtn = deleteForms[1].querySelector(
+			'button[type="submit"]'
+		) as HTMLButtonElement;
 		expect(selfDeleteBtn.disabled).toBe(true);
 		expect(otherDeleteBtn.disabled).toBe(false);
 	});

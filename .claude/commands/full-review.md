@@ -13,11 +13,13 @@ Zusätzlich beziehst du alle bereits umgesetzten (closed) Issues ein – zum ein
 ## Phase 1 – Kontext laden
 
 Führe **parallel** aus:
+
 1. Lies `CLAUDE.md` – Architektur, Konventionen, Teststrategie, Security- und Error-Handling-Vorgaben, UI-Design.
 2. `git rev-parse --short HEAD` und `git branch --show-current` – als Referenz für später angelegte Issues.
 3. `gh issue list --state closed --json number,title,body,stateReason --limit 500` – alle geschlossenen Issues.
 
 Merke dir Commit-Hash und Branch. Behalte von den geschlossenen Issues nur die mit `stateReason == "COMPLETED"` (tatsächlich umgesetzt, nicht `NOT_PLANNED`/Duplikate o. Ä.). Teile diese Menge gedanklich in zwei Verwendungen auf:
+
 - **Kontext** (alle behaltenen Issues): Titel + worum es ging – für Phase 3.
 - **Regressions-Grundlage** (nur Issues mit einer `## Akzeptanzkriterien`-Sektion im Body, typischerweise via `/refine` entstanden): Issue-Nummer, Titel und die einzelnen Checkbox-Items – für Phase 2.
 
@@ -28,18 +30,23 @@ Merke dir Commit-Hash und Branch. Behalte von den geschlossenen Issues nur die m
 Spawne **fünf Explore-Agenten parallel** (subagent_type: `Explore`, Breadth: `very thorough`), je einen pro Dimension aus Phase 3, **plus einen sechsten** für den Regressions-Check, sofern die Regressions-Grundlage aus Phase 1 nicht leer ist – sonst entfällt der sechste. Explore lädt CLAUDE.md **nicht** automatisch – die relevanten Kriterien sind deshalb direkt in den Aufträgen unten ausformuliert, kein Verweis auf die Datei nötig.
 
 1. **Qualität & Tooling:**
+
    > Durchsuche die gesamte Codebase nach Abweichungen von diesen Standards: Unit-Tests vorhanden und sinnvoll (Vitest `client`/`server`-Trennung passend zum Code, jeder Test mit echter Assertion), Playwright/E2E nur bei kritischen Flows, pino-Logging statt `console.log`/`console.error`, `FileValidationError` mit `userMessage` + Handler-Pattern (`fail(422/500, …)`, `catch (e: unknown)` mit `instanceof`-Verengung) bei Fehlerpfaden, neue zip-/fit-/jpg-bezogene Parsing-Logik ohne begleitenden Fixture unter `tests/fixtures/` (nicht nur synthetische In-Test-Buffer). Gib pro Fund Datei:Zeile + kurze Erklärung zurück, keine Bewertung, nur Belege.
 
 2. **Security:**
+
    > Durchsuche die gesamte Codebase nach Security-Abweichungen: Auth-Guard bei geschützten Routen/Actions (`requireUser(locals)` bzw. Prüfung von `locals.user`/`locals.session`), Zip-/FIT-/JPG-Verarbeitung ohne Schutz gegen Path-Traversal, Zip-Bomben oder Decompression-Ratio-Bomben (siehe `tests/fixtures/zip/*bomb*`, `*path-traversal*`), Garmin-OAuth-Tokens unverschlüsselt oder im Klartext geloggt statt über `garmin/crypto.ts`, Datei-Größen-/Typ-Limits inkonsistent zu bestehenden `validate.ts`-Modulen bzw. neue Magic Numbers parallel dazu, neue missbrauchsanfällige Endpoints/Actions ohne `rateLimit.ts` bzw. better-auths eigenes DB-Rate-Limiting, Magic-Link-/Login-Flow mit unterschiedlichem Timing/Fehlertext der Account-Existenz verrät (Enumeration), `BASE_URL`/`trustedOrigins`-Annahmen (CSRF-Schutz) durch neue Redirect-Logik unterlaufen, Secrets/Tokens/Klartext-Passwörter in Code/Logs/Kommentaren, rohes SQL statt parametrisierter Queries, ungefilterte Ausgabe von User-Input in HTML. Gib pro Fund Datei:Zeile + kurze Erklärung zurück.
 
 3. **UX-Konsistenz:**
+
    > Durchsuche alle Svelte-Komponenten/Seiten nach Abweichungen von: user-facing Strings hartcodiert statt über `m.xxx()` aus `$lib/paraglide/messages`, `messages/en.json` (Base-Locale) und `messages/de.json` nicht synchron gehalten, Tailwind-Klassen inkonsistent zum bestehenden Stil (`src/routes/layout.css`) bzw. Ad-hoc-CSS daneben, neue Fehlermeldungen/Statustexte mit abweichendem Ton zu bestehenden (`error_*`-Message-Keys als Vorlage). Gib pro Fund Datei:Zeile + kurze Erklärung zurück.
 
 4. **Clean Code:**
+
    > Durchsuche die gesamte Codebase nach Clean-Code-Abweichungen: überflüssige Kommentare (nur WHY bei nicht-offensichtlichen Constraints erlaubt), premature Abstraktionen, tote Codepfade oder auskommentierte Reste, unsprechende Namen, Duplikation ohne Domänen-Rechtfertigung. Gib pro Fund Datei:Zeile + kurze Erklärung zurück.
 
 5. **Architektur:**
+
    > Durchsuche die gesamte Codebase nach Architektur-Abweichungen: DB-/Garmin-/Krypto-Zugriffe direkt aus Komponenten/`+page.svelte` statt `src/lib/server/**`, Schema-Änderungen ohne committete Drizzle-Migration (bzw. Nutzung von `drizzle-kit push`), Einführung eines Monorepo/Workspace-Setups (z. B. `packages/shared`) oder eines anderen DB-Systems als SQLite. Gib pro Fund Datei:Zeile + kurze Erklärung zurück.
 
 6. **Regressions-Check** (nur falls Regressions-Grundlage aus Phase 1 nicht leer ist):
@@ -60,6 +67,7 @@ Bewerte die gemeldeten Funde aller Agenten gegen dieselben Kriterien, die du ihn
 ## Phase 4 – Befunde melden
 
 Melde die Ergebnisse über `ReportFindings`. Für jeden Befund:
+
 - `category`: eine der fünf Dimensionen als kebab-case-Slug (`quality-tooling`, `security`, `ux-consistency`, `clean-code`, `architecture`) oder `regression` für Funde des sechsten Agenten. Bei `regression` referenziere die betroffene Issue-Nummer direkt im `summary` (z. B. „Akzeptanzkriterium aus #12 nicht mehr erfüllt: …").
 - `file` + `line`: konkrete Stelle im Code.
 - `summary` + `failure_scenario`: was konkret schiefgeht oder schiefgehen könnte – kein „könnte man verbessern" ohne Konsequenz.
@@ -89,6 +97,7 @@ Für jedes Finding mit Zustimmung aus Phase 5:
 1. Hole die tatsächlich vorhandenen Labels: `gh label list --json name -q '.[].name'`.
 2. Ordne der Kategorie **nur** ein bereits vorhandenes Label zu, falls eines thematisch passt (z. B. `bug`, `ux`) – nie ein neues Label erfinden oder anlegen. Kein Match → Issue ohne Label.
 3. Erstelle das Issue mit kompaktem Stub-Body (kein vollständig ausformuliertes Issue – das ist Aufgabe von `/refine`):
+
    ```bash
    gh issue create \
      --title "<summary>" \
@@ -108,6 +117,7 @@ Für jedes Finding mit Zustimmung aus Phase 5:
    )" \
      --label "<passendes-label-oder-Flag-weglassen>"
    ```
+
 4. Der Issue-Link steht direkt in der stdout-Ausgabe von `gh issue create`.
 
 Fasse am Ende kompakt zusammen: Anzahl Findings gesamt, Anzahl angelegter Issues mit Links.
