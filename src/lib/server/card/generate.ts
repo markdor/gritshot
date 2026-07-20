@@ -114,12 +114,12 @@ export async function renderCard(
 	const fitData = await parseFitData(fitBuffer);
 
 	const photoMetadata = await sharp(photoBuffer).metadata();
-	const isAlreadySized = photoMetadata.width === cardWidth && photoMetadata.height === cardHeight;
-	const croppedBuffer = isAlreadySized
-		? photoBuffer
-		: await sharp(photoBuffer)
-				.resize(cardWidth, cardHeight, { fit: 'cover', position: 'centre' })
-				.toBuffer();
+	if (photoMetadata.width !== cardWidth || photoMetadata.height !== cardHeight) {
+		throw new FileValidationError(
+			`Photo dimensions ${photoMetadata.width}x${photoMetadata.height} do not match required ${cardWidth}x${cardHeight}`,
+			m.error_photo_wrong_dimensions()
+		);
+	}
 
 	const titleY = barY + 75;
 	const labelY = barY + 136;
@@ -204,12 +204,12 @@ export async function renderCard(
     </svg>
   `;
 
-	const blurredBar = await sharp(croppedBuffer)
+	const blurredBar = await sharp(photoBuffer)
 		.extract({ left: 0, top: barY, width: cardWidth, height: barHeight })
 		.blur(16)
 		.toBuffer();
 
-	return sharp(croppedBuffer)
+	return sharp(photoBuffer)
 		.composite([
 			{ input: blurredBar, top: barY, left: 0 },
 			{ input: Buffer.from(overlay), top: 0, left: 0 }

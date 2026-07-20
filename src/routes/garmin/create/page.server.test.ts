@@ -22,6 +22,7 @@ import {
 
 const zipBuffer = readFileSync(resolvePath('tests/fixtures/zip/valid.zip'));
 const jpgBuffer = readFileSync(resolvePath('tests/fixtures/photos/valid.jpg'));
+const exactSizeJpgBuffer = readFileSync(resolvePath('tests/fixtures/photos/exact-size.jpg'));
 
 type ActionEvent = Parameters<NonNullable<typeof actions>['default']>[0];
 
@@ -256,11 +257,29 @@ describe('garmin/create default action', () => {
 		expect(result).toMatchObject({ status: 500, data: { error: 'Failed to generate GritShot' } });
 	});
 
-	it('generates a card when garmin download yields a valid zip', async () => {
+	it('generates a card when garmin download yields a valid zip and an exact-size photo', async () => {
 		vi.mocked(withGarminClient).mockImplementation(async (_id, fn) => {
 			// Fake client; downloadActivityZip is itself mocked below so the client isn't really used.
 			return fn({} as never);
 		});
+		vi.mocked(downloadActivityZip).mockResolvedValue(zipBuffer);
+
+		const result = await actions.default(
+			makeActionEvent({
+				title: 'Run',
+				activityId: '12345',
+				photoFile: new File([exactSizeJpgBuffer], 'exact-size.jpg', { type: 'image/jpeg' })
+			})
+		);
+
+		expect(result).toMatchObject({
+			image: expect.stringMatching(/^\/9j\//),
+			title: 'Run'
+		});
+	});
+
+	it('rejects a photo that is not exactly 1080x1440', async () => {
+		vi.mocked(withGarminClient).mockImplementation(async (_id, fn) => fn({} as never));
 		vi.mocked(downloadActivityZip).mockResolvedValue(zipBuffer);
 
 		const result = await actions.default(
@@ -272,8 +291,8 @@ describe('garmin/create default action', () => {
 		);
 
 		expect(result).toMatchObject({
-			image: expect.stringMatching(/^\/9j\//),
-			title: 'Run'
+			status: 422,
+			data: { error: 'Photo does not have the required size. Please try uploading it again.' }
 		});
 	});
 });
