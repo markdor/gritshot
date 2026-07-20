@@ -94,17 +94,39 @@ describe('Dropzone', () => {
 			expect(input.files?.[0]).toBe(transformed);
 		});
 
-		test('falls back to the original file when the transform rejects', async () => {
-			const transform = vi.fn().mockRejectedValue(new Error('unsupported browser'));
-			const { container } = render(Dropzone, { ...defaultProps, transform });
+		test('clears the file and shows the error message when the transform rejects', async () => {
+			const transform = vi.fn().mockRejectedValue(new Error('cannot decode image'));
+			const { container } = render(Dropzone, {
+				...defaultProps,
+				transform,
+				transformErrorMessage: 'Could not process this file.'
+			});
 
 			const input = container.querySelector('input[type="file"]') as HTMLInputElement;
 			await userEvent.upload(input, new File([new Uint8Array(500)], 'activity.fit'));
 
 			expect(transform).toHaveBeenCalledOnce();
-			await expect.element(page.getByText('activity.fit')).toBeVisible();
-			expect(input.files?.[0]?.name).toBe('activity.fit');
-			expect(input.files?.[0]?.size).toBe(500);
+			await expect.element(page.getByText('Could not process this file.')).toBeVisible();
+			await expect.element(page.getByText('Drop file here')).toBeVisible();
+			expect(input.files?.length).toBe(0);
+		});
+
+		test('re-selecting a file after a failed transform clears the error', async () => {
+			const transform = vi.fn().mockRejectedValueOnce(new Error('cannot decode image'));
+			transform.mockResolvedValueOnce(new File([new Uint8Array(10)], 'transformed.fit'));
+			const { container } = render(Dropzone, {
+				...defaultProps,
+				transform,
+				transformErrorMessage: 'Could not process this file.'
+			});
+
+			const input = container.querySelector('input[type="file"]') as HTMLInputElement;
+			await userEvent.upload(input, new File([new Uint8Array(500)], 'broken.fit'));
+			await expect.element(page.getByText('Could not process this file.')).toBeVisible();
+
+			await userEvent.upload(input, new File([new Uint8Array(500)], 'activity.fit'));
+			await expect.element(page.getByText('Could not process this file.')).not.toBeInTheDocument();
+			await expect.element(page.getByText('transformed.fit')).toBeVisible();
 		});
 	});
 });

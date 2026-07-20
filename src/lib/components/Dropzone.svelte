@@ -14,6 +14,7 @@
 		icon: Snippet;
 		transform?: (file: File) => Promise<File>;
 		processing?: boolean;
+		transformErrorMessage?: string;
 	}
 
 	let {
@@ -28,10 +29,12 @@
 		icon,
 		transform,
 		// eslint-disable-next-line no-useless-assignment -- read externally via bind:processing
-		processing = $bindable(false)
+		processing = $bindable(false),
+		transformErrorMessage
 	}: Props = $props();
 
 	let dragOver = $state(false);
+	let transformFailed = $state(false);
 	let inputEl: HTMLInputElement;
 
 	$effect(() => {
@@ -41,24 +44,25 @@
 	});
 
 	async function applyFile(f: File) {
+		transformFailed = false;
 		file = f;
 
-		let result = f;
 		if (transform) {
 			processing = true;
 			try {
-				result = await transform(f);
+				file = await transform(f);
 			} catch {
-				result = f;
+				file = null;
+				transformFailed = true;
+				return;
 			} finally {
 				processing = false;
 			}
 		}
 
-		file = result;
 		if (!inputEl) return;
 		const dt = new DataTransfer();
-		dt.items.add(result);
+		dt.items.add(file);
 		inputEl.files = dt.files;
 	}
 
@@ -163,4 +167,8 @@
 			</div>
 		{/if}
 	</label>
+
+	{#if transformFailed && transformErrorMessage}
+		<p class="mt-2 text-xs text-red-600">{transformErrorMessage}</p>
+	{/if}
 </div>
