@@ -29,19 +29,7 @@ const jpgBuffer = readFileSync(resolve('tests/fixtures/photos/valid.jpg'));
 const exactSizeJpgBuffer = readFileSync(resolve('tests/fixtures/photos/exact-size.jpg'));
 
 describe('create action', () => {
-	it('accepts a valid zip and jpg', async () => {
-		const fitFile = new File([zipBuffer], 'valid.zip', { type: 'application/zip' });
-		const photoFile = new File([jpgBuffer], 'valid.jpg', { type: 'image/jpeg' });
-
-		const result = await actions.default(makeEvent(fitFile, photoFile));
-
-		expect(result).toMatchObject({
-			image: expect.stringMatching(/^\/9j\//),
-			title: 'Graveln'
-		});
-	});
-
-	it('accepts a photo already in the exact 1080x1440 target size', async () => {
+	it('accepts a valid zip and a photo in the exact 1080x1440 target size', async () => {
 		const fitFile = new File([zipBuffer], 'valid.zip', { type: 'application/zip' });
 		const photoFile = new File([exactSizeJpgBuffer], 'exact-size.jpg', { type: 'image/jpeg' });
 
@@ -52,6 +40,18 @@ describe('create action', () => {
 		const metadata = await sharp(cardBuffer).metadata();
 		expect(metadata.width).toBe(1080);
 		expect(metadata.height).toBe(1440);
+	});
+
+	it('rejects a photo that is not exactly 1080x1440', async () => {
+		const fitFile = new File([zipBuffer], 'valid.zip', { type: 'application/zip' });
+		const photoFile = new File([jpgBuffer], 'valid.jpg', { type: 'image/jpeg' });
+
+		const result = await actions.default(makeEvent(fitFile, photoFile));
+
+		expect(result).toMatchObject({
+			status: 422,
+			data: { error: 'Photo does not have the required size. Please try uploading it again.' }
+		});
 	});
 
 	it('returns error when title is missing', async () => {

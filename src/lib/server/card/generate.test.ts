@@ -30,7 +30,6 @@ const fakeFitData = {
 describe('generateCard', () => {
 	let sharpInstance: {
 		metadata: ReturnType<typeof vi.fn>;
-		resize: ReturnType<typeof vi.fn>;
 		extract: ReturnType<typeof vi.fn>;
 		blur: ReturnType<typeof vi.fn>;
 		composite: ReturnType<typeof vi.fn>;
@@ -42,8 +41,7 @@ describe('generateCard', () => {
 		vi.clearAllMocks();
 
 		sharpInstance = {
-			metadata: vi.fn().mockResolvedValue({ width: 800, height: 600 }),
-			resize: vi.fn().mockReturnThis(),
+			metadata: vi.fn().mockResolvedValue({ width: 1080, height: 1440 }),
 			extract: vi.fn().mockReturnThis(),
 			blur: vi.fn().mockReturnThis(),
 			composite: vi.fn().mockReturnThis(),
@@ -138,26 +136,24 @@ describe('generateCard', () => {
 		});
 	});
 
-	describe('photo resize', () => {
-		it('skips resize/crop when the photo is already exactly 1080x1440', async () => {
-			sharpInstance.metadata = vi.fn().mockResolvedValue({ width: 1080, height: 1440 });
+	describe('photo dimension validation', () => {
+		it('renders the card using the photo buffer directly when it is exactly 1080x1440', async () => {
 			const photoBuffer = Buffer.from('exact-size-photo');
 
 			await generateCard(makeFile('run.fit'), makeFile('photo.jpg', photoBuffer), 'Graveln');
 
-			expect(sharpInstance.resize).not.toHaveBeenCalled();
 			const sharpInputs = vi.mocked(sharp).mock.calls.map(([input]) => input);
 			expect(sharpInputs).toContainEqual(photoBuffer);
 		});
 
-		it('resizes/crops when the photo does not exactly match the target size', async () => {
+		it('throws a FileValidationError when the photo does not exactly match the target size', async () => {
 			sharpInstance.metadata = vi.fn().mockResolvedValue({ width: 800, height: 600 });
 
-			await generateCard(makeFile('run.fit'), makeFile('photo.jpg'), 'Graveln');
-
-			expect(sharpInstance.resize).toHaveBeenCalledWith(1080, 1440, {
-				fit: 'cover',
-				position: 'centre'
+			await expect(
+				generateCard(makeFile('run.fit'), makeFile('photo.jpg'), 'Graveln')
+			).rejects.toMatchObject({
+				name: 'FileValidationError',
+				userMessage: 'Photo does not have the required size. Please try uploading it again.'
 			});
 		});
 	});
