@@ -99,6 +99,7 @@
 	"error_invalid_fit": "Datei ist keine gültige FIT-Datei",
 	"error_invalid_jpg": "Datei ist keine gültige JPG-Datei",
 	"error_photo_wrong_dimensions": "Foto hat nicht die erforderliche Größe. Bitte lade es erneut hoch.",
+	"error_photo_processing_failed": "Dieses Foto konnte nicht verarbeitet werden. Bitte versuche ein anderes Foto.",
 	"error_invalid_zip": "Datei ist keine gültige ZIP-Datei",
 	"error_zip_extract_failed": "ZIP-Datei konnte nicht entpackt werden",
 

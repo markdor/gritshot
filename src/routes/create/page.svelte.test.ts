@@ -7,6 +7,18 @@ async function waitForPhotoCompression() {
 	await expect.element(page.getByText('Optimizing your photo…')).not.toBeInTheDocument();
 }
 
+function makeValidPhoto(name = 'photo.jpg'): File {
+	const canvas = document.createElement('canvas');
+	canvas.width = 10;
+	canvas.height = 10;
+	canvas.getContext('2d')!.fillRect(0, 0, 10, 10);
+	const dataUrl = canvas.toDataURL('image/png');
+	const bytes = atob(dataUrl.split(',')[1]);
+	const buf = new Uint8Array(bytes.length);
+	for (let i = 0; i < bytes.length; i++) buf[i] = bytes.charCodeAt(i);
+	return new File([buf], name, { type: 'image/jpeg' });
+}
+
 describe('Create page', () => {
 	test('submit button is initially disabled with "Enter an activity title to continue"', async () => {
 		render(Page, { data: { user: null, showGarminBanner: false }, form: null });
@@ -31,7 +43,7 @@ describe('Create page', () => {
 		const titleInput = container.querySelector('input[name="title"]') as HTMLInputElement;
 		const photoInput = container.querySelector('input[name="photoFile"]') as HTMLInputElement;
 		await userEvent.type(titleInput, 'Graveln');
-		await userEvent.upload(photoInput, new File([''], 'photo.jpg', { type: 'image/jpeg' }));
+		await userEvent.upload(photoInput, makeValidPhoto());
 		await waitForPhotoCompression();
 		const button = page.getByRole('button', { name: 'Upload your FIT file to continue' });
 		await expect.element(button).toBeVisible();
@@ -62,7 +74,7 @@ describe('Create page', () => {
 		const photoInput = container.querySelector('input[name="photoFile"]') as HTMLInputElement;
 		await userEvent.type(titleInput, 'Graveln');
 		await userEvent.upload(fitInput, new File([''], 'activity.fit'));
-		await userEvent.upload(photoInput, new File([''], 'photo.jpg', { type: 'image/jpeg' }));
+		await userEvent.upload(photoInput, makeValidPhoto());
 		await waitForPhotoCompression();
 		const button = page.getByRole('button', { name: 'Generate GritShot' });
 		await expect.element(button).toBeVisible();
@@ -86,10 +98,29 @@ describe('Create page', () => {
 			form: null
 		});
 		const photoInput = container.querySelector('input[name="photoFile"]') as HTMLInputElement;
-		await userEvent.upload(photoInput, new File(['img'], 'summit.jpg', { type: 'image/jpeg' }));
+		await userEvent.upload(photoInput, makeValidPhoto('summit.jpg'));
 		await waitForPhotoCompression();
 		await expect.element(page.getByText('summit.jpg')).toBeVisible();
 		await expect.element(page.getByText('Click to replace')).toBeVisible();
+	});
+
+	test('shows a processing error and keeps the button disabled when the photo cannot be compressed', async () => {
+		const { container } = render(Page, {
+			data: { user: null, showGarminBanner: false },
+			form: null
+		});
+		const photoInput = container.querySelector('input[name="photoFile"]') as HTMLInputElement;
+		const undecodablePhoto = new File([new Uint8Array([1, 2, 3])], 'broken.jpg', {
+			type: 'image/jpeg'
+		});
+		await userEvent.upload(photoInput, undecodablePhoto);
+		await waitForPhotoCompression();
+
+		await expect
+			.element(page.getByText('This photo could not be processed. Please try a different photo.'))
+			.toBeVisible();
+		await expect.element(page.getByText('Drop your photo here')).toBeVisible();
+		expect(photoInput.files?.length).toBe(0);
 	});
 
 	test('renders main heading and description', async () => {

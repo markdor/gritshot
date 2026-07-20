@@ -144,6 +144,7 @@
 					bind:file={photoFile}
 					transform={compressPhoto}
 					bind:processing={compressingPhoto}
+					transformErrorMessage={m.error_photo_processing_failed()}
 				>
 					{#snippet icon()}
 						<svg
