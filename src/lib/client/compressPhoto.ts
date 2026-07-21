@@ -1,5 +1,5 @@
-const CARD_WIDTH = 1080;
-const CARD_HEIGHT = 1440;
+import { CARD_WIDTH, CARD_HEIGHT } from '$lib/cardDimensions';
+
 const JPEG_QUALITY = 0.9;
 
 interface CropRect {

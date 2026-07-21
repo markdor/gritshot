@@ -5,6 +5,7 @@ import { validateJpeg } from '$lib/server/jpg/validate';
 import { validateZip } from '../zip/validate';
 import { FileValidationError } from '$lib/server/FileValidationError';
 import { m } from '$lib/paraglide/messages';
+import { CARD_WIDTH, CARD_HEIGHT } from '$lib/cardDimensions';
 import sharp from 'sharp';
 import { readFileSync } from 'fs';
 import { join } from 'path';
@@ -50,8 +51,8 @@ async function readAndValidateFit(fitFile: File): Promise<Buffer> {
 	return buffer;
 }
 
-const cardWidth = 1080;
-const cardHeight = 1440;
+const cardWidth = CARD_WIDTH;
+const cardHeight = CARD_HEIGHT;
 const barHeight = 230;
 const barY = cardHeight - barHeight;
 const divX1 = 360;
