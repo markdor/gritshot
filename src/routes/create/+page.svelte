@@ -4,6 +4,7 @@
 	import HeroLogo from '$lib/components/layout/HeroLogo.svelte';
 	import Dropzone from '$lib/components/Dropzone.svelte';
 	import Lightbox from '$lib/components/Lightbox.svelte';
+	import Spinner from '$lib/components/Spinner.svelte';
 	import { compressPhoto } from '$lib/client/compressPhoto';
 	import { m } from '$lib/paraglide/messages';
 	import type { PageData, ActionData } from './$types';
@@ -192,38 +193,10 @@
 							: 'cursor-not-allowed bg-[#c8d9ca] text-[#9ab89e]'}"
 				>
 					{#if compressingPhoto}
-						<svg class="h-5 w-5 animate-spin" fill="none" viewBox="0 0 24 24" aria-hidden="true">
-							<circle
-								class="opacity-25"
-								cx="12"
-								cy="12"
-								r="10"
-								stroke="currentColor"
-								stroke-width="4"
-							></circle>
-							<path
-								class="opacity-75"
-								fill="currentColor"
-								d="M4 12a8 8 0 0 1 8-8v4a4 4 0 0 0-4 4H4z"
-							></path>
-						</svg>
+						<Spinner />
 						{m.create_compressing_photo()}
 					{:else if generating}
-						<svg class="h-5 w-5 animate-spin" fill="none" viewBox="0 0 24 24" aria-hidden="true">
-							<circle
-								class="opacity-25"
-								cx="12"
-								cy="12"
-								r="10"
-								stroke="currentColor"
-								stroke-width="4"
-							></circle>
-							<path
-								class="opacity-75"
-								fill="currentColor"
-								d="M4 12a8 8 0 0 1 8-8v4a4 4 0 0 0-4 4H4z"
-							></path>
-						</svg>
+						<Spinner />
 						{m.create_generating()}
 					{:else if !title}
 						{m.create_button_enter_title()}
@@ -249,17 +222,7 @@
 		aria-label={compressingPhoto ? m.create_compressing_photo() : m.create_generating()}
 		class="fixed inset-0 z-40 flex flex-col items-center justify-center gap-5 bg-[#f5f1e6]/85 backdrop-blur-sm"
 	>
-		<svg
-			class="h-14 w-14 animate-spin text-[#4e7352]"
-			fill="none"
-			viewBox="0 0 24 24"
-			aria-hidden="true"
-		>
-			<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"
-			></circle>
-			<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 0 1 8-8v4a4 4 0 0 0-4 4H4z"
-			></path>
-		</svg>
+		<Spinner class="h-14 w-14 text-[#4e7352]" />
 		<p class="text-base font-semibold text-[#2a3d2c]">
 			{compressingPhoto ? m.create_compressing_photo() : m.create_generating()}
 		</p>
