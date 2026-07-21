@@ -10,10 +10,14 @@ vi.mock('$lib/server/garmin/client', () => ({
 vi.mock('$lib/server/garmin/download', () => ({
 	downloadActivityZip: vi.fn()
 }));
+vi.mock('$lib/server/mailer', () => ({
+	sendCardMail: vi.fn()
+}));
 
 import { load, actions } from './+page.server';
 import { hasGarminConnection, withGarminClient } from '$lib/server/garmin/client';
 import { downloadActivityZip } from '$lib/server/garmin/download';
+import { sendCardMail } from '$lib/server/mailer';
 import {
 	GarminAuthError,
 	GarminNetworkError,
@@ -33,7 +37,9 @@ function makeActionEvent(
 	const fd = new FormData();
 	for (const [k, v] of Object.entries(fields)) fd.append(k, v as Blob | string);
 	const request = new Request('http://localhost/garmin/create', { method: 'POST', body: fd });
-	const locals = { user: userId ? { id: userId } : null } as App.Locals;
+	const locals = {
+		user: userId ? { id: userId, email: 'athlete@example.com' } : null
+	} as App.Locals;
 	return { request, locals } as unknown as ActionEvent;
 }
 
@@ -293,6 +299,59 @@ describe('garmin/create default action', () => {
 		expect(result).toMatchObject({
 			status: 422,
 			data: { error: 'Photo does not have the required size.' }
+		});
+	});
+
+	it('sends the card by email when the sendEmail checkbox is checked', async () => {
+		vi.mocked(withGarminClient).mockImplementation(async (_id, fn) => fn({} as never));
+		vi.mocked(downloadActivityZip).mockResolvedValue(zipBuffer);
+
+		const result = await actions.default(
+			makeActionEvent({
+				title: 'Run',
+				activityId: '12345',
+				photoFile: new File([exactSizeJpgBuffer], 'exact-size.jpg', { type: 'image/jpeg' }),
+				sendEmail: 'on'
+			})
+		);
+
+		expect(result).toMatchObject({ title: 'Run' });
+		expect(sendCardMail).toHaveBeenCalledWith('athlete@example.com', expect.any(Buffer), 'Run');
+	});
+
+	it('does not send an email when the sendEmail checkbox is unchecked', async () => {
+		vi.mocked(withGarminClient).mockImplementation(async (_id, fn) => fn({} as never));
+		vi.mocked(downloadActivityZip).mockResolvedValue(zipBuffer);
+
+		const result = await actions.default(
+			makeActionEvent({
+				title: 'Run',
+				activityId: '12345',
+				photoFile: new File([exactSizeJpgBuffer], 'exact-size.jpg', { type: 'image/jpeg' })
+			})
+		);
+
+		expect(result).toMatchObject({ title: 'Run' });
+		expect(sendCardMail).not.toHaveBeenCalled();
+	});
+
+	it('still returns the generated card when sending the email fails', async () => {
+		vi.mocked(withGarminClient).mockImplementation(async (_id, fn) => fn({} as never));
+		vi.mocked(downloadActivityZip).mockResolvedValue(zipBuffer);
+		vi.mocked(sendCardMail).mockRejectedValueOnce(new Error('SMTP unreachable'));
+
+		const result = await actions.default(
+			makeActionEvent({
+				title: 'Run',
+				activityId: '12345',
+				photoFile: new File([exactSizeJpgBuffer], 'exact-size.jpg', { type: 'image/jpeg' }),
+				sendEmail: 'on'
+			})
+		);
+
+		expect(result).toMatchObject({
+			image: expect.stringMatching(/^\/9j\//),
+			title: 'Run'
 		});
 	});
 });

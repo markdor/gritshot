@@ -13,6 +13,7 @@ import { validateZip } from '$lib/server/zip/validate';
 import { validateFit } from '$lib/server/fit/validate';
 import { validateJpeg } from '$lib/server/jpg/validate';
 import { FileValidationError } from '$lib/server/FileValidationError';
+import { sendCardMail } from '$lib/server/mailer';
 import { logger } from '$lib/server/logger';
 import { m } from '$lib/paraglide/messages';
 
@@ -101,6 +102,15 @@ export const actions: Actions = {
 			validateJpeg(photoBuffer);
 
 			const image = await renderCard(fitBuffer, photoBuffer, title);
+
+			if (formData.get('sendEmail') === 'on') {
+				try {
+					await sendCardMail(user.email, image, title);
+				} catch (mailErr) {
+					logger.error({ err: mailErr, userId: user.id }, 'failed to send garmin card email');
+				}
+			}
+
 			return { image: image.toString('base64'), title };
 		} catch (e) {
 			if (e instanceof FileValidationError) {

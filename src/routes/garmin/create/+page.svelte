@@ -252,6 +252,15 @@
 						{/snippet}
 					</Dropzone>
 
+					<label class="mt-5 flex items-center gap-2 text-sm text-[#2a3d2c]">
+						<input
+							type="checkbox"
+							name="sendEmail"
+							class="h-4 w-4 rounded border-[#c8d9ca] text-[#4e7352] focus:ring-[#4e7352]"
+						/>
+						{m.garmin_create_email_checkbox_label()}
+					</label>
+
 					{#if form?.error}
 						<div
 							class="mt-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"

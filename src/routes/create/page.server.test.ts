@@ -10,10 +10,12 @@ vi.mock('$lib/server/logger', () => ({ logger: { error: vi.fn(), info: vi.fn() }
 // db + crypto (which would need GARMIN_TOKEN_KEY in test env).
 vi.mock('$lib/server/garmin/client', () => ({ hasGarminConnection: vi.fn(() => false) }));
 
-import { actions } from './+page.server.js';
+import { load, actions } from './+page.server.js';
+import { hasGarminConnection } from '$lib/server/garmin/client';
 import * as generateModule from '$lib/server/card/generate';
 
 type ActionEvent = Parameters<typeof actions.default>[0];
+type LoadEvent = Parameters<typeof load>[0];
 
 function makeEvent(fitFile: File, photoFile: File, title = 'Graveln'): ActionEvent {
 	const formData = new FormData();
@@ -27,6 +29,29 @@ function makeEvent(fitFile: File, photoFile: File, title = 'Graveln'): ActionEve
 const zipBuffer = readFileSync(resolve('tests/fixtures/zip/valid.zip'));
 const jpgBuffer = readFileSync(resolve('tests/fixtures/photos/valid.jpg'));
 const exactSizeJpgBuffer = readFileSync(resolve('tests/fixtures/photos/exact-size.jpg'));
+
+describe('create load', () => {
+	it('does not redirect anonymous users', async () => {
+		vi.mocked(hasGarminConnection).mockReturnValue(false);
+		const result = await load({ locals: { user: null } } as unknown as LoadEvent);
+		expect(result).toBeUndefined();
+	});
+
+	it('does not redirect users without a garmin connection', async () => {
+		vi.mocked(hasGarminConnection).mockReturnValue(false);
+		const result = await load({
+			locals: { user: { id: 'u1' } }
+		} as unknown as LoadEvent);
+		expect(result).toBeUndefined();
+	});
+
+	it('redirects garmin-connected users to /garmin/create', async () => {
+		vi.mocked(hasGarminConnection).mockReturnValue(true);
+		await expect(
+			Promise.resolve().then(() => load({ locals: { user: { id: 'u1' } } } as unknown as LoadEvent))
+		).rejects.toMatchObject({ status: 303, location: '/garmin/create' });
+	});
+});
 
 describe('create action', () => {
 	it('accepts a valid zip and a photo in the exact 1080x1440 target size', async () => {

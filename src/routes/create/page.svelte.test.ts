@@ -21,25 +21,19 @@ function makeValidPhoto(name = 'photo.jpg'): File {
 
 describe('Create page', () => {
 	test('submit button is initially disabled with "Enter an activity title to continue"', async () => {
-		render(Page, { data: { user: null, showGarminBanner: false }, form: null });
+		render(Page, { form: null });
 		const button = page.getByRole('button', { name: 'Enter an activity title to continue' });
 		await expect.element(button).toBeVisible();
 		await expect.element(button).toBeDisabled();
 	});
 
 	test('shows error message when form.error is set', async () => {
-		render(Page, {
-			data: { user: null, showGarminBanner: false },
-			form: { error: 'Invalid file format' }
-		});
+		render(Page, { form: { error: 'Invalid file format' } });
 		await expect.element(page.getByText('Invalid file format')).toBeVisible();
 	});
 
 	test('button prompts for FIT file when only photo is selected', async () => {
-		const { container } = render(Page, {
-			data: { user: null, showGarminBanner: false },
-			form: null
-		});
+		const { container } = render(Page, { form: null });
 		const titleInput = container.querySelector('input[name="title"]') as HTMLInputElement;
 		const photoInput = container.querySelector('input[name="photoFile"]') as HTMLInputElement;
 		await userEvent.type(titleInput, 'Graveln');
@@ -51,10 +45,7 @@ describe('Create page', () => {
 	});
 
 	test('button prompts for photo when only FIT file is selected', async () => {
-		const { container } = render(Page, {
-			data: { user: null, showGarminBanner: false },
-			form: null
-		});
+		const { container } = render(Page, { form: null });
 		const titleInput = container.querySelector('input[name="title"]') as HTMLInputElement;
 		const fitInput = container.querySelector('input[name="fitFile"]') as HTMLInputElement;
 		await userEvent.type(titleInput, 'Graveln');
@@ -65,10 +56,7 @@ describe('Create page', () => {
 	});
 
 	test('button is enabled with "Generate Card" when both files are selected', async () => {
-		const { container } = render(Page, {
-			data: { user: null, showGarminBanner: false },
-			form: null
-		});
+		const { container } = render(Page, { form: null });
 		const titleInput = container.querySelector('input[name="title"]') as HTMLInputElement;
 		const fitInput = container.querySelector('input[name="fitFile"]') as HTMLInputElement;
 		const photoInput = container.querySelector('input[name="photoFile"]') as HTMLInputElement;
@@ -82,10 +70,7 @@ describe('Create page', () => {
 	});
 
 	test('shows filename and "Click to replace" after FIT file is selected', async () => {
-		const { container } = render(Page, {
-			data: { user: null, showGarminBanner: false },
-			form: null
-		});
+		const { container } = render(Page, { form: null });
 		const fitInput = container.querySelector('input[name="fitFile"]') as HTMLInputElement;
 		await userEvent.upload(fitInput, new File(['data'], 'my-hike.fit'));
 		await expect.element(page.getByText('my-hike.fit')).toBeVisible();
@@ -93,10 +78,7 @@ describe('Create page', () => {
 	});
 
 	test('shows filename and "Click to replace" after photo is selected', async () => {
-		const { container } = render(Page, {
-			data: { user: null, showGarminBanner: false },
-			form: null
-		});
+		const { container } = render(Page, { form: null });
 		const photoInput = container.querySelector('input[name="photoFile"]') as HTMLInputElement;
 		await userEvent.upload(photoInput, makeValidPhoto('summit.jpg'));
 		await waitForPhotoCompression();
@@ -105,10 +87,7 @@ describe('Create page', () => {
 	});
 
 	test('shows a processing error and keeps the button disabled when the photo cannot be compressed', async () => {
-		const { container } = render(Page, {
-			data: { user: null, showGarminBanner: false },
-			form: null
-		});
+		const { container } = render(Page, { form: null });
 		const photoInput = container.querySelector('input[name="photoFile"]') as HTMLInputElement;
 		const undecodablePhoto = new File([new Uint8Array([1, 2, 3])], 'broken.jpg', {
 			type: 'image/jpeg'
@@ -124,7 +103,7 @@ describe('Create page', () => {
 	});
 
 	test('renders main heading and description', async () => {
-		render(Page, { data: { user: null, showGarminBanner: false }, form: null });
+		render(Page, { form: null });
 		await expect.element(page.getByRole('heading', { name: 'Create Your GritShot' })).toBeVisible();
 		await expect
 			.element(page.getByText('Upload your Garmin FIT file and a trail photo'))
