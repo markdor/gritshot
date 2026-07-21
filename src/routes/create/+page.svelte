@@ -15,6 +15,7 @@
 	let photoFile: File | null = $state(null);
 	let generating = $state(false);
 	let compressingPhoto = $state(false);
+	let uploadsLocked = $derived(generating || compressingPhoto);
 </script>
 
 <svelte:head>
@@ -115,6 +116,7 @@
 					hint={m.create_fit_hint()}
 					validate={(f) => f.name.endsWith('.fit') || f.name.endsWith('.zip')}
 					bind:file={fitFile}
+					disabled={uploadsLocked}
 				>
 					{#snippet icon()}
 						<svg
@@ -145,6 +147,7 @@
 					transform={compressPhoto}
 					bind:processing={compressingPhoto}
 					transformErrorMessage={m.error_photo_processing_failed()}
+					disabled={uploadsLocked}
 				>
 					{#snippet icon()}
 						<svg

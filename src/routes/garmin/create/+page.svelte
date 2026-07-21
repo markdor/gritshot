@@ -27,6 +27,7 @@
 	let photoFile: File | null = $state(null);
 	let generating = $state(false);
 	let compressingPhoto = $state(false);
+	let uploadsLocked = $derived(generating || compressingPhoto);
 
 	function onPickActivity(id: number, name: string) {
 		selectedActivityId = id;
@@ -226,6 +227,7 @@
 						transform={compressPhoto}
 						bind:processing={compressingPhoto}
 						transformErrorMessage={m.error_photo_processing_failed()}
+						disabled={uploadsLocked}
 					>
 						{#snippet icon()}
 							<svg

@@ -15,6 +15,7 @@
 		transform?: (file: File) => Promise<File>;
 		processing?: boolean;
 		transformErrorMessage?: string;
+		disabled?: boolean;
 	}
 
 	let {
@@ -28,14 +29,18 @@
 		file = $bindable(),
 		icon,
 		transform,
-		// eslint-disable-next-line no-useless-assignment -- read externally via bind:processing
 		processing = $bindable(false),
-		transformErrorMessage
+		transformErrorMessage,
+		disabled = false
 	}: Props = $props();
 
 	let dragOver = $state(false);
 	let transformFailed = $state(false);
 	let inputEl: HTMLInputElement;
+
+	// `processing` flips true synchronously (before the first await) below, so
+	// this also blocks a second selection racing in before it re-renders.
+	const locked = $derived(disabled || processing);
 
 	$effect(() => {
 		if (file === null && inputEl) {
@@ -44,6 +49,8 @@
 	});
 
 	async function applyFile(f: File) {
+		if (locked) return;
+
 		transformFailed = false;
 		file = f;
 
@@ -76,6 +83,8 @@
 	}
 
 	function handleInput(e: Event) {
+		if (locked) return;
+
 		const input = e.target as HTMLInputElement;
 		const f = input.files?.[0] ?? null;
 		if (f) {
@@ -104,7 +113,8 @@
 	</div>
 
 	<label
-		class="group relative flex flex-1 cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed p-8 text-center transition-colors
+		class="group relative flex flex-1 flex-col items-center justify-center rounded-2xl border-2 border-dashed p-8 text-center transition-colors
+		{locked ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'}
 		{dragOver
 			? 'border-[#4e7352] bg-[#eaf0eb]'
 			: file
@@ -112,12 +122,20 @@
 				: 'border-[#c8d9ca] bg-white/60 hover:border-[#9ab89e] hover:bg-white/80'}"
 		ondragover={(e) => {
 			e.preventDefault();
-			dragOver = true;
+			if (!locked) dragOver = true;
 		}}
 		ondragleave={() => (dragOver = false)}
 		ondrop={handleDrop}
 	>
-		<input bind:this={inputEl} type="file" {name} {accept} class="sr-only" onchange={handleInput} />
+		<input
+			bind:this={inputEl}
+			type="file"
+			{name}
+			{accept}
+			class="sr-only"
+			onchange={handleInput}
+			disabled={locked}
+		/>
 
 		{#if file}
 			<div class="flex flex-col items-center gap-2">
