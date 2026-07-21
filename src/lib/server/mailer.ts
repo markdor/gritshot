@@ -43,3 +43,25 @@ export async function sendMagicLinkMail(email: string, url: string): Promise<voi
 
 	logger.info({ messageId: info.messageId, email }, 'magic link email sent');
 }
+
+export async function sendCardMail(
+	email: string,
+	imageBuffer: Buffer,
+	title: string
+): Promise<void> {
+	const from = env.SMTP_FROM ?? env.SMTP_USER;
+	if (!from) {
+		throw new Error('SMTP_FROM or SMTP_USER must be set as the sender address');
+	}
+
+	const info = await getTransporter().sendMail({
+		from,
+		to: email,
+		subject: 'Your GritShot is ready',
+		text: `Your GritShot "${title}" is attached to this email.`,
+		html: `<p>Your GritShot "${title}" is attached to this email.</p>`,
+		attachments: [{ filename: 'gritshot.jpg', content: imageBuffer }]
+	});
+
+	logger.info({ messageId: info.messageId, email }, 'card email sent');
+}

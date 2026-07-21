@@ -172,6 +172,22 @@ describe('Garmin create page', () => {
 		expect(title.value.length).toBeLessThanOrEqual(28);
 	});
 
+	test('renders the send-by-email checkbox unchecked by default', async () => {
+		const { container } = render(Page, {
+			data: {
+				user: null,
+				connected: true,
+				activities: [activity(1, 'Sunrise Run')],
+				error: null
+			},
+			form: null
+		});
+
+		const checkbox = container.querySelector('input[name="sendEmail"]') as HTMLInputElement;
+		expect(checkbox).not.toBeNull();
+		expect(checkbox.checked).toBe(false);
+	});
+
 	test('shows the action error message when form.error is set', async () => {
 		render(Page, {
 			data: {

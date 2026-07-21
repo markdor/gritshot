@@ -9,15 +9,15 @@ vi.mock('$app/paths', () => ({
 import Page from './+page.svelte';
 
 describe('Homepage', () => {
-	test('"Create Your GritShot" hero link points to /create', async () => {
-		render(Page);
-		const links = page.getByRole('link', { name: 'Create Your GritShot' });
-		await expect.element(links.first()).toHaveAttribute('href', '/create');
+	test('"Create Your GritShot" hero link points to the given createHref', async () => {
+		render(Page, { data: { user: null, createHref: '/create' } });
+		const link = page.getByRole('link', { name: 'Create Your GritShot' });
+		await expect.element(link).toHaveAttribute('href', '/create');
 	});
 
-	test('"Create Your GritShot" CTA link points to /create', async () => {
-		render(Page);
-		const links = page.getByRole('link', { name: 'Create Your GritShot' });
-		await expect.element(links.last()).toHaveAttribute('href', '/create');
+	test('hero link points to /garmin/create when the server resolved that target', async () => {
+		render(Page, { data: { user: null, createHref: '/garmin/create' } });
+		const link = page.getByRole('link', { name: 'Create Your GritShot' });
+		await expect.element(link).toHaveAttribute('href', '/garmin/create');
 	});
 });
