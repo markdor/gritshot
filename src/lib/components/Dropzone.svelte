@@ -12,6 +12,10 @@
 		validate: (file: File) => boolean;
 		file: File | null;
 		icon: Snippet;
+		transform?: (file: File) => Promise<File>;
+		processing?: boolean;
+		transformErrorMessage?: string;
+		disabled?: boolean;
 	}
 
 	let {
@@ -23,11 +27,20 @@
 		hint,
 		validate,
 		file = $bindable(),
-		icon
+		icon,
+		transform,
+		processing = $bindable(false),
+		transformErrorMessage,
+		disabled = false
 	}: Props = $props();
 
 	let dragOver = $state(false);
+	let transformFailed = $state(false);
 	let inputEl: HTMLInputElement;
+
+	// `processing` flips true synchronously (before the first await) below, so
+	// this also blocks a second selection racing in before it re-renders.
+	const locked = $derived(disabled || processing);
 
 	$effect(() => {
 		if (file === null && inputEl) {
@@ -35,21 +48,50 @@
 		}
 	});
 
+	async function applyFile(f: File) {
+		if (locked) return;
+
+		transformFailed = false;
+		file = f;
+
+		if (transform) {
+			processing = true;
+			try {
+				file = await transform(f);
+			} catch {
+				file = null;
+				transformFailed = true;
+				return;
+			} finally {
+				processing = false;
+			}
+		}
+
+		if (!inputEl) return;
+		const dt = new DataTransfer();
+		dt.items.add(file);
+		inputEl.files = dt.files;
+	}
+
 	function handleDrop(e: DragEvent) {
 		e.preventDefault();
 		dragOver = false;
 		const f = e.dataTransfer?.files[0];
 		if (f && validate(f)) {
-			file = f;
-			const dt = new DataTransfer();
-			dt.items.add(f);
-			inputEl.files = dt.files;
+			void applyFile(f);
 		}
 	}
 
 	function handleInput(e: Event) {
+		if (locked) return;
+
 		const input = e.target as HTMLInputElement;
-		file = input.files?.[0] ?? null;
+		const f = input.files?.[0] ?? null;
+		if (f) {
+			void applyFile(f);
+		} else {
+			file = null;
+		}
 	}
 
 	function formatFileSize(bytes: number): string {
@@ -71,7 +113,8 @@
 	</div>
 
 	<label
-		class="group relative flex flex-1 cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed p-8 text-center transition-colors
+		class="group relative flex flex-1 flex-col items-center justify-center rounded-2xl border-2 border-dashed p-8 text-center transition-colors
+		{locked ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'}
 		{dragOver
 			? 'border-[#4e7352] bg-[#eaf0eb]'
 			: file
@@ -79,12 +122,20 @@
 				: 'border-[#c8d9ca] bg-white/60 hover:border-[#9ab89e] hover:bg-white/80'}"
 		ondragover={(e) => {
 			e.preventDefault();
-			dragOver = true;
+			if (!locked) dragOver = true;
 		}}
 		ondragleave={() => (dragOver = false)}
 		ondrop={handleDrop}
 	>
-		<input bind:this={inputEl} type="file" {name} {accept} class="sr-only" onchange={handleInput} />
+		<input
+			bind:this={inputEl}
+			type="file"
+			{name}
+			{accept}
+			class="sr-only"
+			onchange={handleInput}
+			disabled={locked}
+		/>
 
 		{#if file}
 			<div class="flex flex-col items-center gap-2">
@@ -134,4 +185,8 @@
 			</div>
 		{/if}
 	</label>
+
+	{#if transformFailed && transformErrorMessage}
+		<p class="mt-2 text-xs text-red-600">{transformErrorMessage}</p>
+	{/if}
 </div>

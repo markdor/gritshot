@@ -37,15 +37,9 @@ describe('Garmin connect page', () => {
 	test('shows the connected status and disconnect form when connected', async () => {
 		render(Page, { data: { user: null, connected: true }, form: null });
 
-		await expect
-			.element(page.getByText('Your Garmin account is connected.'))
-			.toBeVisible();
-		await expect
-			.element(page.getByRole('button', { name: 'Disconnect Garmin' }))
-			.toBeVisible();
-		await expect
-			.element(page.getByRole('link', { name: 'Pick a recent activity' }))
-			.toBeVisible();
+		await expect.element(page.getByText('Your Garmin account is connected.')).toBeVisible();
+		await expect.element(page.getByRole('button', { name: 'Disconnect Garmin' })).toBeVisible();
+		await expect.element(page.getByRole('link', { name: 'Pick a recent activity' })).toBeVisible();
 	});
 
 	test('hides the login form when connected', async () => {

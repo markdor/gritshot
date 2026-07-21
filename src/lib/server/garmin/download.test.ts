@@ -75,7 +75,10 @@ describe('downloadActivityZip', () => {
 		const result = await downloadActivityZip(client as any, 77);
 
 		expect(result.toString()).toBe('from-fallback');
-		expect(client.downloadOriginalActivityData).toHaveBeenCalledWith({ activityId: 77 }, expect.any(String));
+		expect(client.downloadOriginalActivityData).toHaveBeenCalledWith(
+			{ activityId: 77 },
+			expect.any(String)
+		);
 
 		// Tmpdir must be cleaned up — no leftover gritshot-garmin- directory.
 		const post = readdirSync(tmpdir()).filter((n) => n.startsWith('gritshot-garmin-'));

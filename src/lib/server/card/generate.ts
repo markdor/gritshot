@@ -5,6 +5,7 @@ import { validateJpeg } from '$lib/server/jpg/validate';
 import { validateZip } from '../zip/validate';
 import { FileValidationError } from '$lib/server/FileValidationError';
 import { m } from '$lib/paraglide/messages';
+import { CARD_WIDTH, CARD_HEIGHT } from '$lib/cardDimensions';
 import sharp from 'sharp';
 import { readFileSync } from 'fs';
 import { join } from 'path';
@@ -50,8 +51,8 @@ async function readAndValidateFit(fitFile: File): Promise<Buffer> {
 	return buffer;
 }
 
-const cardWidth = 1080;
-const cardHeight = 1440;
+const cardWidth = CARD_WIDTH;
+const cardHeight = CARD_HEIGHT;
 const barHeight = 230;
 const barY = cardHeight - barHeight;
 const divX1 = 360;
@@ -113,9 +114,13 @@ export async function renderCard(
 ): Promise<Buffer> {
 	const fitData = await parseFitData(fitBuffer);
 
-	const croppedBuffer = await sharp(photoBuffer)
-		.resize(cardWidth, cardHeight, { fit: 'cover', position: 'centre' })
-		.toBuffer();
+	const photoMetadata = await sharp(photoBuffer).metadata();
+	if (photoMetadata.width !== cardWidth || photoMetadata.height !== cardHeight) {
+		throw new FileValidationError(
+			`Photo dimensions ${photoMetadata.width}x${photoMetadata.height} do not match required ${cardWidth}x${cardHeight}`,
+			m.error_photo_wrong_dimensions()
+		);
+	}
 
 	const titleY = barY + 75;
 	const labelY = barY + 136;
@@ -200,12 +205,12 @@ export async function renderCard(
     </svg>
   `;
 
-	const blurredBar = await sharp(croppedBuffer)
+	const blurredBar = await sharp(photoBuffer)
 		.extract({ left: 0, top: barY, width: cardWidth, height: barHeight })
 		.blur(16)
 		.toBuffer();
 
-	return sharp(croppedBuffer)
+	return sharp(photoBuffer)
 		.composite([
 			{ input: blurredBar, top: barY, left: 0 },
 			{ input: Buffer.from(overlay), top: 0, left: 0 }

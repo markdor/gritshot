@@ -2,6 +2,7 @@ import { describe, it, expect, vi } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import type { RequestEvent } from '@sveltejs/kit';
+import sharp from 'sharp';
 import { FileValidationError } from '$lib/server/FileValidationError.js';
 
 vi.mock('$lib/server/logger', () => ({ logger: { error: vi.fn(), info: vi.fn() } }));
@@ -25,17 +26,31 @@ function makeEvent(fitFile: File, photoFile: File, title = 'Graveln'): ActionEve
 
 const zipBuffer = readFileSync(resolve('tests/fixtures/zip/valid.zip'));
 const jpgBuffer = readFileSync(resolve('tests/fixtures/photos/valid.jpg'));
+const exactSizeJpgBuffer = readFileSync(resolve('tests/fixtures/photos/exact-size.jpg'));
 
 describe('create action', () => {
-	it('accepts a valid zip and jpg', async () => {
+	it('accepts a valid zip and a photo in the exact 1080x1440 target size', async () => {
+		const fitFile = new File([zipBuffer], 'valid.zip', { type: 'application/zip' });
+		const photoFile = new File([exactSizeJpgBuffer], 'exact-size.jpg', { type: 'image/jpeg' });
+
+		const result = await actions.default(makeEvent(fitFile, photoFile));
+
+		expect(result).toMatchObject({ image: expect.stringMatching(/^\/9j\//), title: 'Graveln' });
+		const cardBuffer = Buffer.from((result as { image: string }).image, 'base64');
+		const metadata = await sharp(cardBuffer).metadata();
+		expect(metadata.width).toBe(1080);
+		expect(metadata.height).toBe(1440);
+	});
+
+	it('rejects a photo that is not exactly 1080x1440', async () => {
 		const fitFile = new File([zipBuffer], 'valid.zip', { type: 'application/zip' });
 		const photoFile = new File([jpgBuffer], 'valid.jpg', { type: 'image/jpeg' });
 
 		const result = await actions.default(makeEvent(fitFile, photoFile));
 
 		expect(result).toMatchObject({
-			image: expect.stringMatching(/^\/9j\//),
-			title: 'Graveln'
+			status: 422,
+			data: { error: 'Photo does not have the required size.' }
 		});
 	});
 

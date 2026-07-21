@@ -4,6 +4,8 @@
 	import HeroLogo from '$lib/components/layout/HeroLogo.svelte';
 	import Dropzone from '$lib/components/Dropzone.svelte';
 	import Lightbox from '$lib/components/Lightbox.svelte';
+	import Spinner from '$lib/components/Spinner.svelte';
+	import { compressPhoto } from '$lib/client/compressPhoto';
 	import { m } from '$lib/paraglide/messages';
 	import type { PageData, ActionData } from './$types';
 
@@ -13,6 +15,8 @@
 	let fitFile: File | null = $state(null);
 	let photoFile: File | null = $state(null);
 	let generating = $state(false);
+	let compressingPhoto = $state(false);
+	let uploadsLocked = $derived(generating || compressingPhoto);
 </script>
 
 <svelte:head>
@@ -113,6 +117,7 @@
 					hint={m.create_fit_hint()}
 					validate={(f) => f.name.endsWith('.fit') || f.name.endsWith('.zip')}
 					bind:file={fitFile}
+					disabled={uploadsLocked}
 				>
 					{#snippet icon()}
 						<svg
@@ -140,6 +145,10 @@
 					hint={m.create_photo_hint()}
 					validate={(f) => f.type === 'image/jpeg' || f.name.toLowerCase().endsWith('.jpg')}
 					bind:file={photoFile}
+					transform={compressPhoto}
+					bind:processing={compressingPhoto}
+					transformErrorMessage={m.error_photo_processing_failed()}
+					disabled={uploadsLocked}
 				>
 					{#snippet icon()}
 						<svg
@@ -175,30 +184,19 @@
 			<div class="mt-4">
 				<button
 					type="submit"
-					disabled={!title || !fitFile || !photoFile || generating}
+					disabled={!title || !fitFile || !photoFile || generating || compressingPhoto}
 					class="flex w-full items-center justify-center gap-3 rounded-full py-3.5 text-base font-semibold transition-colors
-					{title && fitFile && photoFile && !generating
+					{title && fitFile && photoFile && !generating && !compressingPhoto
 						? 'cursor-pointer bg-[#4e7352] text-white shadow-sm hover:bg-[#3d5c42]'
-						: generating
+						: generating || compressingPhoto
 							? 'cursor-wait bg-[#4e7352] text-white shadow-sm'
 							: 'cursor-not-allowed bg-[#c8d9ca] text-[#9ab89e]'}"
 				>
-					{#if generating}
-						<svg class="h-5 w-5 animate-spin" fill="none" viewBox="0 0 24 24" aria-hidden="true">
-							<circle
-								class="opacity-25"
-								cx="12"
-								cy="12"
-								r="10"
-								stroke="currentColor"
-								stroke-width="4"
-							></circle>
-							<path
-								class="opacity-75"
-								fill="currentColor"
-								d="M4 12a8 8 0 0 1 8-8v4a4 4 0 0 0-4 4H4z"
-							></path>
-						</svg>
+					{#if compressingPhoto}
+						<Spinner />
+						{m.create_compressing_photo()}
+					{:else if generating}
+						<Spinner />
 						{m.create_generating()}
 					{:else if !title}
 						{m.create_button_enter_title()}
@@ -217,25 +215,17 @@
 	</section>
 </div>
 
-{#if generating}
+{#if generating || compressingPhoto}
 	<div
 		role="status"
 		aria-live="polite"
-		aria-label={m.create_generating()}
+		aria-label={compressingPhoto ? m.create_compressing_photo() : m.create_generating()}
 		class="fixed inset-0 z-40 flex flex-col items-center justify-center gap-5 bg-[#f5f1e6]/85 backdrop-blur-sm"
 	>
-		<svg
-			class="h-14 w-14 animate-spin text-[#4e7352]"
-			fill="none"
-			viewBox="0 0 24 24"
-			aria-hidden="true"
-		>
-			<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"
-			></circle>
-			<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 0 1 8-8v4a4 4 0 0 0-4 4H4z"
-			></path>
-		</svg>
-		<p class="text-base font-semibold text-[#2a3d2c]">{m.create_generating()}</p>
+		<Spinner class="h-14 w-14 text-[#4e7352]" />
+		<p class="text-base font-semibold text-[#2a3d2c]">
+			{compressingPhoto ? m.create_compressing_photo() : m.create_generating()}
+		</p>
 	</div>
 {/if}
 

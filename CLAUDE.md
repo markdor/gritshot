@@ -32,6 +32,7 @@ npm run db:generate          # generate a Drizzle migration from schema.ts chang
 ## Testing architecture
 
 Vitest is split into two projects (`vite.config.ts`):
+
 - **`client`**: `src/**/*.svelte.{test,spec}.ts`, runs in a real headless Chromium via `@vitest/browser-playwright`, excludes `src/lib/server/**`.
 - **`server`**: `src/**/*.{test,spec}.ts` (non-`.svelte.`), Node environment.
 
@@ -46,6 +47,7 @@ Tests live next to the code they cover (e.g. `src/routes/create/page.server.test
 **Auth:** better-auth with a magic-link plugin (no passwords), Drizzle SQLite adapter. `src/lib/server/db/schema.ts` defines `user`/`session`/`account`/`verification`/`rateLimit` (better-auth's own tables) plus this app's `garminConnection` (per-user OAuth1+OAuth2 tokens for Garmin Connect, encrypted — see `garmin/crypto.ts`, keyed by `GARMIN_TOKEN_KEY`). `isAdmin` is a custom user field; `db/bootstrap.ts` idempotently promotes an env-configured admin (`ADMIN_EMAIL`/`ADMIN_USERNAME`) on every container start so the admin can't lock themselves out. There is no bot/API-token auth model anywhere in this app — it's browser session auth throughout.
 
 **Server modules (`src/lib/server/`):**
+
 - `fit/` — parses and validates uploaded `.fit` activity files.
 - `zip/` — validates/extracts Garmin export zips; this is the highest-value area for security regressions (path traversal, zip bombs, decompression-ratio bombs — see the fixture names in `tests/fixtures/zip/`).
 - `jpg/` — validates uploaded photos.

@@ -33,10 +33,9 @@ describe('UserSlot.svelte', () => {
 
 		await userEvent.click(page.getByRole('button', { name: /alice/ }));
 
-		await expect.element(page.getByRole('button', { name: /alice/ })).toHaveAttribute(
-			'aria-expanded',
-			'true'
-		);
+		await expect
+			.element(page.getByRole('button', { name: /alice/ }))
+			.toHaveAttribute('aria-expanded', 'true');
 
 		const garminLink = page.getByRole('menuitem', { name: 'Garmin activity' });
 		await expect.element(garminLink).toBeVisible();

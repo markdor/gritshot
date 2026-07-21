@@ -15,6 +15,7 @@ Falls kein Argument übergeben wurde: Frage den User nach der PR-Nummer und bric
 ## Phase 1 – Kontext laden
 
 Führe **parallel** aus:
+
 1. `gh pr view $ARGUMENTS --json number,title,body,author,baseRefName,headRefName,files,additions,deletions,state`
 2. `gh pr diff $ARGUMENTS` – der vollständige Diff.
 3. `gh pr checks $ARGUMENTS` – CI-Status (Tests, Coverage, Lint).
@@ -76,6 +77,7 @@ Prüfe den Diff systematisch gegen jede Dimension. Nutze konkret aus CLAUDE.md a
 ## Phase 4 – Befunde melden
 
 Melde die Ergebnisse über `ReportFindings`. Für jeden Befund:
+
 - `category`: eine der fünf Dimensionen als kebab-case-Slug (`quality-tooling`, `security`, `ux-consistency`, `clean-code`, `architecture`).
 - `file` + `line`: konkrete Stelle im Diff.
 - `summary` + `failure_scenario`: was konkret schiefgeht oder schiefgehen könnte – kein „könnte man verbessern" ohne Konsequenz.

@@ -3,6 +3,22 @@ import { render } from 'vitest-browser-svelte';
 import { page, userEvent } from 'vitest/browser';
 import Page from './+page.svelte';
 
+async function waitForPhotoCompression() {
+	await expect.element(page.getByText('Optimizing your photo…')).not.toBeInTheDocument();
+}
+
+function makeValidPhoto(name = 'photo.jpg'): File {
+	const canvas = document.createElement('canvas');
+	canvas.width = 10;
+	canvas.height = 10;
+	canvas.getContext('2d')!.fillRect(0, 0, 10, 10);
+	const dataUrl = canvas.toDataURL('image/png');
+	const bytes = atob(dataUrl.split(',')[1]);
+	const buf = new Uint8Array(bytes.length);
+	for (let i = 0; i < bytes.length; i++) buf[i] = bytes.charCodeAt(i);
+	return new File([buf], name, { type: 'image/jpeg' });
+}
+
 const activity = (id: number, name: string) => ({
 	activityId: id,
 	name,
@@ -107,11 +123,38 @@ describe('Garmin create page', () => {
 		await expect.element(promptBtn).toBeDisabled();
 
 		const photoInput = container.querySelector('input[name="photoFile"]') as HTMLInputElement;
-		await userEvent.upload(photoInput, new File(['img'], 'photo.jpg', { type: 'image/jpeg' }));
+		await userEvent.upload(photoInput, makeValidPhoto());
+		await waitForPhotoCompression();
 
 		const generateBtn = page.getByRole('button', { name: 'Generate GritShot' });
 		await expect.element(generateBtn).toBeVisible();
 		await expect.element(generateBtn).toBeEnabled();
+	});
+
+	test('shows a processing error and keeps the button disabled when the photo cannot be compressed', async () => {
+		const { container } = render(Page, {
+			data: {
+				user: null,
+				connected: true,
+				activities: [activity(1, 'Sunrise Run')],
+				error: null
+			},
+			form: null
+		});
+
+		const photoInput = container.querySelector('input[name="photoFile"]') as HTMLInputElement;
+		const undecodablePhoto = new File([new Uint8Array([1, 2, 3])], 'broken.jpg', {
+			type: 'image/jpeg'
+		});
+		await userEvent.upload(photoInput, undecodablePhoto);
+		await waitForPhotoCompression();
+
+		await expect
+			.element(page.getByText('This photo could not be processed. Please try a different photo.'))
+			.toBeVisible();
+		const promptBtn = page.getByRole('button', { name: 'Upload your photo to continue' });
+		await expect.element(promptBtn).toBeDisabled();
+		expect(photoInput.files?.length).toBe(0);
 	});
 
 	test('truncates activity names longer than 28 chars when seeding the title', async () => {

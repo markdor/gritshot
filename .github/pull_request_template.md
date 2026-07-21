@@ -1,7 +1,5 @@
 ## Summary
 
-
-
 Closes #
 
 ## Test plan

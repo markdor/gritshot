@@ -29,7 +29,7 @@ const fakeFitData = {
 
 describe('generateCard', () => {
 	let sharpInstance: {
-		resize: ReturnType<typeof vi.fn>;
+		metadata: ReturnType<typeof vi.fn>;
 		extract: ReturnType<typeof vi.fn>;
 		blur: ReturnType<typeof vi.fn>;
 		composite: ReturnType<typeof vi.fn>;
@@ -41,7 +41,7 @@ describe('generateCard', () => {
 		vi.clearAllMocks();
 
 		sharpInstance = {
-			resize: vi.fn().mockReturnThis(),
+			metadata: vi.fn().mockResolvedValue({ width: 1080, height: 1440 }),
 			extract: vi.fn().mockReturnThis(),
 			blur: vi.fn().mockReturnThis(),
 			composite: vi.fn().mockReturnThis(),
@@ -133,6 +133,28 @@ describe('generateCard', () => {
 			await expect(
 				generateCard(makeFile('run.zip'), makeFile('photo.jpg'), 'Graveln')
 			).rejects.toThrow(FileValidationError);
+		});
+	});
+
+	describe('photo dimension validation', () => {
+		it('renders the card using the photo buffer directly when it is exactly 1080x1440', async () => {
+			const photoBuffer = Buffer.from('exact-size-photo');
+
+			await generateCard(makeFile('run.fit'), makeFile('photo.jpg', photoBuffer), 'Graveln');
+
+			const sharpInputs = vi.mocked(sharp).mock.calls.map(([input]) => input);
+			expect(sharpInputs).toContainEqual(photoBuffer);
+		});
+
+		it('throws a FileValidationError when the photo does not exactly match the target size', async () => {
+			sharpInstance.metadata = vi.fn().mockResolvedValue({ width: 800, height: 600 });
+
+			await expect(
+				generateCard(makeFile('run.fit'), makeFile('photo.jpg'), 'Graveln')
+			).rejects.toMatchObject({
+				name: 'FileValidationError',
+				userMessage: 'Photo does not have the required size.'
+			});
 		});
 	});
 

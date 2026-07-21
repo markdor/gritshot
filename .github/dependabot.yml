@@ -1,34 +1,34 @@
 version: 2
 updates:
-  - package-ecosystem: "npm"
-    directory: "/"
+  - package-ecosystem: 'npm'
+    directory: '/'
     schedule:
-      interval: "weekly"
+      interval: 'weekly'
     open-pull-requests-limit: 10
     groups:
       patch-updates:
-        patterns: ["*"]
-        update-types: ["patch"]
+        patterns: ['*']
+        update-types: ['patch']
       minor-updates:
-        patterns: ["*"]
-        update-types: ["minor"]
+        patterns: ['*']
+        update-types: ['minor']
     ignore:
       # Major-Updates macht der Maintainer manuell mit ncu
-      - dependency-name: "*"
-        update-types: ["version-update:semver-major"]
+      - dependency-name: '*'
+        update-types: ['version-update:semver-major']
 
-  - package-ecosystem: "github-actions"
-    directory: "/"
+  - package-ecosystem: 'github-actions'
+    directory: '/'
     schedule:
-      interval: "weekly"
+      interval: 'weekly'
     groups:
       patch-updates:
-        patterns: ["*"]
-        update-types: ["patch"]
+        patterns: ['*']
+        update-types: ['patch']
       minor-updates:
-        patterns: ["*"]
-        update-types: ["minor"]
+        patterns: ['*']
+        update-types: ['minor']
     open-pull-requests-limit: 10
     ignore:
-      - dependency-name: "*"
-        update-types: ["version-update:semver-major"]
+      - dependency-name: '*'
+        update-types: ['version-update:semver-major']

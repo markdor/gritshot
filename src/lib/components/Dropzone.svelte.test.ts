@@ -1,4 +1,4 @@
-import { describe, test, expect } from 'vitest';
+import { describe, test, expect, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import { page, userEvent } from 'vitest/browser';
 import { createRawSnippet } from 'svelte';
@@ -76,6 +76,91 @@ describe('Dropzone', () => {
 		test('rejects an invalid file', async () => {
 			const { container } = render(Dropzone, defaultProps);
 			dropFile(container, new File([''], 'photo.jpg'));
+			await expect.element(page.getByText('Drop file here')).toBeVisible();
+		});
+	});
+
+	describe('transform', () => {
+		test('replaces the selected file with the transform result', async () => {
+			const transformed = new File([new Uint8Array(10)], 'transformed.fit');
+			const transform = vi.fn().mockResolvedValue(transformed);
+			const { container } = render(Dropzone, { ...defaultProps, transform });
+
+			const input = container.querySelector('input[type="file"]') as HTMLInputElement;
+			await userEvent.upload(input, new File([new Uint8Array(500)], 'activity.fit'));
+
+			expect(transform).toHaveBeenCalledOnce();
+			await expect.element(page.getByText('transformed.fit')).toBeVisible();
+			expect(input.files?.[0]).toBe(transformed);
+		});
+
+		test('clears the file and shows the error message when the transform rejects', async () => {
+			const transform = vi.fn().mockRejectedValue(new Error('cannot decode image'));
+			const { container } = render(Dropzone, {
+				...defaultProps,
+				transform,
+				transformErrorMessage: 'Could not process this file.'
+			});
+
+			const input = container.querySelector('input[type="file"]') as HTMLInputElement;
+			await userEvent.upload(input, new File([new Uint8Array(500)], 'activity.fit'));
+
+			expect(transform).toHaveBeenCalledOnce();
+			await expect.element(page.getByText('Could not process this file.')).toBeVisible();
+			await expect.element(page.getByText('Drop file here')).toBeVisible();
+			expect(input.files?.length).toBe(0);
+		});
+
+		test('re-selecting a file after a failed transform clears the error', async () => {
+			const transform = vi.fn().mockRejectedValueOnce(new Error('cannot decode image'));
+			transform.mockResolvedValueOnce(new File([new Uint8Array(10)], 'transformed.fit'));
+			const { container } = render(Dropzone, {
+				...defaultProps,
+				transform,
+				transformErrorMessage: 'Could not process this file.'
+			});
+
+			const input = container.querySelector('input[type="file"]') as HTMLInputElement;
+			await userEvent.upload(input, new File([new Uint8Array(500)], 'broken.fit'));
+			await expect.element(page.getByText('Could not process this file.')).toBeVisible();
+
+			await userEvent.upload(input, new File([new Uint8Array(500)], 'activity.fit'));
+			await expect.element(page.getByText('Could not process this file.')).not.toBeInTheDocument();
+			await expect.element(page.getByText('transformed.fit')).toBeVisible();
+		});
+	});
+
+	describe('locking', () => {
+		test('ignores a second drop while a transform is still in flight', async () => {
+			let resolveTransform: (f: File) => void = () => {};
+			const pending = new Promise<File>((resolve) => {
+				resolveTransform = resolve;
+			});
+			const transformed = new File([new Uint8Array(10)], 'transformed.fit');
+			const transform = vi.fn().mockReturnValueOnce(pending);
+			const { container } = render(Dropzone, { ...defaultProps, transform });
+
+			dropFile(container, new File([new Uint8Array(500)], 'first.fit'));
+			// Fired synchronously while the first transform is still pending -
+			// must be ignored rather than racing the first selection.
+			dropFile(container, new File([new Uint8Array(500)], 'second.fit'));
+
+			resolveTransform(transformed);
+			await expect.element(page.getByText('transformed.fit')).toBeVisible();
+
+			expect(transform).toHaveBeenCalledOnce();
+			expect(transform).toHaveBeenCalledWith(expect.objectContaining({ name: 'first.fit' }));
+		});
+
+		test('disables the input and ignores drops while disabled is true', async () => {
+			const transform = vi.fn().mockResolvedValue(new File([new Uint8Array(10)], 'x.fit'));
+			const { container } = render(Dropzone, { ...defaultProps, transform, disabled: true });
+
+			const input = container.querySelector('input[type="file"]') as HTMLInputElement;
+			expect(input.disabled).toBe(true);
+
+			dropFile(container, new File([new Uint8Array(500)], 'activity.fit'));
+			expect(transform).not.toHaveBeenCalled();
 			await expect.element(page.getByText('Drop file here')).toBeVisible();
 		});
 	});

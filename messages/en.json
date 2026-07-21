@@ -79,6 +79,7 @@
 	"create_button_upload_photo": "Upload your photo to continue",
 	"create_button_generate": "Generate GritShot",
 	"create_generating": "Generating your GritShot…",
+	"create_compressing_photo": "Optimizing your photo…",
 
 	"dropzone_or_browse": "or click to browse",
 	"dropzone_click_replace": "Click to replace",
@@ -97,6 +98,8 @@
 
 	"error_invalid_fit": "File is not a valid FIT file",
 	"error_invalid_jpg": "File is not a valid JPG file",
+	"error_photo_wrong_dimensions": "Photo does not have the required size.",
+	"error_photo_processing_failed": "This photo could not be processed. Please try a different photo.",
 	"error_invalid_zip": "File is not a valid ZIP file",
 	"error_zip_extract_failed": "Could not extract ZIP file",
 
