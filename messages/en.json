@@ -98,7 +98,7 @@
 
 	"error_invalid_fit": "File is not a valid FIT file",
 	"error_invalid_jpg": "File is not a valid JPG file",
-	"error_photo_wrong_dimensions": "Photo does not have the required size. Please try uploading it again.",
+	"error_photo_wrong_dimensions": "Photo does not have the required size.",
 	"error_photo_processing_failed": "This photo could not be processed. Please try a different photo.",
 	"error_invalid_zip": "File is not a valid ZIP file",
 	"error_zip_extract_failed": "Could not extract ZIP file",
