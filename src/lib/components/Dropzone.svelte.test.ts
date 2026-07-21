@@ -129,4 +129,39 @@ describe('Dropzone', () => {
 			await expect.element(page.getByText('transformed.fit')).toBeVisible();
 		});
 	});
+
+	describe('locking', () => {
+		test('ignores a second drop while a transform is still in flight', async () => {
+			let resolveTransform: (f: File) => void = () => {};
+			const pending = new Promise<File>((resolve) => {
+				resolveTransform = resolve;
+			});
+			const transformed = new File([new Uint8Array(10)], 'transformed.fit');
+			const transform = vi.fn().mockReturnValueOnce(pending);
+			const { container } = render(Dropzone, { ...defaultProps, transform });
+
+			dropFile(container, new File([new Uint8Array(500)], 'first.fit'));
+			// Fired synchronously while the first transform is still pending -
+			// must be ignored rather than racing the first selection.
+			dropFile(container, new File([new Uint8Array(500)], 'second.fit'));
+
+			resolveTransform(transformed);
+			await expect.element(page.getByText('transformed.fit')).toBeVisible();
+
+			expect(transform).toHaveBeenCalledOnce();
+			expect(transform).toHaveBeenCalledWith(expect.objectContaining({ name: 'first.fit' }));
+		});
+
+		test('disables the input and ignores drops while disabled is true', async () => {
+			const transform = vi.fn().mockResolvedValue(new File([new Uint8Array(10)], 'x.fit'));
+			const { container } = render(Dropzone, { ...defaultProps, transform, disabled: true });
+
+			const input = container.querySelector('input[type="file"]') as HTMLInputElement;
+			expect(input.disabled).toBe(true);
+
+			dropFile(container, new File([new Uint8Array(500)], 'activity.fit'));
+			expect(transform).not.toHaveBeenCalled();
+			await expect.element(page.getByText('Drop file here')).toBeVisible();
+		});
+	});
 });
