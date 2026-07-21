@@ -6,6 +6,11 @@ import { defineConfig } from '@playwright/test';
 const baseURL = 'http://127.0.0.1:3000';
 
 export default defineConfig({
+	// A leftover ./e2e.db from a local `npm run test:e2e` run would make
+	// auth-flow.e2e.ts's hasLocalDb check true, but the container's DB lives
+	// on a named volume it can't read — so it'd poll for a token that never
+	// appears there. Clear it so those tests correctly self-skip.
+	globalSetup: './playwright.global-setup.ts',
 	webServer: {
 		command: 'docker compose up --build --force-recreate',
 		url: baseURL,
