@@ -292,7 +292,7 @@ describe('garmin/create default action', () => {
 
 		expect(result).toMatchObject({
 			status: 422,
-			data: { error: 'Photo does not have the required size. Please try uploading it again.' }
+			data: { error: 'Photo does not have the required size.' }
 		});
 	});
 });

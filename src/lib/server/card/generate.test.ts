@@ -153,7 +153,7 @@ describe('generateCard', () => {
 				generateCard(makeFile('run.fit'), makeFile('photo.jpg'), 'Graveln')
 			).rejects.toMatchObject({
 				name: 'FileValidationError',
-				userMessage: 'Photo does not have the required size. Please try uploading it again.'
+				userMessage: 'Photo does not have the required size.'
 			});
 		});
 	});
