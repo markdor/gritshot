@@ -26,6 +26,7 @@
 	let selectedActivityId = $state<number | null>(initialActivity?.activityId ?? null);
 	let title = $state(initialActivity ? truncate(initialActivity.name) : '');
 	let photoFile: File | null = $state(null);
+	let sendEmail = $state(false);
 	let generating = $state(false);
 	let compressingPhoto = $state(false);
 	let uploadsLocked = $derived(generating || compressingPhoto);
@@ -115,6 +116,7 @@
 							generating = false;
 							if (result.type === 'success') {
 								photoFile = null;
+								sendEmail = false;
 							}
 						};
 					}}
@@ -256,6 +258,7 @@
 						<input
 							type="checkbox"
 							name="sendEmail"
+							bind:checked={sendEmail}
 							class="h-4 w-4 rounded border-[#c8d9ca] text-[#4e7352] focus:ring-[#4e7352]"
 						/>
 						{m.garmin_create_email_checkbox_label()}
