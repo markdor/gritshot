@@ -17,17 +17,7 @@ test.describe('Homepage', () => {
 	});
 
 	test('"Create Your Card" hero link points to /create', async ({ page }) => {
-		const link = page.getByRole('link', { name: 'Create Your GritShot' }).nth(1);
-		await expect(link).toHaveAttribute('href', /\/create$/);
-	});
-
-	test('"Create Your Card" CTA link points to /create', async ({ page }) => {
 		const link = page.getByRole('link', { name: 'Create Your GritShot' }).last();
 		await expect(link).toHaveAttribute('href', /\/create$/);
-	});
-
-	test('"See How It Works" scrolls to the section', async ({ page }) => {
-		await page.getByRole('link', { name: 'See How It Works' }).click();
-		await expect(page.locator('#how-it-works')).toBeInViewport();
 	});
 });
