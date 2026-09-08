@@ -45,6 +45,9 @@ ENV BODY_SIZE_LIMIT=21000000
 
 EXPOSE 3000
 
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD node -e "fetch('http://127.0.0.1:'+(process.env.PORT||3000)+'/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
+
 # @sveltejs/adapter-node reads the public origin from $ORIGIN. We expose it
 # externally as $BASE_URL so it can do double duty later (OAuth callbacks,
 # email links) under one name, and map it back to $ORIGIN here.
