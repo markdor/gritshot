@@ -8,6 +8,7 @@ const authHandle: Handle = ({ event, resolve }) =>
 	svelteKitHandler({ event, resolve, auth, building: false });
 
 const sessionHandle: Handle = async ({ event, resolve }) => {
+	if (event.url.pathname === '/health') return resolve(event);
 	const result = await auth.api.getSession({ headers: event.request.headers });
 	event.locals.user = result?.user ?? null;
 	event.locals.session = result?.session ?? null;
